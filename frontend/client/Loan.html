@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Banca Navbar Dark Mode</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind config cho dark mode
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+</head>
+<body class="bg-[#d3edf7] dark:bg-[#0f172a] transition-colors duration-500">
+<nav class="flex items-center justify-between px-10 py-4 bg-[#d3edf7] dark:bg-[#1e293b] transition-colors duration-500">
+    <!-- Logo -->
+    <div class="flex items-center space-x-2">
+        <div class="flex items-center justify-center w-8 h-8 bg-blue-700 text-white font-bold rounded-full">b</div>
+        <span class="text-blue-700 dark:text-white font-semibold text-xl">Banca</span>
+    </div>
+
+    <!-- Menu -->
+    <ul class="flex items-center space-x-10 font-semibold">
+        <li class="text-blue-700 dark:text-blue-400 relative">
+            HOME
+            <span class="absolute left-1/2 -translate-x-1/2 top-6 text-blue-700 dark:text-blue-400 text-xl">•</span>
+        </li>
+        <li class="text-gray-600 dark:text-gray-300">LOAN</li>
+        <li class="text-gray-600 dark:text-gray-300">JOB PAGES</li>
+        <li class="text-gray-600 dark:text-gray-300">PAGES</li>
+        <li class="text-gray-600 dark:text-gray-300">BLOG</li>
+    </ul>
+
+    <!-- Buttons -->
+    <div class="flex items-center space-x-4">
+        <button class="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-5 py-2 rounded-md">
+            Buy Banca
+        </button>
+
+        <!-- Toggle -->
+        <button id="toggleDark" class="relative w-10 h-6 bg-[#1e294b] dark:bg-gray-400 rounded-full flex items-center px-1 transition-colors duration-500">
+            <span class="text-yellow-400 dark:text-gray-800 text-sm">☾</span>
+            <div id="toggleCircle" class="absolute right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-500 dark:translate-x-[-20px]"></div>
+        </button>
+    </div>
+</nav>
+<!-- Hero / Banner Section -->
+<section class="bg-[#d3edf7] dark:bg-[#0f172a] transition-colors duration-500">
+    <div class="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between px-8 py-20">
+
+        <!-- Left Content -->
+        <div class="lg:w-1/2 text-center lg:text-left space-y-6">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
+                Simplify all your<br> banking and loan <br>methods.
+            </h1>
+            <p class="text-gray-600 dark:text-gray-300 max-w-md">
+                Our team of experts uses a methodology to identify the credit cards most.
+            </p>
+
+            <!-- Email form -->
+            <div class="flex flex-col sm:flex-row items-center sm:space-x-2 space-y-3 sm:space-y-0">
+                <input
+                        type="email"
+                        placeholder="Enter Email address"
+                        class="w-full sm:w-auto flex-1 px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+                />
+                <button class="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 py-3 rounded-md">
+                    Get Started
+                </button>
+            </div>
+
+            <!-- Features -->
+            <div class="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-300 pt-2">
+        <span class="flex items-center space-x-1">
+          <span class="text-blue-600 dark:text-blue-400">✔</span>
+          <span>Get 30 day free trial</span>
+        </span>
+                <span class="flex items-center space-x-1">
+          <span class="text-blue-600 dark:text-blue-400">✔</span>
+          <span>No Spamming</span>
+        </span>
+            </div>
+        </div>
+
+        <!-- Right Content (Image & Cards) -->
+        <div class="relative lg:w-1/2 mb-10 lg:mb-0 min-h-[600px]">
+        <!-- Background box -->
+            <div class="absolute inset-0 bg-[#f2faff] dark:bg-[#1e293b] rounded-2xl shadow-2xl"></div>
+
+            <!-- Image -->
+            <img
+                    src="https://images.pexels.com/photos/4065145/pexels-photo-4065145.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    alt="Customer Service"
+                    class="relative rounded-2xl w-full max-w-md mx-auto"
+            />
+
+            <!-- Loan Card -->
+            <div class="absolute top-0 left-0 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 w-44 transform -translate-x-10 -translate-y-6">
+                <p class="text-sm text-gray-500 dark:text-gray-300">Total Loan</p>
+                <p class="text-blue-700 dark:text-blue-400 font-bold text-lg">$10,215.50</p>
+                <div class="mt-2 space-y-1 text-sm">
+                    <div class="flex justify-between">
+            <span class="flex items-center space-x-1">
+              <span class="w-4 h-4 bg-pink-200 text-xs flex items-center justify-center rounded-full text-gray-700">1</span>
+              <span class="text-gray-600 dark:text-gray-300">12/06/2022</span>
+            </span>
+                        <span class="font-semibold text-blue-600 dark:text-blue-400">5.40%</span>
+                    </div>
+                    <div class="flex justify-between">
+            <span class="flex items-center space-x-1">
+              <span class="w-4 h-4 bg-green-200 text-xs flex items-center justify-center rounded-full text-gray-700">2</span>
+              <span class="text-gray-600 dark:text-gray-300">12/07/2022</span>
+            </span>
+                        <span class="font-semibold text-blue-600 dark:text-blue-400">4.20%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Card -->
+            <div class="absolute bottom-0 right-0 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-3 w-52 transform translate-x-8 translate-y-6">
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    <span class="text-green-500 font-bold">●</span> Highest point
+                    <span class="text-red-500 font-bold">●</span> Interest rate: 1.25%
+                </p>
+                <div class="h-20 bg-gray-100 dark:bg-gray-700 rounded-md"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner Facts Section -->
+<section class="bg-[#0b1221] dark:bg-[#0b1221] text-white py-10">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-around items-center text-center md:text-left gap-10 md:gap-0">
+
+        <!-- Fact 1 -->
+        <div class="flex items-center space-x-4">
+            <div class="bg-white text-blue-700 rounded-full p-4 flex items-center justify-center shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 16 16">
+                    <path d="M8 0a8 8 0 1 0 8 8A8.009 8.009 0 0 0 8 0Zm4.917 4H10.9a13.091 13.091 0 0 0-1.27-2.777A6.023 6.023 0 0 1 12.917 4ZM8 1.535A11.918 11.918 0 0 1 9.709 4H6.291A11.918 11.918 0 0 1 8 1.535ZM4.1 4H3.083A6.023 6.023 0 0 1 6.37 1.223 13.091 13.091 0 0 0 4.1 4ZM1.52 5h2.22a13.2 13.2 0 0 0-.236 2H1.063a6.932 6.932 0 0 1 .457-2Zm.457 4h2.44a13.2 13.2 0 0 0 .236 2H1.52a6.932 6.932 0 0 1-.457-2Zm1.106 3h1.017a13.091 13.091 0 0 0 1.27 2.777A6.023 6.023 0 0 1 3.083 12Zm3.208 0h3.418A11.918 11.918 0 0 1 8 14.465 11.918 11.918 0 0 1 6.291 12Zm5.61 0h1.017a6.023 6.023 0 0 1-2.287 2.777A13.091 13.091 0 0 0 11.9 12Zm1.58-3a13.2 13.2 0 0 0-.236-2h2.22a6.932 6.932 0 0 1 .457 2Zm1.984-3h-2.44a13.2 13.2 0 0 0-.236-2h2.22a6.932 6.932 0 0 1 .456 2Z"/>
+                </svg>
+            </div>
+            <p class="text-gray-100 font-medium leading-snug">
+                A global customer base<br>from over 120 countries
+            </p>
+        </div>
+
+        <!-- Fact 2 -->
+        <div class="flex items-center space-x-4">
+            <div class="bg-white text-blue-700 rounded-full p-4 flex items-center justify-center shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0-3-3 3 3 0 0 0 3 3Zm4 0a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM8 9a7 7 0 0 0-7 7h1a6 6 0 0 1 12 0h1a7 7 0 0 0-7-7Z"/>
+                </svg>
+            </div>
+            <p class="text-gray-100 font-medium leading-snug">
+                Almost over 250 thousand<br>active users
+            </p>
+        </div>
+
+        <!-- Fact 3 -->
+        <div class="flex items-center space-x-4">
+            <div class="bg-white text-blue-700 rounded-full p-4 flex items-center justify-center shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 16 16">
+                    <path d="M0 3a2 2 0 0 1 2-2h3v1H2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1h-3V1h3a2 2 0 0 1 2 2v11H0Zm1 2v9h14V5Zm2 2h10v5H3Z"/>
+                </svg>
+            </div>
+            <p class="text-gray-100 font-medium leading-snug">
+                10 years worth of experience<br>as an industry expert
+            </p>
+        </div>
+
+    </div>
+</section>
+<!-- OUR FEATURES Section -->
+<section class="bg-[#d3edf7] dark:bg-[#0f172a] transition-colors duration-500 py-32">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <!-- Header -->
+        <h2 class="text-blue-700 dark:text-blue-400 font-bold text-sm tracking-widest uppercase">Our Features</h2>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white mt-3">
+            We have better and more features
+        </h1>
+        <p class="text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
+            Quis dapibus volutpat condi
+        </p>
+
+        <!-- Feature Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+        <!-- Feature 1 -->
+            <div class="bg-white dark:bg-[#1e293b] rounded-2xl shadow-lg p-8 hover:-translate-y-1 hover:shadow-xl transition-all">
+                <div class="w-12 h-12 bg-blue-700 text-white flex items-center justify-center rounded-xl mx-auto mb-4 text-xl font-bold">⚡</div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Fast Mobility</h3>
+                <p class="text-gray-600 dark:text-gray-300">Quis dapibus volutpat condi</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="bg-white dark:bg-[#1e293b] rounded-2xl shadow-lg p-8 hover:-translate-y-1 hover:shadow-xl transition-all">
+                <div class="w-12 h-12 bg-blue-700 text-white flex items-center justify-center rounded-xl mx-auto mb-4 text-xl font-bold">💰</div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Term Loan</h3>
+                <p class="text-gray-600 dark:text-gray-300">Quis dapibus volutpat condi</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="bg-white dark:bg-[#1e293b] rounded-2xl shadow-lg p-8 hover:-translate-y-1 hover:shadow-xl transition-all">
+                <div class="w-12 h-12 bg-blue-700 text-white flex items-center justify-center rounded-xl mx-auto mb-4 text-xl font-bold">🎯</div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Easy Experience</h3>
+                <p class="text-gray-600 dark:text-gray-300">Quis dapibus volutpat condi</p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="bg-white dark:bg-[#1e293b] rounded-2xl shadow-lg p-8 hover:-translate-y-1 hover:shadow-xl transition-all">
+                <div class="w-12 h-12 bg-blue-700 text-white flex items-center justify-center rounded-xl mx-auto mb-4 text-xl font-bold">🔒</div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Safe and Protected</h3>
+                <p class="text-gray-600 dark:text-gray-300">Quis dapibus volutpat condi</p>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="bg-white dark:bg-[#1e293b] rounded-2xl shadow-lg p-8 hover:-translate-y-1 hover:shadow-xl transition-all">
+                <div class="w-12 h-12 bg-blue-700 text-white flex items-center justify-center rounded-xl mx-auto mb-4 text-xl font-bold">🌍</div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Worldwide</h3>
+                <p class="text-gray-600 dark:text-gray-300">Quis dapibus volutpat condi</p>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="bg-white dark:bg-[#1e293b] rounded-2xl shadow-lg p-8 hover:-translate-y-1 hover:shadow-xl transition-all">
+                <div class="w-12 h-12 bg-blue-700 text-white flex items-center justify-center rounded-xl mx-auto mb-4 text-xl font-bold">💳</div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">One Term Fees</h3>
+                <p class="text-gray-600 dark:text-gray-300">Quis dapibus volutpat condi</p>
+            </div>
+
+            <!-- Feature 7 -->
+            <div class="bg-white dark:bg-[#1e293b] rounded-2xl shadow-lg p-8 hover:-translate-y-1 hover:shadow-xl transition-all">
+                <div class="w-12 h-12 bg-blue-700 text-white flex items-center justify-center rounded-xl mx-auto mb-4 text-xl font-bold">💼</div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Merchant Payment</h3>
+                <p class="text-gray-600 dark:text-gray-300">Quis dapibus volutpat condi</p>
+            </div>
+
+            <!-- Feature 8 -->
+            <div class="bg-blue-700 dark:bg-blue-500 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center hover:-translate-y-1 hover:shadow-xl transition-all">
+                <h3 class="text-3xl font-bold mb-2">10+</h3>
+                <p class="text-lg font-semibold">More Features</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    const toggle = document.getElementById('toggleDark');
+    const html = document.documentElement;
+
+    toggle.addEventListener('click', () => {
+        html.classList.toggle('dark');
+    });
+</script>
+</body>
+</html>
