@@ -1,95 +1,95 @@
-# 💳 HCMIU - My Wallet Dashboard
+# 💼 Loan Web — PDM Theory Project
 
-A clean and modern **banking dashboard** interface built with **Tailwind CSS** and **Boxicons**.
-This project is designed as part of the **HCMIU Lending System**, providing users with a simple and elegant way to manage their cards, balances, and recent transactions.
+**Loan Web** is a responsive and modern **banking & loan management interface**, built for the *PDM Theory* course at HCMIU.
+It features a clean dashboard layout, modular structure, and Tailwind CSS styling for fast UI development.
 
 ---
 
-## 🌐 Demo Overview
+## 🌐 Overview
 
-The interface includes:
+Loan Web provides:
 
-* **Sidebar navigation** with sections like Dashboard, Transaction, Statistics, Analytics, and My Wallet.
-* **Main content area** displaying balance overview, credit cards, and recent transactions.
-* **Responsive design** using Tailwind utility classes.
-* Smooth hover effects, card animations, and gradients for a modern look.
+* **Authentication** (login/register) pages
+* **Client and data management** modules
+* **Dashboard** with balance and transaction views
+* **Reusable layout components** (sidebar, header, etc.)
+* Fully responsive design with **Tailwind CSS** and **Boxicons**
 
 ---
 
 ## 🧱 Tech Stack
 
-| Technology               | Description                             |
-| ------------------------ | --------------------------------------- |
-| **HTML5**                | Structure and layout                    |
-| **Tailwind CSS**         | Utility-first CSS for fast UI styling   |
-| **Boxicons**             | Icons for menus and transaction visuals |
-| **Google Fonts (Inter)** | Clean, modern typography                |
+| Technology                | Description                             |
+| ------------------------- | --------------------------------------- |
+| **HTML5**                 | Semantic page structure                 |
+| **Tailwind CSS**          | Utility-first CSS for responsive design |
+| **Boxicons**              | Icon set for interface elements         |
+| **Google Fonts (Inter)**  | Modern, readable typography             |
+| **Vanilla JS (optional)** | Lightweight dynamic interactions        |
 
 ---
 
-## 📂 Folder Structure
+## 📁 Folder Structure
 
 ```
 PDM_theory/
 │
-├── frontend/
-│   ├── assets/
-│   │   └── logo.png
-│   └── my_wallet.html
+├── frontend/            # Main application source
+│   ├── assets/          # Static files (images, icons, fonts)
+│   ├── authentication/  # Login, signup, and user auth pages
+│   ├── client/          # Client-related modules
+│   ├── data/            # Data files or JSON samples
+│   ├── layout/          # Shared components (sidebar, header)
+│   ├── pages/           # Dashboard and other content pages
+│   └── server/          # Mock backend or local services
 │
-└── README.md
+├── index.html           # Entry point of the web app
+└── style.css            # Global Tailwind + custom styles
 ```
 
 ---
 
 ## ⚙️ How to Run
 
-1. Clone the repository:
+1. **Clone this repository:**
 
    ```bash
    git clone https://github.com/<your-username>/PDM_theory.git
    ```
-2. Navigate into the project folder:
+
+2. **Open the project folder:**
 
    ```bash
-   cd PDM_theory/frontend
+   cd PDM_theory
    ```
-3. Open the HTML file in your browser:
+
+3. **Launch the app in your browser:**
 
    ```bash
-   start my_wallet.html
+   start index.html
    ```
+
+   *(Or simply double-click `index.html`)*
 
 ---
 
-## 🖼️ Key UI Sections
+## 🖼️ Key Features
 
-### 🔹 Sidebar
-
-* Displays navigation items for Dashboard, Transactions, Statistics, and more.
-* Uses hover and active states for better user feedback.
-
-### 🔹 Wallet Overview
-
-* Shows **total balance**, **income**, and **expenses** with colored icons and dynamic card layouts.
-
-### 🔹 Credit Cards
-
-* Two gradient cards (VISA and MasterCard) displaying cardholder info and current balance.
-
-### 🔹 Recent Transactions
-
-* A list of latest transactions with icons, dates, and formatted amounts.
-* Filters available for type and time period.
+* Fully responsive **loan management dashboard**
+* Organized modular structure for scalability
+* Built-in **authentication UI**
+* Reusable **layout system**
+* Styled using **Tailwind CSS** + **Boxicons**
 
 ---
 
-## 🌈 Features
+## 🚀 Future Improvements
 
-* Responsive, clean, and visually appealing UI.
-* Interactive hover effects using Tailwind transitions.
-* Gradient backgrounds and soft shadows for modern aesthetics.
-* Easy to extend and integrate into a larger web application.
+* Implement **dark/light mode**
+* Add **charts** (e.g., Chart.js or Recharts)
+* Integrate with a **backend API**
+* Add **role-based authentication**
+* Improve **mobile responsiveness**
 
 ---
 
@@ -102,5 +102,5 @@ Project for *PDM Theory — HCMIU (Vietnam National University)*
 
 ## 📄 License
 
-This project is for educational purposes.
-You can modify and reuse the UI with attribution.
+This project is for **educational and demonstration purposes**.
+You are free to use, modify, and extend it with proper credit.
