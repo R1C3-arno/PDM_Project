@@ -75,21 +75,22 @@ PDM_theory/
 
 ## 🖼️ Key Features
 
-* Fully responsive **loan management dashboard**
-* Organized modular structure for scalability
-* Built-in **authentication UI**
-* Reusable **layout system**
-* Styled using **Tailwind CSS** + **Boxicons**
+<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/43d9ccff-b3a0-4f8f-a857-4cb59522c145" />
 
----
+<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/c98d44fe-abec-44dc-91cc-c89081d5aff6" />
 
-## 🚀 Future Improvements
+<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/fad8372d-baed-44e6-a234-ad92464811ab" />
 
-* Implement **dark/light mode**
-* Add **charts** (e.g., Chart.js or Recharts)
-* Integrate with a **backend API**
-* Add **role-based authentication**
-* Improve **mobile responsiveness**
+<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/e5224c85-f4dd-42c3-89e4-5c717d767b96" />
+
+<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/0dbdaa15-f62f-471c-b95e-5ebde2780065" />
+
+<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/9f348e36-46e3-493e-83cb-221ec247ecaf" />
+
+<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/b74a311c-fa05-4154-8c71-41240c0e80e8" />
+
+<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/2e8270ab-c185-4773-9bc8-db6713c13795" />
+
 
 ---
 
