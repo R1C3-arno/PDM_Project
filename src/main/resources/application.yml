@@ -1,0 +1,81 @@
+spring:
+  application:
+    name: Loan Management System
+
+  # Database Configuration (H2 for development)
+  datasource:
+    url: jdbc:h2:mem:loandb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # H2 Console (for development only)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # JPA Configuration
+  jpa:
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+gg:
+  jte:
+    development-mode: true
+    use-precompiled-templates: false
+
+  # SQL Initialization
+  sql:
+    init:
+      mode: always
+
+  # Security
+  security:
+    user:
+      name: admin
+      password: admin123
+
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+
+logging:
+  level:
+    com.loanweb: DEBUG
+    org.springframework.jdbc: DEBUG
+    org.springframework.security: DEBUG
+
+---
+# Production Profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/loandb}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:}
+
+  jte:
+    development-mode: false
+    use-precompiled-templates: true
+
+  sql:
+    init:
+      mode: never
+
+  h2:
+    console:
+      enabled: false
+
+logging:
+  level:
+    com.loanweb: INFO
+    org.springframework: WARN

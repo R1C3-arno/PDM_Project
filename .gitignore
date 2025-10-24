@@ -1,0 +1,33 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Node modules
+node_modules/
+package-lock.json
+
+# Generated Tailwind CSS
+src/main/resources/static/css/tailwind.css
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Log files
+*.log
+
+# Spring Boot DevTools
+.spring-boot-devtools.properties
+
+# JTE compiled templates
+jte-classes/
+.claude/
