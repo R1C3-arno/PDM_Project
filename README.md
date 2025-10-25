@@ -1,6 +1,6 @@
-# 💼 Loan Web — PDM Theory Project
+# 💼 Loan Web — PDM Project
 
-**Loan Web** is a responsive and modern **banking & loan management interface**, built for the *PDM Theory* course at HCMIU.
+**Loan Web** is a responsive and modern **banking & loan management interface**, built for the *PDM* course at HCMIU.
 It features a clean dashboard layout, modular structure, and Tailwind CSS styling for fast UI development.
 
 ---
@@ -96,8 +96,21 @@ PDM_theory/
 
 ## 👤 Author
 
-**Le Hoang Quoc Anh**
-Project for *PDM Theory — HCMIU (Vietnam National University)*
+| ID | Student ID  | Student Name           | Phone      | Role          |
+| -- | ----------- | ---------------------- | ---------- | ------------- |
+| 1  | ITCSIU23054 | Đào Hữu Hoài           | 0344612654 | Full-stack    |
+| 2  | ITITWE23014 | Lê Thành Danh (Leader) | 0767178267 | Full-stack    |
+| 3  | ITDSIU24022 | Võ Quang Khải          | 0363681624 | Report Writer |
+| 4  | ITITWE23030 | Phan Minh Khánh        | 0902628125 | ERD Designer  |
+| 5  | ITDSIU23027 | Trần Châu Thanh Tuấn   | 0788286494 | Report Writer |
+| 6  | ITCSIU24063 | Vũ Đức Nhân            | 0937840446 | Backend       |
+| 7  | ITITDK23037 | Lê Hoàng Quốc Anh      | 0354503153 | Frontend      |
+| 8  | ITCSIU24090 | Trương Minh Trí        | 0708941111 | Frontend      |
+| 9  | ITCSIU24059 | Hoàng Triệu Nam        | 0769315790 | Report Writer |
+| 10 | ITCSIU24045 | Võ Trí Khôi            | 0869250015 | Backend       |
+| 11 | ITITWE23941 | Võ Nguyễn Đình Bảo     | 0858010878 | ERD Designer  |
+
+Project for *Principle of Database Management — HCMIU VNU (International University - Vietnam National University)*
 
 ---
 
