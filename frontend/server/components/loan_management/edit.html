@@ -1,0 +1,115 @@
+<!-- Edit Loan Popup -->
+<div id="editLoanPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[150]">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+
+            <!-- Header -->
+            <div class="bg-yellow-500 text-white px-6 py-4 rounded-t-lg flex justify-between items-center">
+                <h3 class="text-xl font-bold">Edit Loan</h3>
+                <button onclick="closeEditLoanPopup()" class="text-2xl hover:text-gray-200">&times;</button>
+            </div>
+
+            <!-- Body -->
+            <div class="p-6">
+                <!-- Icon -->
+                <div class="text-center mb-6">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-yellow-500 text-white flex items-center justify-center text-3xl">
+                        ✏️
+                    </div>
+                    <h4 id="editLoanPopupId" class="text-xl font-bold mt-3">#001</h4>
+                </div>
+
+                <!-- Form Grid -->
+                <form id="editLoanForm" class="grid grid-cols-2 gap-4">
+                    <!-- User ID -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">User ID</label>
+                        <input type="text" id="editLoanUserId"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500"
+                               value="U12345">
+                    </div>
+
+                    <!-- Type -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Loan Type</label>
+                        <select id="editLoanType" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <option value="Home Loan">Home Loan</option>
+                            <option value="Car Loan">Car Loan</option>
+                            <option value="Personal Loan">Personal Loan</option>
+                            <option value="Business Loan">Business Loan</option>
+                        </select>
+                    </div>
+
+                    <!-- Amount -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Amount ($)</label>
+                        <input type="number" id="editLoanAmount"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500"
+                               value="50000">
+                    </div>
+
+                    <!-- Interest Rate -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Interest Rate (%)</label>
+                        <input type="number" id="editLoanInterest" step="0.1"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500"
+                               value="5.5">
+                    </div>
+
+                    <!-- Status -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Status</label>
+                        <select id="editLoanStatus" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <option value="Active">Active</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+
+                    <!-- Term -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Term (months)</label>
+                        <input type="number" id="editLoanTerm"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500"
+                               value="24">
+                    </div>
+
+                    <!-- Start Date -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Start Date</label>
+                        <input type="date" id="editLoanStartDate"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500"
+                               value="2025-01-15">
+                    </div>
+
+                    <!-- End Date -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">End Date</label>
+                        <input type="date" id="editLoanEndDate"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500"
+                               value="2027-01-15">
+                    </div>
+
+                    <!-- Purpose -->
+                    <div class="col-span-2">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Purpose</label>
+                        <textarea id="editLoanPurpose" rows="3"
+                                  class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500"
+                                  placeholder="Loan purpose...">Home renovation and expansion</textarea>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-50 px-6 py-4 rounded-b-lg flex justify-end gap-3">
+                <button onclick="closeEditLoanPopup()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                    Cancel
+                </button>
+                <button onclick="saveLoanChanges()" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

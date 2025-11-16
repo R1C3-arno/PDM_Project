@@ -1,0 +1,59 @@
+<!-- Loan Management - -->
+<main>
+    <!-- Header với Search & Actions -->
+    <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold text-gray-800">Loan Management</h2>
+            <button onclick="openNewLoanPopup()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+                + New Loan
+            </button>
+        </div>
+
+        <div class="flex gap-4">
+            <input type="text" placeholder="🔍 Search by User ID or Loan ID..."
+                   class="flex-1 px-4 py-2 border rounded-lg">
+            <select class="px-4 py-2 border rounded-lg">
+                <option>All Status</option>
+                <option>Active</option>
+                <option>Pending</option>
+                <option>Completed</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-gray-50 border-b">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">ID</th>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">User ID</th>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Type</th>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Amount</th>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Status</th>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Start Date</th>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Actions</th>
+            </tr>
+            </thead>
+            <tbody class="divide-y">
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm">#001</td>
+                <td class="px-6 py-4 text-sm">U12345</td>
+                <td class="px-6 py-4 text-sm">Home Loan</td>
+                <td class="px-6 py-4 text-sm font-semibold">$50,000</td>
+                <td class="px-6 py-4">
+                    <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-600">Active</span>
+                </td>
+                <td class="px-6 py-4 text-sm">Jan 15, 2025</td>
+                <td class="px-6 py-4">
+                    <div class="flex gap-2">
+                        <button onclick="openLoanPopup('001')" class="text-blue-600 hover:text-blue-800">👁️</button>
+                        <button onclick="openEditLoanPopup('001')" class="text-yellow-600 hover:text-yellow-800">✏️</button>
+                        <button class="text-red-600 hover:text-red-800">🗑️</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>

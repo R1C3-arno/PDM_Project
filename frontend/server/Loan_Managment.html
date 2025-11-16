@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCMIU - Loan Management</title>
+
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
+    <!--=============== REMIXICONS cho header ===============-->
+    <link href='https://cdn.boxicons.com/3.0.3/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="/frontend/server/css/Sidebar/style.css">
+    <link rel="stylesheet" href="/frontend/server/css/Header/style.css">
+    <link rel="stylesheet" href="/frontend/server/css/Hide_Header_Sidebar/style.css">
+    <link rel="stylesheet" href="/frontend/server/css/Loan/style.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<!-- SideBar -->
+<div id="sidebar-section"></div>
+
+<!-- Header -->
+<div id="header-section"></div>
+
+<!-- User Management  -->
+<div id="mainContent"></div>
+
+<!-- PopUp Detail -->
+<div id="popupContainer"></div>
+
+<!-- Edit Detail -->
+<div id="editPopupContainer"></div>
+
+<!-- New Loan -->
+<div id="newContainer"></div>
+
+<!-- Import JS -->
+<script src="/frontend/server/js/sidebar.js"></script>
+<script src="/frontend/server/js/header.js"></script>
+<script src="/frontend/server/js/loan.js"></script>
+
+</body>
+</html>

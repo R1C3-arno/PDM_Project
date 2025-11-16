@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet"/>
+
+    <!-- CHỈ LOAD CSS 1 LẦN Ở ĐÂY -->
+    <link rel="stylesheet" href="/frontend/client/css/loan_calculator/style.css">
+
+    <title>Dashboard</title>
+</head>
+<body>
+
+<div class="main__container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Calculate and Confirm your Loans</h1>
+    </div>
+
+    <!-- Calculator Wrapper -->
+    <div class="calculator-wrapper">
+        <!-- Left Section -->
+        <div class="calculator-left">
+            <h3 class="section-title">Loan Calculator</h3>
+
+            <!-- Loan Term -->
+            <div class="input-group">
+                <label class="input-label">Loan Term</label>
+                <div class="term-buttons">
+                    <button class="term-btn active">Yearly</button>
+                    <button class="term-btn">Monthly</button>
+                    <button class="term-btn">Weekly</button>
+                </div>
+            </div>
+
+            <!-- Loan Amount -->
+            <div class="input-group">
+                <label class="input-label">Loan Amount</label>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" class="slider" min="1000" max="100000" value="50000">
+                    </div>
+                    <input type="text" class="input-value" value="$50,000">
+                </div>
+            </div>
+
+            <!-- Interest Rate -->
+            <div class="input-group">
+                <label class="input-label">Interest Rate</label>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" class="slider" min="1" max="20" value="10" step="0.1">
+                    </div>
+                    <input type="text" class="input-value" value="10%">
+                </div>
+            </div>
+
+            <!-- Loan Duration -->
+            <div class="input-group">
+                <label class="input-label">Loan Duration</label>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" class="slider" min="1" max="30" value="5">
+                    </div>
+                    <input type="text" class="input-value" value="5 Years">
+                </div>
+            </div>
+
+            <!-- Dates -->
+            <div class="input-group">
+                <div class="date-row">
+                    <div>
+                        <label class="input-label">Start Date</label>
+                        <input type="date" class="date-input" value="2025-11-16">
+                    </div>
+                    <div>
+                        <label class="input-label">End Date</label>
+                        <input type="date" class="date-input" value="2030-11-16">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="calculator-right">
+            <!-- Circle Chart -->
+            <div class="chart-container">
+                <svg class="circle-chart" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#e0e0e0" stroke-width="12"></circle>
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#667eea" stroke-width="12"
+                            stroke-dasharray="188 251" stroke-linecap="round"></circle>
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#f093fb" stroke-width="12"
+                            stroke-dasharray="63 251" stroke-dashoffset="-188" stroke-linecap="round"></circle>
+                </svg>
+                <div class="chart-total">
+                    <div class="chart-total-label">Total Amount</div>
+                    <div class="chart-total-value">$60,500</div>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <div class="legend-color emi"></div>
+                    <span class="legend-label">EMI Amount</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color interest"></div>
+                    <span class="legend-label">Interest Payable</span>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="summary-list">
+                <div class="summary-item">
+                    <span class="summary-label">Total Amount</span>
+                    <span class="summary-value">$60,500</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Interest Payable</span>
+                    <span class="summary-value">$10,500</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Loan Duration</span>
+                    <span class="summary-value">5 Years</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Your EMI Amount</span>
+                    <span class="summary-value">$1,008/mo</span>
+                </div>
+            </div>
+
+            <!-- Apply Button -->
+            <button class="btn-apply">Apply Now</button>
+        </div>
+    </div>
+</div>
+
+<!--=============== MAIN JS ===============-->
+<script src="/frontend/client/js/components/loan_calculator.js"></script>
+</body>
+</html>

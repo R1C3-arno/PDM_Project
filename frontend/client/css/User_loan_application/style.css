@@ -1,0 +1,100 @@
+/* ===========================
+   USER LOAN CALCULATOR PAGE CSS
+   Tránh xung đột giữa các components
+=========================== */
+
+/* Reset global styles cho page */
+body {
+    margin: 0;
+    padding: 0;
+    background: #000000;
+}
+
+/* Main layout wrapper */
+.main {
+    margin-left: 0;
+    padding: 2rem;
+    padding-top: 120px;
+    min-height: 100vh;
+    background: #000000;
+    transition: margin-left 0.3s;
+}
+
+.main__container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ===========================
+   SCOPING: Loan Calculator Component
+   Wrap #loanCalculatorSection styles
+=========================== */
+#loanCalculatorSection {
+    margin-bottom: 3rem;
+}
+
+/* Override global .main inside loan calculator */
+#loanCalculatorSection .main {
+    margin-left: 0;
+    padding: 0;
+    padding-top: 0;
+    min-height: auto;
+    background: transparent;
+}
+
+#loanCalculatorSection .main__container {
+    max-width: 100%;
+}
+
+/* ===========================
+   SCOPING: Forecast Component
+   Wrap #forecastSection styles
+=========================== */
+#graphSection {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* Ensure forecast uses full width */
+#graphSection > div {
+    max-width: 100%;
+}
+
+/* ===========================
+   COMPONENT ISOLATION
+   Prevent CSS bleeding between components
+=========================== */
+
+/* Reset box-sizing for all components */
+#loanCalculatorSection *,
+#graphSection * {
+    box-sizing: border-box;
+}
+
+/* Prevent margin collapse */
+#loanCalculatorSection > :first-child,
+#graphSection > :first-child {
+    margin-top: 0;
+}
+
+#loanCalculatorSection > :last-child,
+#graphSection > :last-child {
+    margin-bottom: 0;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 768px) {
+    .main {
+        margin-left: 0;
+        padding: 1rem;
+        padding-top: 100px;
+    }
+
+    #loanCalculatorSection,
+    #graphSection {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+}

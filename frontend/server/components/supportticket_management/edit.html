@@ -1,0 +1,107 @@
+<!-- Edit Support Ticket Popup -->
+<div id="editTicketPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[150]">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+
+            <!-- Header -->
+            <div class="bg-yellow-500 text-white px-6 py-4 rounded-t-lg flex justify-between items-center">
+                <h3 class="text-xl font-bold">✏️ Edit Support Ticket</h3>
+                <button onclick="closeEditTicketPopup()" class="text-2xl hover:text-gray-200">&times;</button>
+            </div>
+
+            <!-- Body - Form -->
+            <div class="p-6">
+                <form id="editTicketForm">
+
+                    <!-- Ticket ID (Read only) -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ticket ID</label>
+                        <input type="text" id="editTicketId" readonly
+                               class="w-full px-4 py-2 border rounded-lg bg-gray-100 text-gray-600">
+                    </div>
+
+                    <!-- User ID -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">User ID *</label>
+                        <input type="text" id="editTicketUserId" required
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500">
+                    </div>
+
+                    <!-- Subject -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
+                        <input type="text" id="editTicketSubject" required
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500">
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                        <select id="editTicketCategory" required
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <option value="">-- Select Category --</option>
+                            <option value="Technical">Technical</option>
+                            <option value="Billing">Billing</option>
+                            <option value="Account">Account</option>
+                            <option value="General">General</option>
+                        </select>
+                    </div>
+
+                    <!-- Priority -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Priority *</label>
+                        <select id="editTicketPriority" required
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <option value="">-- Select Priority --</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                            <option value="Urgent">Urgent</option>
+                        </select>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Status *</label>
+                        <select id="editTicketStatus" required
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <option value="">-- Select Status --</option>
+                            <option value="Open">Open</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Resolved">Resolved</option>
+                            <option value="Closed">Closed</option>
+                        </select>
+                    </div>
+
+                    <!-- Assigned To -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Assigned To *</label>
+                        <input type="text" id="editTicketAssigned" required
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500">
+                    </div>
+
+                    <!-- Created Date (Read only) -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Created Date</label>
+                        <input type="text" id="editTicketCreated" readonly
+                               class="w-full px-4 py-2 border rounded-lg bg-gray-100 text-gray-600">
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-50 px-6 py-4 rounded-b-lg flex justify-end gap-3">
+                <button onclick="closeEditTicketPopup()"
+                        class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                    Cancel
+                </button>
+                <button onclick="saveTicketEdit()"
+                        class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">
+                    Save Changes
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

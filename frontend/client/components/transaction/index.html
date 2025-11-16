@@ -1,0 +1,168 @@
+<div class="main__container">
+    <div class="page-header">
+        <h1>Transactions</h1>
+        <p>View all your transaction history</p>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="card filter-card">
+        <div class="filter-group">
+            <select class="filter-select">
+                <option>All Types</option>
+                <option>Deposit</option>
+                <option>Withdrawal</option>
+                <option>Loan Payment</option>
+                <option>Interest</option>
+            </select>
+
+            <select class="filter-select">
+                <option>Last 30 Days</option>
+                <option>Last 7 Days</option>
+                <option>Last 3 Months</option>
+                <option>This Year</option>
+            </select>
+
+            <button class="btn btn-primary">
+                <i class="ri-filter-3-line"></i>
+                Apply Filter
+            </button>
+        </div>
+    </div>
+
+    <!-- Transaction Table -->
+    <div class="card">
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>#TXN001234</td>
+                    <td>
+                                <span class="type-badge deposit">
+                                    <i class="ri-arrow-down-line"></i>
+                                    Deposit
+                                </span>
+                    </td>
+                    <td>Loan Disbursement</td>
+                    <td>Nov 14, 2025 10:30 AM</td>
+                    <td class="amount-positive">+$5,000.00</td>
+                    <td><span class="status completed">Completed</span></td>
+                </tr>
+                <tr>
+                    <td>#TXN001233</td>
+                    <td>
+                                <span class="type-badge withdrawal">
+                                    <i class="ri-arrow-up-line"></i>
+                                    Payment
+                                </span>
+                    </td>
+                    <td>Loan Repayment</td>
+                    <td>Nov 10, 2025 02:15 PM</td>
+                    <td class="amount-negative">-$500.00</td>
+                    <td><span class="status completed">Completed</span></td>
+                </tr>
+                <tr>
+                    <td>#TXN001232</td>
+                    <td>
+                                <span class="type-badge withdrawal">
+                                    <i class="ri-percent-line"></i>
+                                    Interest
+                                </span>
+                    </td>
+                    <td>Interest Payment</td>
+                    <td>Nov 5, 2025 09:00 AM</td>
+                    <td class="amount-negative">-$150.00</td>
+                    <td><span class="status completed">Completed</span></td>
+                </tr>
+                <tr>
+                    <td>#TXN001231</td>
+                    <td>
+                                <span class="type-badge deposit">
+                                    <i class="ri-arrow-down-line"></i>
+                                    Deposit
+                                </span>
+                    </td>
+                    <td>Account Top-up</td>
+                    <td>Nov 1, 2025 11:45 AM</td>
+                    <td class="amount-positive">+$2,000.00</td>
+                    <td><span class="status completed">Completed</span></td>
+                </tr>
+                <tr>
+                    <td>#TXN001230</td>
+                    <td>
+                                <span class="type-badge withdrawal">
+                                    <i class="ri-arrow-up-line"></i>
+                                    Payment
+                                </span>
+                    </td>
+                    <td>Monthly Installment</td>
+                    <td>Oct 28, 2025 03:30 PM</td>
+                    <td class="amount-negative">-$900.00</td>
+                    <td><span class="status completed">Completed</span></td>
+                </tr>
+                <tr>
+                    <td>#TXN001229</td>
+                    <td>
+                                <span class="type-badge withdrawal">
+                                    <i class="ri-arrow-right-up-line"></i>
+                                    Withdrawal
+                                </span>
+                    </td>
+                    <td>Bank Transfer</td>
+                    <td>Oct 25, 2025 01:20 PM</td>
+                    <td class="amount-negative">-$1,500.00</td>
+                    <td><span class="status completed">Completed</span></td>
+                </tr>
+                <tr>
+                    <td>#TXN001228</td>
+                    <td>
+                                <span class="type-badge deposit">
+                                    <i class="ri-arrow-down-line"></i>
+                                    Deposit
+                                </span>
+                    </td>
+                    <td>Loan Disbursement</td>
+                    <td>Oct 20, 2025 10:00 AM</td>
+                    <td class="amount-positive">+$10,000.00</td>
+                    <td><span class="status completed">Completed</span></td>
+                </tr>
+                <tr>
+                    <td>#TXN001227</td>
+                    <td>
+                                <span class="type-badge withdrawal">
+                                    <i class="ri-percent-line"></i>
+                                    Interest
+                                </span>
+                    </td>
+                    <td>Processing Fee</td>
+                    <td>Oct 15, 2025 09:15 AM</td>
+                    <td class="amount-negative">-$250.00</td>
+                    <td><span class="status completed">Completed</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="page-btn">
+                <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">
+                <i class="ri-arrow-right-s-line"></i>
+            </button>
+        </div>
+    </div>
+</div>
