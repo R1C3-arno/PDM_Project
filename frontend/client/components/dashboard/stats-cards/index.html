@@ -1,0 +1,39 @@
+<!-- /frontend/client/components/dashboard/stats-cards.html -->
+<div class="stats-cards">
+    <div class="card balance-card">
+        <div class="card-icon">💰</div>
+        <div class="card-content">
+            <h3>Wallet Balance</h3>
+            <p class="card-value" id="cardBalance">$0.00</p>
+            <span class="card-change positive" id="balanceChange">+0% from last month</span>
+        </div>
+    </div>
+
+    <div class="card loans-card">
+        <div class="card-icon">📋</div>
+        <div class="card-content">
+            <h3>Active Loans</h3>
+            <p class="card-value" id="activeLoansCount">0 Loans</p>
+            <span class="card-subtext" id="activeLoansTotal">Total: $0.00</span>
+        </div>
+    </div>
+
+    <div class="card activity-card">
+        <div class="card-header">
+            <h3>Recent Activity</h3>
+            <a href="#" class="view-all" id="viewActivityBtn">View All</a>
+        </div>
+        <div class="activity-list" id="activityList">
+            <!-- Dynamically loaded -->
+        </div>
+    </div>
+
+    <div class="card alert-card">
+        <div class="card-icon warning">⚠️</div>
+        <div class="card-content">
+            <h3>Payment Reminder</h3>
+            <p class="alert-text" id="alertText">No upcoming payments</p>
+            <button class="btn-small btn-warning" id="viewAlertBtn">View Details</button>
+        </div>
+    </div>
+</div>

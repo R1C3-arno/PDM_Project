@@ -1,0 +1,108 @@
+<!-- New Notification Popup -->
+<div id="newNotificationPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[150]">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+
+            <!-- Header -->
+            <div class="bg-green-500 text-white px-6 py-4 rounded-t-lg flex justify-between items-center">
+                <h3 class="text-xl font-bold">Create New Notification</h3>
+                <button onclick="closeNewNotificationPopup()" class="text-2xl hover:text-gray-200">&times;</button>
+            </div>
+
+            <!-- Body -->
+            <div class="p-6">
+                <!-- Icon -->
+                <div class="text-center mb-6">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-green-500 text-white flex items-center justify-center text-3xl">
+                        🔔
+                    </div>
+                    <p class="text-gray-600 text-sm mt-3">Fill in the details to create a new notification</p>
+                </div>
+
+                <!-- Form Grid -->
+                <form id="newNotificationForm" class="grid grid-cols-2 gap-4">
+                    <!-- Notification ID (Auto-generated) -->
+                    <div class="col-span-2">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Notification ID (Auto-generated)</label>
+                        <input type="text" id="newNotificationId"
+                               class="w-full px-4 py-2 border rounded-lg bg-gray-100"
+                               value="#N003" readonly>
+                    </div>
+
+                    <!-- User ID -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">User ID <span class="text-red-500">*</span></label>
+                        <input type="text" id="newNotificationUserId"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                               placeholder="e.g. U12345" required>
+                    </div>
+
+                    <!-- Type -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Type <span class="text-red-500">*</span></label>
+                        <select id="newNotificationType" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500" required>
+                            <option value="">Select type...</option>
+                            <option value="Success">Success</option>
+                            <option value="Info">Info</option>
+                            <option value="Warning">Warning</option>
+                            <option value="Error">Error</option>
+                        </select>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="col-span-2">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Title <span class="text-red-500">*</span></label>
+                        <input type="text" id="newNotificationTitle"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                               placeholder="e.g. Loan Approved" required>
+                    </div>
+
+                    <!-- Message -->
+                    <div class="col-span-2">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Message <span class="text-red-500">*</span></label>
+                        <textarea id="newNotificationMessage" rows="4"
+                                  class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                                  placeholder="Enter notification message..." required></textarea>
+                    </div>
+
+                    <!-- Created Date -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Created Date <span class="text-red-500">*</span></label>
+                        <input type="date" id="newNotificationCreated"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500" required>
+                    </div>
+
+                    <!-- Priority (Optional) -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Priority</label>
+                        <select id="newNotificationPriority" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                            <option value="Urgent">Urgent</option>
+                        </select>
+                    </div>
+
+                    <!-- Send Immediately -->
+                    <div class="flex items-center">
+                        <input type="checkbox" id="newNotificationSendNow"
+                               class="w-4 h-4 text-green-500 border-gray-300 rounded focus:ring-green-500">
+                        <label for="newNotificationSendNow" class="ml-2 text-sm text-gray-700">
+                            Send immediately
+                        </label>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-50 px-6 py-4 rounded-b-lg flex justify-end gap-3">
+                <button onclick="closeNewNotificationPopup()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                    Cancel
+                </button>
+                <button onclick="createNewNotification()" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                    Create Notification
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

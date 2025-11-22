@@ -1,0 +1,287 @@
+/*=============== VARIABLES DARK THEME ===============*/
+body.dark-theme {
+    --first-color: hsl(228, 70%, 63%);
+    --title-color: hsl(228, 18%, 96%);
+    --text-color: hsl(228, 12%, 61%);
+    --body-color: hsl(228, 24%, 16%);
+    --container-color: hsl(228, 22%, 20%);
+    --shadow-color: hsla(228, 80%, 4%, .3);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Background Colors */
+    --body-color: #000000;
+    --container-color: #1f1f1f;
+    --hover-color: #2e2e2e;
+
+    /* Text Colors */
+    --title-color: #ffffff;
+    --text-color: #a6a6a6;
+    --text-tertiary: #969593;
+
+    /* Accent Colors */
+    --first-color: #4aa584;
+    --second-color: #e3ffa8;
+
+    /* Border & Shadow */
+    --border-color: #313131;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+/* ===========================
+   MAIN LAYOUT
+=========================== */
+.main {
+    margin-left: 200px;
+    padding: 2rem;
+    padding-top: 120px;
+    min-height: 100vh;
+    background: var(--body-color, #f5f7fa);
+    color: var(--text-color);
+    transition: .3s;
+}
+
+.main__container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ===========================
+   PAGE HEADER
+=========================== */
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    color: var(--title-color, #2c3e50);
+    margin-bottom: 5px;
+}
+
+.page-header p {
+    color: var(--text-color, #7f8c8d);
+    font-size: 14px;
+}
+
+/* ===========================
+   NOTIFICATION TABS
+=========================== */
+.notification-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: 1px solid var(--shadow-color, #dfe6e9);
+    background: var(--container-color, white);
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--text-color, #2c3e50);
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    opacity: .85;
+    border-color: var(--first-color, #667eea);
+}
+
+.tab-btn.active {
+    background: var(--first-color, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+    color: white;
+    border-color: transparent;
+}
+
+/* ===========================
+   NOTIFICATION CARD
+=========================== */
+.card {
+    background: var(--container-color, white);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--shadow-color, rgba(0,0,0,0.08));
+    transition: .3s;
+}
+
+.notification-item {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    border-bottom: 1px solid var(--shadow-color, #ecf0f1);
+    transition: all 0.3s;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item:hover {
+    background: var(--shadow-color, #f8f9fa);
+}
+
+.notification-item.unread {
+    background: rgba(102, 126, 234, 0.08);
+}
+
+.notification-item.unread:hover {
+    background: rgba(102, 126, 234, 0.12);
+}
+
+/* ===========================
+   NOTIFICATION ICON
+=========================== */
+.notification-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    color: #fff;
+}
+
+.notification-icon.success { background: #22c55e; }
+.notification-icon.warning { background: #f59e0b; }
+.notification-icon.info { background: #3b82f6; }
+.notification-icon.error { background: #ef4444; }
+
+/* ===========================
+   NOTIFICATION CONTENT
+=========================== */
+.notification-content {
+    flex: 1;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 15px;
+}
+
+.notification-header h4 {
+    font-size: 16px;
+    color: var(--title-color, #2c3e50);
+    font-weight: 600;
+    margin: 0;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: var(--text-color, #7f8c8d);
+    white-space: nowrap;
+    opacity: 0.8;
+}
+
+.notification-content p {
+    font-size: 14px;
+    color: var(--text-color, #5a6c7d);
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+/* ===========================
+   NOTIFICATION ACTIONS
+=========================== */
+.notification-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.action-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--shadow-color, #dfe6e9);
+    background: var(--container-color, white);
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--text-color, #2c3e50);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.action-btn:hover {
+    opacity: .85;
+    border-color: var(--first-color, #667eea);
+}
+
+.action-btn.primary {
+    background: var(--first-color, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+    color: white;
+    border-color: transparent;
+}
+
+.action-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* ===========================
+   LOAD MORE BUTTON
+=========================== */
+.load-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--first-color, #667eea);
+    color: var(--first-color, #667eea);
+}
+
+.btn-outline:hover {
+    background: var(--first-color, #667eea);
+    color: white;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 768px) {
+    .main {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .notification-tabs {
+        flex-wrap: wrap;
+    }
+
+    .notification-item {
+        flex-direction: column;
+    }
+
+    .notification-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}

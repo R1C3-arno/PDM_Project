@@ -1,0 +1,13 @@
+/* Main content - Luôn ở đúng vị trí */
+main {
+    margin-left: 16rem; /* 256px = sidebar width */
+    margin-top: 4rem; /* 64px = header height */
+    padding: 2rem;
+    min-height: calc(100vh - 4rem);
+    transition: margin-left 0.3s ease;
+}
+
+/* Khi sidebar ẩn */
+body.sidebar-hidden main {
+    margin-left: 0;
+}

@@ -1,0 +1,28 @@
+<!-- /frontend/client/components/dashboard/charts.html -->
+<div class="charts-section">
+    <div class="chart-container">
+        <div class="chart-header">
+            <h3>Loan & Payment Trends</h3>
+            <select class="chart-filter" id="lineChartFilter">
+                <option value="6">Last 6 Months</option>
+                <option value="12">Last Year</option>
+                <option value="all">All Time</option>
+            </select>
+        </div>
+        <canvas id="lineChart"></canvas>
+    </div>
+
+    <div class="chart-container small">
+        <div class="chart-header">
+            <h3>Loan Distribution</h3>
+        </div>
+        <canvas id="pieChart"></canvas>
+    </div>
+
+    <div class="chart-container small">
+        <div class="chart-header">
+            <h3>Monthly Overview</h3>
+        </div>
+        <canvas id="barChart"></canvas>
+    </div>
+</div>

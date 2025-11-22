@@ -1,0 +1,185 @@
+/* /frontend/client/css/dashboard/cta.css */
+
+.cta-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.cta-card {
+    background: linear-gradient(135deg, var(--hover-color) 0%, var(--container-color) 100%);
+    color: white;
+    padding: 32px 24px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(74, 165, 132, 0.1) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.cta-card:hover::before {
+    opacity: 1;
+}
+
+.cta-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    border-color: var(--first-color);
+}
+
+.cta-card:nth-child(2) {
+    background: linear-gradient(135deg, var(--hover-color) 0%, var(--container-color) 100%);
+}
+
+.cta-card:nth-child(2)::before {
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, transparent 100%);
+}
+
+.cta-card:nth-child(2):hover {
+    border-color: #f093fb;
+}
+
+.cta-card:nth-child(3) {
+    background: linear-gradient(135deg, var(--hover-color) 0%, var(--container-color) 100%);
+}
+
+.cta-card:nth-child(3)::before {
+    background: linear-gradient(135deg, rgba(227, 255, 168, 0.1) 0%, transparent 100%);
+}
+
+.cta-card:nth-child(3):hover {
+    border-color: var(--second-color);
+}
+
+.cta-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-card h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--title-color);
+    position: relative;
+    z-index: 1;
+}
+
+.cta-card p {
+    font-size: 14px;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-cta {
+    background: var(--first-color);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 165, 132, 0.4);
+    background: #3d8f6f;
+}
+
+.reminder-widget {
+    background: var(--container-color);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+.reminder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.reminder-header h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--title-color);
+}
+
+.reminder-count {
+    background: #ff6b6b;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.reminder-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: var(--hover-color);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border-left: 4px solid #667eea;
+    transition: all 0.3s;
+}
+
+.reminder-item:hover {
+    background: var(--border-color);
+}
+
+.reminder-item.urgent {
+    border-left-color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+}
+
+.reminder-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.reminder-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--title-color);
+}
+
+.reminder-date {
+    font-size: 12px;
+    color: var(--text-color);
+}
+
+.reminder-amount {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--first-color);
+}

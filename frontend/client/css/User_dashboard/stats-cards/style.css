@@ -1,0 +1,182 @@
+/* /frontend/client/css/dashboard/cards.css */
+
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.card {
+    background: var(--container-color);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+    border-color: var(--first-color);
+}
+
+.balance-card { border-left: 4px solid var(--first-color); }
+.loans-card { border-left: 4px solid #f093fb; }
+.activity-card {
+    grid-column: span 2;
+    border-left: 4px solid #667eea;
+}
+.alert-card { border-left: 4px solid var(--second-color); }
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+    background: var(--hover-color);
+}
+
+.card-icon.warning {
+    background: rgba(227, 255, 168, 0.1);
+    color: var(--second-color);
+}
+
+.card-content h3 {
+    font-size: 14px;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.card-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--title-color);
+    margin-bottom: 8px;
+}
+
+.card-change {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.card-change.positive { color: var(--first-color); }
+.card-change.negative { color: #ff6b6b; }
+
+.card-subtext {
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.card-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--title-color);
+}
+
+.view-all {
+    font-size: 13px;
+    color: var(--first-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.view-all:hover {
+    color: #3d8f6f;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--hover-color);
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.activity-item:hover {
+    background: var(--border-color);
+}
+
+.icon-income {
+    background: rgba(74, 165, 132, 0.2);
+    color: var(--first-color);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.icon-outcome {
+    background: rgba(240, 147, 251, 0.2);
+    color: #f093fb;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.activity-details { flex: 1; }
+
+.activity-title {
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+    color: var(--title-color);
+}
+
+.activity-date {
+    font-size: 12px;
+    color: var(--text-color);
+}
+
+.activity-amount {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.activity-amount.positive { color: var(--first-color); }
+.activity-amount.negative { color: #f093fb; }
+
+.alert-text {
+    color: var(--text-color);
+    margin: 8px 0 12px 0;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-warning {
+    background: var(--second-color);
+    color: var(--body-color);
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(227, 255, 168, 0.4);
+}

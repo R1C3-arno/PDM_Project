@@ -1,0 +1,86 @@
+/*=============== HEADER ===============*/
+.header {
+    position: fixed;
+    top: 0;
+    left: 16rem; /* 256px = w-64 của sidebar */
+    right: 0;
+    height: 4rem; /* 64px */
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    z-index: 100;
+    transition: left 0.3s ease;
+}
+
+.header__container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Canh giữa */
+    padding: 0 2rem;
+}
+
+.header__logo {
+    font-size: 2.125rem;
+    font-weight: 600;
+    color: #111827;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.header__logo:hover {
+    color: #10b981;
+}
+
+.header__logo span {
+    background: linear-gradient(to right, #10b981, #059669);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header__toggle {
+    position: absolute; /* Đặt nút toggle sang bên */
+    right: 2rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+}
+
+.header__toggle:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+/* Khi sidebar ẩn */
+body.sidebar-hidden .header {
+    left: 0;
+}
+
+/* Responsive */
+@media screen and (max-width: 1024px) {
+    .header {
+        left: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header__container {
+        padding: 0 1rem;
+    }
+
+    .header__toggle {
+        right: 1rem;
+    }
+
+    .header__logo span {
+        font-size: 0.875rem;
+    }
+}

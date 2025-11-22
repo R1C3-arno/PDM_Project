@@ -1,0 +1,106 @@
+/* /frontend/client/css/dashboard/responsive.css */
+
+@media (max-width: 1024px) {
+    .charts-section {
+        grid-template-columns: 1fr;
+    }
+
+    .activity-card {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        padding: 16px;
+    }
+
+    .dashboard-header {
+        padding: 20px;
+    }
+
+    .user-name {
+        font-size: 20px;
+    }
+
+    .overview-stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+    }
+
+    .quick-actions {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .stats-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .card-value {
+        font-size: 28px;
+    }
+
+    .table-container {
+        overflow-x: scroll;
+    }
+
+    .transactions-table {
+        min-width: 600px;
+    }
+
+    .cta-section {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-card {
+        padding: 24px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard {
+        padding: 12px;
+    }
+
+    .dashboard-header {
+        padding: 16px;
+    }
+
+    .user-info {
+        gap: 12px;
+    }
+
+    .user-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .user-name {
+        font-size: 18px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .card-value {
+        font-size: 24px;
+    }
+
+    .section-header h3 {
+        font-size: 16px;
+    }
+}

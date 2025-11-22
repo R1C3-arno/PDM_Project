@@ -1,0 +1,29 @@
+/* Sidebar transition */
+aside {
+    transition: transform 0.3s ease;
+}
+
+/* Header transition */
+.header {
+    transition: left 0.3s ease;
+}
+
+/* Main content transition - THÊM padding-top */
+main {
+    margin-left: 16rem; /* 256px - width của sidebar */
+    padding-top: 5rem; /* 80px - height của header */
+    transition: margin-left 0.3s ease, padding-top 0.3s ease;
+}
+
+/* Khi bấm toggle */
+body.sidebar-hidden aside {
+    transform: translateX(-100%); /* Sidebar trượt sang trái */
+}
+
+body.sidebar-hidden .header {
+    left: 0; /* Header full width */
+}
+
+body.sidebar-hidden main {
+    margin-left: 0; /* Main content full width */
+}

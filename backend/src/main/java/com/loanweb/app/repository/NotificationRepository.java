@@ -1,0 +1,7 @@
+package com.loanweb.app.repository;
+
+import com.loanweb.app.entity.Notification;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface NotificationRepository extends JpaRepository<Notification, Long> {
+}

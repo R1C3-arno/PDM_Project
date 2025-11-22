@@ -1,0 +1,123 @@
+<!-- New Loan.java Popup -->
+<div id="newLoanPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[150]">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+
+            <!-- Header -->
+            <div class="bg-green-500 text-white px-6 py-4 rounded-t-lg flex justify-between items-center">
+                <h3 class="text-xl font-bold">Create New Loan</h3>
+                <button onclick="closeNewLoanPopup()" class="text-2xl hover:text-gray-200">&times;</button>
+            </div>
+
+            <!-- Body -->
+            <div class="p-6">
+                <!-- Icon -->
+                <div class="text-center mb-6">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-green-500 text-white flex items-center justify-center text-3xl">
+                        ➕
+                    </div>
+                    <p class="text-gray-600 text-sm mt-3">Fill in the details to create a new loan</p>
+                </div>
+
+                <!-- Form Grid -->
+                <form id="newLoanForm" class="grid grid-cols-2 gap-4">
+                    <!-- Loan.java ID (Auto-generated) -->
+                    <div class="col-span-2">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Loan ID (Auto-generated)</label>
+                        <input type="text" id="newLoanId"
+                               class="w-full px-4 py-2 border rounded-lg bg-gray-100"
+                               value="#003" readonly>
+                    </div>
+
+                    <!-- User ID -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">User ID <span class="text-red-500">*</span></label>
+                        <input type="text" id="newLoanUserId"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                               placeholder="e.g. U12345" required>
+                    </div>
+
+                    <!-- Type -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Loan Type <span class="text-red-500">*</span></label>
+                        <select id="newLoanType" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500" required>
+                            <option value="">Select type...</option>
+                            <option value="Home Loan">Home Loan</option>
+                            <option value="Car Loan">Car Loan</option>
+                            <option value="Personal Loan">Personal Loan</option>
+                            <option value="Business Loan">Business Loan</option>
+                        </select>
+                    </div>
+
+                    <!-- Amount -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Amount ($) <span class="text-red-500">*</span></label>
+                        <input type="number" id="newLoanAmount"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                               placeholder="e.g. 50000" min="1000" required>
+                    </div>
+
+                    <!-- Interest Rate -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Interest Rate (%) <span class="text-red-500">*</span></label>
+                        <input type="number" id="newLoanInterest" step="0.1"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                               placeholder="e.g. 5.5" min="0" max="100" required>
+                    </div>
+
+                    <!-- Status -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Status <span class="text-red-500">*</span></label>
+                        <select id="newLoanStatus" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500" required>
+                            <option value="">Select status...</option>
+                            <option value="Pending" selected>Pending</option>
+                            <option value="Active">Active</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+
+                    <!-- Term -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Term (months) <span class="text-red-500">*</span></label>
+                        <input type="number" id="newLoanTerm"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                               placeholder="e.g. 24" min="1" max="360" required>
+                    </div>
+
+                    <!-- Start Date -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Start Date <span class="text-red-500">*</span></label>
+                        <input type="date" id="newLoanStartDate"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500" required>
+                    </div>
+
+                    <!-- End Date -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">End Date <span class="text-red-500">*</span></label>
+                        <input type="date" id="newLoanEndDate"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500" required>
+                    </div>
+
+                    <!-- Purpose -->
+                    <div class="col-span-2">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Purpose</label>
+                        <textarea id="newLoanPurpose" rows="3"
+                                  class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                                  placeholder="Describe the loan purpose..."></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-50 px-6 py-4 rounded-b-lg flex justify-end gap-3">
+                <button onclick="closeNewLoanPopup()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                    Cancel
+                </button>
+                <button onclick="createNewLoan()" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                    Create Loan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
