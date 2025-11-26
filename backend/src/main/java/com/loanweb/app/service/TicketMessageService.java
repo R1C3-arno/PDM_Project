@@ -5,14 +5,33 @@ import com.loanweb.app.repository.TicketMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TicketMessageService {
     @Autowired
     private TicketMessageRepository repo;
 
-    public List<TicketMessage> getAll() { return repo.findAll(); }
-    public TicketMessage getById(Long id) { return repo.findById(id).orElse(null); }
-    public TicketMessage create(TicketMessage message) { return repo.save(message); }
-    public void delete(Long id) { repo.deleteById(id); }
+    public List<TicketMessage> getAll() {
+        return repo.findAll();
+    }
+
+    public TicketMessage getById(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    public List<TicketMessage> getTicketMessages(Long ticketId) {
+        return repo.findAll().stream()
+                .filter(m -> m.getTicketId().equals(ticketId))
+                .sorted((a, b) -> a.getCreatedAt().compareTo(b.getCreatedAt()))
+                .collect(Collectors.toList());
+    }
+
+    public TicketMessage create(TicketMessage message) {
+        return repo.save(message);
+    }
+
+    public void delete(Long id) {
+        repo.deleteById(id);
+    }
 }

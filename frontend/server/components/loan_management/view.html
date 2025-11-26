@@ -1,69 +1,63 @@
-<!-- View Loan.java Popup -->
 <div id="loanPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[150]">
     <div class="flex items-center justify-center min-h-screen p-4">
         <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
 
-            <!-- Header -->
             <div class="bg-blue-500 text-white px-6 py-4 rounded-t-lg flex justify-between items-center">
                 <h3 class="text-xl font-bold">Loan Details</h3>
                 <button onclick="closeLoanPopup()" class="text-2xl hover:text-gray-200">&times;</button>
             </div>
 
-            <!-- Body -->
             <div class="p-6">
-                <!-- Icon Loan.java -->
                 <div class="text-center mb-6">
                     <div class="w-20 h-20 mx-auto rounded-full bg-blue-500 text-white flex items-center justify-center text-3xl">
                         💰
                     </div>
-                    <h4 id="loanPopupId" class="text-xl font-bold mt-3">#001</h4>
-                    <p id="loanPopupType" class="text-gray-700 text-lg mt-1 font-medium">Home Loan</p>
+                    <h4 id="loanPopupId" class="text-xl font-bold mt-3"></h4>
+                    <p id="loanPopupType" class="text-gray-700 text-lg mt-1 font-medium"></p>
                 </div>
 
-                <!-- Info Grid -->
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <p class="text-gray-500 text-sm mb-1">User ID</p>
-                        <p id="loanPopupUserId" class="font-medium">U12345</p>
+                        <p id="loanPopupUserId" class="font-medium"></p>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Amount</p>
-                        <p id="loanPopupAmount" class="font-medium text-green-600">$50,000</p>
+                        <p id="loanPopupAmount" class="font-medium text-green-600"></p>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Interest Rate</p>
-                        <p id="loanPopupInterest" class="font-medium">5.5%</p>
+                        <p id="loanPopupInterest" class="font-medium"></p>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Term</p>
-                        <p id="loanPopupTerm" class="font-medium">24 months</p>
+                        <p id="loanPopupTerm" class="font-medium"></p>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Status</p>
-                        <span id="loanPopupStatus" class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-600">Active</span>
+                        <span id="loanPopupStatus" class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-600"></span>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Start Date</p>
-                        <p id="loanPopupStartDate" class="font-medium">Jan 15, 2025</p>
+                        <p id="loanPopupStartDate" class="font-medium"></p>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">End Date</p>
-                        <p id="loanPopupEndDate" class="font-medium">Jan 15, 2027</p>
+                        <p id="loanPopupEndDate" class="font-medium"></p>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Monthly Payment</p>
-                        <p id="loanPopupMonthly" class="font-medium text-blue-600">$2,200</p>
+                        <p id="loanPopupMonthly" class="font-medium text-blue-600"></p>
                     </div>
                     <div class="col-span-2">
                         <p class="text-gray-500 text-sm mb-1">Purpose</p>
-                        <p id="loanPopupPurpose" class="font-medium">Home renovation and expansion</p>
+                        <p id="loanPopupPurpose" class="font-medium"></p>
                     </div>
                 </div>
             </div>
 
-            <!-- Footer -->
             <div class="bg-gray-50 px-6 py-4 rounded-b-lg flex justify-end gap-3">
-                <button onclick="closeLoanPopup()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                <button onclick="closeLoanPopup()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition">
                     Close
                 </button>
             </div>

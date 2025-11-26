@@ -42,3 +42,40 @@
     color: var(--title-color);
     cursor: pointer;
 }
+
+.header__home-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--first-color);
+    color: white;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.header__home-btn:hover {
+    background: var(--first-color-alt);
+}
+
+.header__home-btn i {
+    font-size: 1.2rem;
+}
+
+.header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+    .header__home-btn span {
+        display: none;
+    }
+    .header__home-btn {
+        padding: 0.5rem;
+    }
+}

@@ -19,6 +19,23 @@ public class TransactionController {
     @GetMapping("/{id}")
     public Transaction getById(@PathVariable Long id) { return service.getById(id); }
 
+    @GetMapping("/recent")
+    public List<Transaction> getRecentTransactions(
+            @RequestParam Long userId,
+            @RequestParam(defaultValue = "5") int limit) {
+        return service.getRecentTransactions(userId, limit);
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Transaction> getUserTransactions(
+            @PathVariable Long userId,
+            @RequestParam(required = false) String type,
+            @RequestParam(defaultValue = "50") int limit) {
+        return service.getUserTransactions(userId, type, limit);
+    }
+
+
+
     @PostMapping
     public Transaction create(@RequestBody Transaction transaction) { return service.create(transaction); }
 

@@ -10,48 +10,44 @@
 
         <div class="profile-section">
             <div class="profile-avatar">
-                <img src="/frontend/client/assets/images/perfil.png" alt="profile">
-                <button class="avatar-edit">
+                <img id="avatarImage" src="/frontend/client/assets/images/perfil.png" alt="profile">
+                <button class="avatar-edit" onclick="document.getElementById('avatarInput').click()">
                     <i class="ri-camera-fill"></i>
                 </button>
+                <input type="file" id="avatarInput" accept="image/*" style="display: none;">
             </div>
 
             <div class="profile-form">
                 <div class="form-row">
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" value="Rix Methil" placeholder="Enter your name">
+                        <input type="text" id="fullName" placeholder="Enter your name">
                     </div>
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" value="rix123@email.com" placeholder="Enter your email">
+                        <input type="email" id="email" placeholder="Enter your email" readonly>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label>Phone Number</label>
-                        <input type="tel" value="+1 234 567 8900" placeholder="Enter phone number">
+                        <input type="tel" id="phone" placeholder="Enter phone number">
                     </div>
                     <div class="form-group">
-                        <label>Date of Birth</label>
-                        <input type="date" value="1990-05-15">
+                        <label>Address</label>
+                        <input type="text" id="address" placeholder="Enter your address">
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Address</label>
-                    <input type="text" value="123 Main Street, New York, NY 10001" placeholder="Enter your address">
-                </div>
-
-                <button class="btn btn-primary">Save Changes</button>
+                <button class="btn btn-primary" id="saveProfileBtn">Save Changes</button>
             </div>
         </div>
     </div>
 
     <!-- Security Settings -->
     <div class="card">
-        <div class="card-title">Security & Privacy</div>
+        <div class="card-title">Security</div>
 
         <div class="settings-list">
             <div class="settings-item">
@@ -59,108 +55,30 @@
                     <h4>Change Password</h4>
                     <p>Update your password regularly for better security</p>
                 </div>
-                <button class="btn btn-outline">Change</button>
-            </div>
-
-            <div class="settings-item">
-                <div class="settings-info">
-                    <h4>Two-Factor Authentication</h4>
-                    <p>Add an extra layer of security to your account</p>
-                </div>
-                <label class="toggle-switch">
-                    <input type="checkbox">
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-
-            <div class="settings-item">
-                <div class="settings-info">
-                    <h4>Login Alerts</h4>
-                    <p>Get notified when someone logs into your account</p>
-                </div>
-                <label class="toggle-switch">
-                    <input type="checkbox" checked>
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-
-    <!-- Notification Preferences -->
-    <div class="card">
-        <div class="card-title">Notification Preferences</div>
-
-        <div class="settings-list">
-            <div class="settings-item">
-                <div class="settings-info">
-                    <h4>Email Notifications</h4>
-                    <p>Receive loan updates via email</p>
-                </div>
-                <label class="toggle-switch">
-                    <input type="checkbox" checked>
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-
-            <div class="settings-item">
-                <div class="settings-info">
-                    <h4>SMS Notifications</h4>
-                    <p>Get payment reminders via SMS</p>
-                </div>
-                <label class="toggle-switch">
-                    <input type="checkbox" checked>
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-
-            <div class="settings-item">
-                <div class="settings-info">
-                    <h4>Payment Reminders</h4>
-                    <p>Receive reminders before payment due dates</p>
-                </div>
-                <label class="toggle-switch">
-                    <input type="checkbox" checked>
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-
-            <div class="settings-item">
-                <div class="settings-info">
-                    <h4>Promotional Emails</h4>
-                    <p>Receive news about new loan offers and promotions</p>
-                </div>
-                <label class="toggle-switch">
-                    <input type="checkbox">
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bank Account Settings -->
-    <div class="card">
-        <div class="card-title">Bank Account</div>
-
-        <div class="bank-account">
-            <div class="bank-info">
-                <div class="bank-icon">
-                    <i class="ri-bank-fill"></i>
-                </div>
-                <div>
-                    <h4>Bank of America</h4>
-                    <p>Account: ****6789</p>
-                </div>
-            </div>
-            <div class="bank-actions">
-                <button class="btn btn-outline">Update</button>
-                <button class="btn btn-secondary">Remove</button>
+                <button class="btn btn-outline" id="changePasswordBtn">Change</button>
             </div>
         </div>
 
-        <button class="btn btn-outline" style="margin-top: 15px;">
-            <i class="ri-add-line"></i>
-            Add New Bank Account
-        </button>
+        <!-- Change Password Modal (Hidden by default) -->
+        <div id="passwordModal" style="display: none; margin-top: 20px; padding: 20px; background: #f5f5f5; border-radius: 8px;">
+            <h4>Change Password</h4>
+            <div class="form-group" style="margin-top: 15px;">
+                <label>Current Password</label>
+                <input type="password" id="oldPassword" placeholder="Enter current password">
+            </div>
+            <div class="form-group">
+                <label>New Password</label>
+                <input type="password" id="newPassword" placeholder="Enter new password">
+            </div>
+            <div class="form-group">
+                <label>Confirm New Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm new password">
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button class="btn btn-primary" id="submitPasswordBtn">Update Password</button>
+                <button class="btn btn-secondary" id="cancelPasswordBtn">Cancel</button>
+            </div>
+        </div>
     </div>
 
     <!-- Danger Zone -->
@@ -170,18 +88,10 @@
         <div class="settings-list">
             <div class="settings-item">
                 <div class="settings-info">
-                    <h4>Deactivate Account</h4>
-                    <p>Temporarily disable your account</p>
-                </div>
-                <button class="btn btn-danger-outline">Deactivate</button>
-            </div>
-
-            <div class="settings-item">
-                <div class="settings-info">
                     <h4>Delete Account</h4>
                     <p>Permanently delete your account and all data</p>
                 </div>
-                <button class="btn btn-danger">Delete</button>
+                <button class="btn btn-danger" id="deleteAccountBtn">Delete Account</button>
             </div>
         </div>
     </div>

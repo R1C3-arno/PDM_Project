@@ -11,8 +11,7 @@
                 <i class="ri-money-dollar-circle-fill"></i>
             </div>
             <div class="stat-label">Total Borrowed</div>
-            <div class="stat-value">$17,000</div>
-            <div class="stat-change positive">+12% this month</div>
+            <div class="stat-value" id="totalBorrowed">$0</div>
         </div>
 
         <div class="stat-card">
@@ -20,8 +19,7 @@
                 <i class="ri-money-dollar-box-fill"></i>
             </div>
             <div class="stat-label">Outstanding Debt</div>
-            <div class="stat-value">$12,700</div>
-            <div class="stat-change negative">-8% from last month</div>
+            <div class="stat-value" id="outstandingDebt">$0</div>
         </div>
 
         <div class="stat-card">
@@ -29,8 +27,7 @@
                 <i class="ri-percent-fill"></i>
             </div>
             <div class="stat-label">Total Interest Paid</div>
-            <div class="stat-value">$1,850</div>
-            <div class="stat-change neutral">Average rate 10.2%</div>
+            <div class="stat-value" id="totalInterestPaid">$0</div>
         </div>
 
         <div class="stat-card">
@@ -38,8 +35,8 @@
                 <i class="ri-calendar-check-fill"></i>
             </div>
             <div class="stat-label">Next Payment</div>
-            <div class="stat-value">$1,400</div>
-            <div class="stat-change neutral">Due Nov 20, 2025</div>
+            <div class="stat-value" id="nextPaymentAmount">$0</div>
+            <div class="stat-change neutral" id="nextPaymentDate">-</div>
         </div>
     </div>
 
@@ -48,51 +45,12 @@
         <!-- Payment Progress -->
         <div class="card">
             <div class="card-title">Payment Progress</div>
-
-            <div class="progress-item">
-                <div class="progress-header">
-                    <span>Personal Loan #12345</span>
-                    <span class="progress-percent">80%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 80%"></div>
-                </div>
-                <div class="progress-detail">
-                    <span>Paid: $4,000</span>
-                    <span>Remaining: $1,000</span>
-                </div>
-            </div>
-
-            <div class="progress-item">
-                <div class="progress-header">
-                    <span>Business Loan #12340</span>
-                    <span class="progress-percent">15%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 15%"></div>
-                </div>
-                <div class="progress-detail">
-                    <span>Paid: $1,500</span>
-                    <span>Remaining: $8,500</span>
-                </div>
-            </div>
-
-            <div class="progress-item">
-                <div class="progress-header">
-                    <span>Car Loan #12338</span>
-                    <span class="progress-percent">45%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 45%"></div>
-                </div>
-                <div class="progress-detail">
-                    <span>Paid: $6,750</span>
-                    <span>Remaining: $8,250</span>
-                </div>
+            <div id="progressList">
+                <!-- Dynamically loaded -->
             </div>
         </div>
 
-        <!-- Loan.java Breakdown -->
+        <!-- Loan Breakdown -->
         <div class="card">
             <div class="card-title">Loan Breakdown</div>
 
@@ -102,7 +60,7 @@
                         <div class="breakdown-color" style="background: #667eea"></div>
                         <span>Principal Amount</span>
                     </div>
-                    <div class="breakdown-value">$12,700</div>
+                    <div class="breakdown-value" id="breakdownPrincipal">$0</div>
                 </div>
 
                 <div class="breakdown-item">
@@ -110,7 +68,7 @@
                         <div class="breakdown-color" style="background: #f093fb"></div>
                         <span>Interest Accrued</span>
                     </div>
-                    <div class="breakdown-value">$1,850</div>
+                    <div class="breakdown-value" id="breakdownInterest">$0</div>
                 </div>
 
                 <div class="breakdown-item">
@@ -118,26 +76,7 @@
                         <div class="breakdown-color" style="background: #4caf50"></div>
                         <span>Paid Amount</span>
                     </div>
-                    <div class="breakdown-value">$4,300</div>
-                </div>
-
-                <div class="breakdown-item">
-                    <div class="breakdown-label">
-                        <div class="breakdown-color" style="background: #ff9800"></div>
-                        <span>Processing Fees</span>
-                    </div>
-                    <div class="breakdown-value">$450</div>
-                </div>
-            </div>
-
-            <div class="chart-placeholder">
-                <div class="pie-chart">
-                    <svg viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="40" fill="#667eea" opacity="0.8"></circle>
-                        <circle cx="50" cy="50" r="30" fill="#f093fb" opacity="0.8"></circle>
-                        <circle cx="50" cy="50" r="20" fill="#4caf50" opacity="0.8"></circle>
-                        <circle cx="50" cy="50" r="10" fill="#ff9800" opacity="0.8"></circle>
-                    </svg>
+                    <div class="breakdown-value" id="breakdownPaid">$0</div>
                 </div>
             </div>
         </div>
@@ -153,45 +92,12 @@
                 <tr>
                     <th>Loan</th>
                     <th>Due Date</th>
-                    <th>Principal</th>
-                    <th>Interest</th>
                     <th>Total Amount</th>
                     <th>Status</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>Business Loan #12340</td>
-                    <td>Nov 20, 2025</td>
-                    <td>$800</td>
-                    <td>$100</td>
-                    <td class="amount-highlight">$900</td>
-                    <td><span class="status pending">Upcoming</span></td>
-                </tr>
-                <tr>
-                    <td>Personal Loan #12345</td>
-                    <td>Dec 15, 2025</td>
-                    <td>$450</td>
-                    <td>$50</td>
-                    <td class="amount-highlight">$500</td>
-                    <td><span class="status pending">Upcoming</span></td>
-                </tr>
-                <tr>
-                    <td>Car Loan #12338</td>
-                    <td>Dec 28, 2025</td>
-                    <td>$650</td>
-                    <td>$100</td>
-                    <td class="amount-highlight">$750</td>
-                    <td><span class="status pending">Upcoming</span></td>
-                </tr>
-                <tr>
-                    <td>Business Loan #12340</td>
-                    <td>Jan 20, 2026</td>
-                    <td>$800</td>
-                    <td>$100</td>
-                    <td class="amount-highlight">$900</td>
-                    <td><span class="status scheduled">Scheduled</span></td>
-                </tr>
+                <tbody id="paymentScheduleBody">
+                <!-- Dynamically loaded -->
                 </tbody>
             </table>
         </div>

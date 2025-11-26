@@ -1,5 +1,3 @@
-// /frontend/client/js/components/dashboard/transactions.js
-
 const DashboardTransactions = {
     async init() {
         await this.loadData();
@@ -12,6 +10,8 @@ const DashboardTransactions = {
             this.renderTable(transactions);
         } catch (error) {
             console.error('Error loading transactions:', error);
+            const tbody = document.getElementById('transactionsTableBody');
+            if (tbody) tbody.innerHTML = '<tr><td colspan="5">No transactions found</td></tr>';
         }
     },
 
@@ -19,19 +19,24 @@ const DashboardTransactions = {
         const tbody = document.getElementById('transactionsTableBody');
         if (!tbody) return;
 
+        if (!transactions || transactions.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5">No transactions found</td></tr>';
+            return;
+        }
+
         tbody.innerHTML = transactions.map(tx => {
             const amountClass = tx.amount > 0 ? 'positive' : 'negative';
             const amountSign = tx.amount > 0 ? '+' : '';
 
             return `
                 <tr>
-                    <td>${DashboardUtils.formatDate(tx.date)}</td>
-                    <td><span class="type-badge ${tx.type}">${DashboardUtils.capitalize(tx.type)}</span></td>
-                    <td>${tx.description}</td>
+                    <td>${DashboardUtils.formatDate(tx.transactionDate)}</td>
+                    <td><span class="type-badge ${tx.transactionType}">${DashboardUtils.capitalize(tx.transactionType || 'payment')}</span></td>
+                    <td>${tx.description || 'Transaction'}</td>
                     <td class="amount ${amountClass}">
                         ${amountSign}${DashboardUtils.formatCurrency(Math.abs(tx.amount))}
                     </td>
-                    <td><span class="status-badge ${tx.status}">${DashboardUtils.capitalize(tx.status)}</span></td>
+                    <td><span class="status-badge ${tx.status}">${DashboardUtils.capitalize(tx.status || 'pending')}</span></td>
                 </tr>
             `;
         }).join('');

@@ -7,14 +7,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/frontend/client/css/loan_application/style.css">
-
 </head>
 <body>
 <div class="container">
-    <!-- Left Sidebar - Steps -->
     <div class="sidebar">
         <div class="sidebar-content">
-            <!-- Step 1 -->
             <div class="step-item">
                 <div id="step1-icon" class="step-icon active">1</div>
                 <div>
@@ -23,31 +20,26 @@
             </div>
             <div class="step-divider"></div>
 
-            <!-- Step 2 -->
             <div class="step-item">
                 <div id="step2-icon" class="step-icon inactive">2</div>
                 <div>
-                    <div id="step2-text" class="step-text inactive">Personal Details</div>
+                    <div id="step2-text" class="step-text inactive">Contact Info</div>
                 </div>
             </div>
             <div class="step-divider"></div>
 
-            <!-- Step 3 -->
             <div class="step-item">
                 <div id="step3-icon" class="step-icon inactive">3</div>
                 <div>
-                    <div id="step3-text" class="step-text inactive">Documents Upload</div>
+                    <div id="step3-text" class="step-text inactive">Confirmation</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Right Content Area -->
     <div class="main-content">
         <div class="content-card">
-            <!-- Step 1: Loan.java Details -->
             <div id="step1-content">
-                <!-- Loan.java Type Cards -->
                 <div class="loan-types">
                     <button class="loan-type-btn">
                         <div><i class="fas fa-user"></i></div>
@@ -67,58 +59,42 @@
                     </button>
                 </div>
 
-                <!-- Dropdowns -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Choose your financing type</label>
-                        <select class="form-select">
-                            <option>Debt Financing</option>
-                            <option>Equity Financing</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Choose your preferred bank service</label>
-                        <select class="form-select">
-                            <option>Individual Banking</option>
-                            <option>Corporate Banking</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Loan.java Amount -->
                 <div class="form-group">
                     <label class="form-label">Your loan amount</label>
-                    <input type="text" placeholder="$" class="form-input">
+                    <input type="text" id="loanAmountDisplay" placeholder="$" class="form-input" readonly>
                 </div>
 
-                <!-- Loan.java Duration -->
                 <div class="form-group">
                     <label class="form-label">Loan duration</label>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="duration">
+                            <input type="radio" name="duration" value="12">
                             <span>12 months</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="duration">
+                            <input type="radio" name="duration" value="18">
                             <span>18 months</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="duration">
+                            <input type="radio" name="duration" value="24">
                             <span>24 months</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="duration">
+                            <input type="radio" name="duration" value="36">
                             <span>36 months</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="duration">
+                            <input type="radio" name="duration" value="48">
                             <span>48 months</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- Navigation -->
+                <div class="form-group">
+                    <label class="form-label">Purpose</label>
+                    <textarea id="loanPurpose" class="form-input" rows="3" placeholder="Enter loan purpose"></textarea>
+                </div>
+
                 <div class="nav-buttons">
                     <div></div>
                     <button onclick="goToStep(2)" class="btn btn-primary">
@@ -127,91 +103,17 @@
                 </div>
             </div>
 
-            <!-- Step 2: Personal Details -->
             <div id="step2-content" class="hidden">
-                <!-- Name -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">First Name*</label>
-                        <input type="text" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Last Name*</label>
-                        <input type="text" class="form-input">
-                    </div>
-                </div>
-
-                <!-- Date of Birth & Marital Status -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Date of Birth*</label>
-                        <div class="date-group">
-                            <select class="form-select">
-                                <option>Day</option>
-                            </select>
-                            <select class="form-select">
-                                <option>Month</option>
-                            </select>
-                            <select class="form-select">
-                                <option>Year</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Marital Status*</label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="marital">
-                                <span>Single</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="marital">
-                                <span>Married</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Email & Mobile -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <input type="email" placeholder="examplename@example.com" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Mobile Number*</label>
-                        <div class="phone-group">
-                            <select class="form-select">
-                                <option>🇧🇩 +880</option>
-                            </select>
-                            <input type="tel" class="form-input">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Present Address -->
                 <div class="form-group">
-                    <label class="form-label">Present Address*</label>
-                    <input type="text" class="form-input">
+                    <label class="form-label">Phone Number*</label>
+                    <input type="tel" id="phoneNumber" class="form-input" placeholder="Enter your phone number">
                 </div>
 
-                <!-- State, City, Zip -->
-                <div class="address-grid">
-                    <div class="form-group">
-                        <label class="form-label">State*</label>
-                        <input type="text" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">City*</label>
-                        <input type="text" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Postal / Zip Code*</label>
-                        <input type="text" class="form-input">
-                    </div>
+                <div class="form-group">
+                    <label class="form-label">Address</label>
+                    <textarea id="address" class="form-input" rows="3" placeholder="Enter your address"></textarea>
                 </div>
 
-                <!-- Navigation -->
                 <div class="nav-buttons">
                     <button onclick="goToStep(1)" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Previous
@@ -222,43 +124,41 @@
                 </div>
             </div>
 
-            <!-- Step 3: Documents Upload -->
             <div id="step3-content" class="hidden">
-                <!-- Instructions -->
                 <div class="instructions">
                     <div class="instruction-item">
                         <span>1.</span>
-                        <p>Selfie Photo. Your Personal Photo. The photo must be done by yourself. The photo must show your face and your both shoulders. (Please attach file )</p>
+                        <p>Upload your ID Card or Passport (Front and Back)</p>
                     </div>
                     <div class="instruction-item">
                         <span>2.</span>
-                        <p>ID Card. Valid Government ID Card. Front and Back side. Original ID Card. Full photo. All parts of the ID card must be shown. The four corners of the ID card must show on the photo. ID must be original and valid. ID card must be very clear. (Please attach file) *</p>
+                        <p>Upload your Signature Document</p>
                     </div>
                 </div>
 
-                <!-- Upload Area -->
-                <div class="upload-area">
+                <div class="upload-area" onclick="document.getElementById('fileUpload').click()">
                     <div>
                         <i class="fas fa-file-upload"></i>
                     </div>
-                    <h3>Drag and drop an image</h3>
-                    <p>or to <a href="#">Browse</a> choose a file</p>
-                    <p style="font-size: 12px; margin-top: 0.5rem; color: var(--text-tertiary);">PNG, JPG, PDF</p>
+                    <h3>Drag and drop files here</h3>
+                    <p>or <a href="#">Browse</a> to choose files</p>
+                    <p style="font-size: 12px; margin-top: 0.5rem; color: var(--text-tertiary);">PNG, JPG, PDF, DOCX</p>
+                    <input type="file" id="fileUpload" multiple accept=".png,.jpg,.jpeg,.pdf,.docx" style="display: none;">
                 </div>
 
-                <!-- Checkbox -->
+                <div id="fileList" style="margin-top: 1rem;"></div>
+
                 <div class="checkbox-group">
-                    <input type="checkbox">
-                    <label>I hereby agree that the information given is true, accurate and complete as of the date of this application submission. **</label>
+                    <input type="checkbox" id="agreeTerms">
+                    <label>I hereby agree that the information given is true, accurate and complete.</label>
                 </div>
 
-                <!-- Navigation -->
                 <div class="nav-buttons">
                     <button onclick="goToStep(2)" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Previous
                     </button>
-                    <button class="btn btn-primary">
-                        Submit
+                    <button onclick="submitLoanApplication()" class="btn btn-primary">
+                        Submit Application
                     </button>
                 </div>
             </div>

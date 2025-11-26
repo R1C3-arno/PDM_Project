@@ -1,6 +1,9 @@
 package com.loanweb.app.controller;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.*;
 
 @RestController
@@ -16,13 +19,28 @@ public class ForecastController {
         List<Double> interest = new ArrayList<>();
         List<Double> rent = new ArrayList<>();
 
+        double monthlyPayment = (req.getLoanAmount() * (req.getInterestRate() / 100 / 12) *
+                Math.pow(1 + req.getInterestRate() / 100 / 12, req.getLoanTermMonths())) /
+                (Math.pow(1 + req.getInterestRate() / 100 / 12, req.getLoanTermMonths()) - 1);
+
+        double remainingBalance = req.getLoanAmount();
+
         for (int i = 0; i < years; i++) {
             yearLabels.add(2022 + i);
 
-            double yearlyPayment = req.getLoanAmount() / req.getLoanTermMonths() * 12;
-            double yearlyInterest = req.getLoanAmount() * (req.getInterestRate() / 100);
+            double yearlyPrincipal = 0;
+            double yearlyInterest = 0;
 
-            principal.add(yearlyPayment - yearlyInterest);
+            for (int month = 0; month < 12 && remainingBalance > 0; month++) {
+                double interestPayment = remainingBalance * (req.getInterestRate() / 100 / 12);
+                double principalPayment = monthlyPayment - interestPayment;
+
+                yearlyPrincipal += principalPayment;
+                yearlyInterest += interestPayment;
+                remainingBalance -= principalPayment;
+            }
+
+            principal.add(yearlyPrincipal);
             interest.add(yearlyInterest);
             rent.add(1500.0 + (i * 150));
         }

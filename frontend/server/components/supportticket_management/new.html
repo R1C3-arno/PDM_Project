@@ -1,0 +1,78 @@
+<div id="newTicketPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[150]">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+
+            <div class="bg-green-500 text-white px-6 py-4 rounded-t-lg flex justify-between items-center">
+                <h3 class="text-xl font-bold">Create New Ticket</h3>
+                <button onclick="closeNewTicketPopup()" class="text-2xl hover:text-gray-200">&times;</button>
+            </div>
+
+            <div class="p-6">
+                <div class="text-center mb-6">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-green-500 text-white flex items-center justify-center text-3xl">
+                        🎫
+                    </div>
+                    <p class="text-gray-600 text-sm mt-3">Fill in the details to create a new support ticket</p>
+                </div>
+
+                <form id="newTicketForm" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">User ID <span class="text-red-500">*</span></label>
+                        <input type="number" id="newTicketUserId"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Subject <span class="text-red-500">*</span></label>
+                        <input type="text" id="newTicketSubject"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Description</label>
+                        <textarea id="newTicketDescription" rows="3"
+                                  class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Category <span class="text-red-500">*</span></label>
+                        <select id="newTicketCategory" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500" required>
+                            <option value="">Select category...</option>
+                            <option value="Technical">Technical</option>
+                            <option value="Billing">Billing</option>
+                            <option value="Account">Account</option>
+                            <option value="General">General</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Priority <span class="text-red-500">*</span></label>
+                        <select id="newTicketPriority" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500" required>
+                            <option value="">Select priority...</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                            <option value="Urgent">Urgent</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Assigned To</label>
+                        <input type="number" id="newTicketAssigned"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-gray-50 px-6 py-4 rounded-b-lg flex justify-end gap-3">
+                <button onclick="closeNewTicketPopup()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition">
+                    Cancel
+                </button>
+                <button onclick="createNewTicket()" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
+                    Create Ticket
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

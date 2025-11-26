@@ -7,7 +7,7 @@
     <!-- Balance Card -->
     <div class="balance-card">
         <div class="balance-label">Total Balance</div>
-        <div class="balance-amount">$12,450.00</div>
+        <div class="balance-amount" id="totalBalance">$0.00</div>
         <div class="balance-actions">
             <button class="btn btn-white">
                 <i class="ri-add-line"></i>
@@ -26,81 +26,32 @@
             <div class="stat-icon blue">
                 <i class="ri-wallet-3-fill"></i>
             </div>
-            <div class="stat-label">Available Balance</div>
-            <div class="stat-value">$8,200.00</div>
+            <div class="stat-label">Available Credit</div>
+            <div class="stat-value" id="availableCredit">$0.00</div>
         </div>
 
         <div class="stat-card">
             <div class="stat-icon green">
                 <i class="ri-arrow-down-line"></i>
             </div>
-            <div class="stat-label">Total Received</div>
-            <div class="stat-value">$25,800.00</div>
+            <div class="stat-label">Total Borrowed</div>
+            <div class="stat-value" id="totalBorrowed">$0.00</div>
         </div>
 
         <div class="stat-card">
             <div class="stat-icon orange">
                 <i class="ri-arrow-up-line"></i>
             </div>
-            <div class="stat-label">Total Paid</div>
-            <div class="stat-value">$13,350.00</div>
+            <div class="stat-label">Total Repaid</div>
+            <div class="stat-value" id="totalRepaid">$0.00</div>
         </div>
     </div>
 
     <!-- Recent Transactions -->
     <div class="card">
         <div class="card-title">Recent Transactions</div>
-
-        <div class="transaction-item">
-            <div class="transaction-info">
-                <div class="transaction-icon in">
-                    <i class="ri-arrow-down-line"></i>
-                </div>
-                <div class="transaction-details">
-                    <h4>Loan Disbursement</h4>
-                    <p>Nov 14, 2025 - 10:30 AM</p>
-                </div>
-            </div>
-            <div class="transaction-amount positive">+$5,000.00</div>
-        </div>
-
-        <div class="transaction-item">
-            <div class="transaction-info">
-                <div class="transaction-icon out">
-                    <i class="ri-arrow-up-line"></i>
-                </div>
-                <div class="transaction-details">
-                    <h4>Loan Repayment</h4>
-                    <p>Nov 10, 2025 - 02:15 PM</p>
-                </div>
-            </div>
-            <div class="transaction-amount negative">-$500.00</div>
-        </div>
-
-        <div class="transaction-item">
-            <div class="transaction-info">
-                <div class="transaction-icon out">
-                    <i class="ri-arrow-up-line"></i>
-                </div>
-                <div class="transaction-details">
-                    <h4>Interest Payment</h4>
-                    <p>Nov 5, 2025 - 09:00 AM</p>
-                </div>
-            </div>
-            <div class="transaction-amount negative">-$150.00</div>
-        </div>
-
-        <div class="transaction-item">
-            <div class="transaction-info">
-                <div class="transaction-icon in">
-                    <i class="ri-arrow-down-line"></i>
-                </div>
-                <div class="transaction-details">
-                    <h4>Deposit</h4>
-                    <p>Nov 1, 2025 - 11:45 AM</p>
-                </div>
-            </div>
-            <div class="transaction-amount positive">+$2,000.00</div>
+        <div id="transactionsList">
+            <!-- Dynamically loaded -->
         </div>
     </div>
 </div>

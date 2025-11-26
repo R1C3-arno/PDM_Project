@@ -1,135 +1,131 @@
 fetch('/frontend/server/components/notification_management/main.html')
-    .then(response => response.text())
+    .then(r => r.text())
     .then(html => {
         document.getElementById('mainContent').innerHTML = html;
+        loadNotifications();
     });
 
-fetch('/frontend/server/components/notification_management/view.html')  // Đường dẫn tương đối
-    .then(response => response.text())
-    .then(html => {
-        document.getElementById('popupContainer').innerHTML = html;
-    });
+fetch('/frontend/server/components/notification_management/view.html')
+    .then(r => r.text())
+    .then(html => document.getElementById('popupContainer').innerHTML = html);
 
 fetch('/frontend/server/components/notification_management/new.html')
-    .then(response => response.text())
-    .then(html => {
-        document.getElementById('newContainer').innerHTML = html;
-    });
+    .then(r => r.text())
+    .then(html => document.getElementById('newContainer').innerHTML = html);
 
 
+function loadNotifications() {
+    fetch('/api/notifications')
+        .then(r => r.json())
+        .then(notifications => {
+            const tbody = document.querySelector('tbody');
+            tbody.innerHTML = notifications.map(noti => {
+                const typeColors = {
+                    'Success': 'bg-green-100 text-green-600',
+                    'Info': 'bg-blue-100 text-blue-600',
+                    'Warning': 'bg-yellow-100 text-yellow-600',
+                    'Error': 'bg-red-100 text-red-600'
+                };
+                const statusColor = noti.isRead ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-600';
+                const rowBg = noti.isRead ? '' : 'bg-yellow-50';
 
-// Toggle send notification form
-document.querySelector('.bg-green-500').addEventListener('click', function() {
-    const form = document.getElementById('send-notification-form');
-    form.classList.toggle('hidden');
-});
-
-
-// View
-function openNotificationPopup(notiId) {
-    const notifications = {
-        'N001': {
-            id: '#N001',
-            userId: 'U12345',
-            title: 'Loan.java Approved',
-            message: 'Your loan application has been approved',
-            type: 'Success',
-            status: 'Read',
-            created: 'Jan 15, 2025'
-        },
-        'N002': {
-            id: '#N002',
-            userId: 'U12345',
-            title: 'Loan.java Approved',
-            message: 'Your loan application has been approved',
-            type: 'Success',
-            status: 'Read',
-            created: 'Jan 15, 2025'
-        }
-    };
-
-    const noti = notifications[notiId];
-    document.getElementById('notiPopupId').textContent = noti.id;
-    document.getElementById('notiPopupTitle').textContent = noti.title;
-    document.getElementById('notiPopupUserId').textContent = noti.userId;
-    document.getElementById('notiPopupMessage').textContent = noti.message;
-    document.getElementById('notiPopupType').textContent = noti.type;
-    document.getElementById('notiPopupStatus').textContent = noti.status;
-    document.getElementById('notiPopupCreated').textContent = noti.created;
-
-    document.getElementById('notificationPopup').classList.remove('hidden');
+                return `
+                    <tr class="hover:bg-gray-50 ${rowBg}">
+                        <td class="px-6 py-4 text-sm font-semibold">#${noti.id}</td>
+                        <td class="px-6 py-4 text-sm">${noti.userId}</td>
+                        <td class="px-6 py-4 text-sm font-semibold">${noti.title}</td>
+                        <td class="px-6 py-4 text-sm">${noti.message.substring(0, 50)}...</td>
+                        <td class="px-6 py-4">
+                            <span class="px-3 py-1 text-xs rounded-full ${typeColors[noti.type] || 'bg-gray-100 text-gray-600'}">${noti.type}</span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="px-3 py-1 text-xs rounded-full ${statusColor}">${noti.isRead ? 'Read' : 'Unread'}</span>
+                        </td>
+                        <td class="px-6 py-4 text-sm">${noti.createdAt || 'N/A'}</td>
+                        <td class="px-6 py-4">
+                            <div class="flex gap-2">
+                                <button onclick="openNotificationPopup(${noti.id})" class="text-blue-600 hover:text-blue-800">👁️</button>
+                                <button onclick="deleteNotification(${noti.id})" class="text-red-600 hover:text-red-800">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        });
 }
 
-function closeNotificationPopup() {
+
+window.openNotificationPopup = function(id) {
+    fetch(`/api/notifications/${id}`)
+        .then(r => r.json())
+        .then(noti => {
+            const typeColors = {
+                'Success': 'bg-green-100 text-green-600',
+                'Info': 'bg-blue-100 text-blue-600',
+                'Warning': 'bg-yellow-100 text-yellow-600',
+                'Error': 'bg-red-100 text-red-600'
+            };
+            const statusColor = noti.isRead ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-600';
+
+            document.getElementById('notiPopupId').textContent = `#${noti.id}`;
+            document.getElementById('notiPopupTitle').textContent = noti.title;
+            document.getElementById('notiPopupUserId').textContent = noti.userId;
+            document.getElementById('notiPopupMessage').textContent = noti.message;
+            document.getElementById('notiPopupCreated').textContent = noti.createdAt || 'N/A';
+
+            const typeEl = document.getElementById('notiPopupType');
+            typeEl.textContent = noti.type;
+            typeEl.className = `px-3 py-1 text-xs rounded-full ${typeColors[noti.type] || 'bg-gray-100 text-gray-600'}`;
+
+            const statusEl = document.getElementById('notiPopupStatus');
+            statusEl.textContent = noti.isRead ? 'Read' : 'Unread';
+            statusEl.className = `px-3 py-1 text-xs rounded-full ${statusColor}`;
+
+            document.getElementById('notificationPopup').classList.remove('hidden');
+        });
+}
+
+window.closeNotificationPopup = function() {
     document.getElementById('notificationPopup').classList.add('hidden');
 }
 
 
-
-
-// New Notification
-function openNewNotificationPopup() {
-    // Auto-generate new Notification ID
-    const newId = '#N' + String(Math.floor(Math.random() * 1000)).padStart(3, '0');
-    document.getElementById('newNotificationId').value = newId;
-
-    // Set default created date to today
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('newNotificationCreated').value = today;
-
-    // Reset form
+window.openNewNotificationPopup = function() {
     document.getElementById('newNotificationForm').reset();
-    document.getElementById('newNotificationId').value = newId;
-    document.getElementById('newNotificationCreated').value = today;
-    document.getElementById('newNotificationPriority').value = 'Medium';
-
     document.getElementById('newNotificationPopup').classList.remove('hidden');
 }
 
-function closeNewNotificationPopup() {
+window.closeNewNotificationPopup = function() {
     document.getElementById('newNotificationPopup').classList.add('hidden');
 }
 
-function createNewNotification() {
-    // Get form values
-    const newNotification = {
-        id: document.getElementById('newNotificationId').value,
+window.createNewNotification = function() {
+    const data = {
         userId: document.getElementById('newNotificationUserId').value,
         title: document.getElementById('newNotificationTitle').value,
         message: document.getElementById('newNotificationMessage').value,
         type: document.getElementById('newNotificationType').value,
-        created: document.getElementById('newNotificationCreated').value,
-        priority: document.getElementById('newNotificationPriority').value,
-        sendNow: document.getElementById('newNotificationSendNow').checked
+        isRead: false
     };
 
-    // Validate required fields
-    if (!newNotification.userId || !newNotification.title || !newNotification.message ||
-        !newNotification.type || !newNotification.status || !newNotification.created) {
-        alert('Please fill in all required fields!');
-        return;
-    }
-
-    // Validate title length
-    if (newNotification.title.length < 3) {
-        alert('Title must be at least 3 characters long!');
-        return;
-    }
-
-    // Validate message length
-    if (newNotification.message.length < 10) {
-        alert('Message must be at least 10 characters long!');
-        return;
-    }
-
-    console.log('Creating new notification:', newNotification);
-
-    // TODO: Send to backend API
-    if (newNotification.sendNow) {
-        alert('Notification created and sent successfully!');
-    } else {
+    fetch('/api/notifications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).then(() => {
+        closeNewNotificationPopup();
+        loadNotifications();
         alert('Notification created successfully!');
-    }
+    });
+}
 
-    closeNewNotificationPopup();
+
+window.deleteNotification = function(id) {
+    if (confirm('Delete this notification?')) {
+        fetch(`/api/notifications/${id}`, { method: 'DELETE' })
+            .then(() => {
+                loadNotifications();
+                alert('Notification deleted successfully!');
+            });
+    }
 }

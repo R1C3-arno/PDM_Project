@@ -1,68 +1,81 @@
-// /frontend/client/js/components/dashboard/api.js
-
 const DashboardAPI = {
-    // Fetch user information
     async getUserInfo() {
-        return await API_CONFIG.request(API_CONFIG.ENDPOINTS.USER_INFO);
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || !user.id) throw new Error('User not logged in');
+        return await fetch(`http://localhost:8080/api/users/${user.id}`).then(r => r.json());
     },
 
-    // Fetch wallet balance and stats
     async getWalletStats() {
-        return await API_CONFIG.request(API_CONFIG.ENDPOINTS.USER_STATS);
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || !user.id) throw new Error('User not logged in');
+        return await fetch(`http://localhost:8080/api/users/${user.id}/stats`).then(r => r.json());
     },
 
-    // Fetch active loans
     async getActiveLoans() {
-        return await API_CONFIG.request(API_CONFIG.ENDPOINTS.LOANS_ACTIVE);
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || !user.id) throw new Error('User not logged in');
+        return await fetch(`http://localhost:8080/api/loans/active?userId=${user.id}`).then(r => r.json());
     },
 
-    // Fetch recent activity
     async getRecentTransactions(limit = 5) {
-        return await API_CONFIG.request(
-            `${API_CONFIG.ENDPOINTS.TRANSACTIONS_RECENT}?limit=${limit}`
-        );
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || !user.id) throw new Error('User not logged in');
+        return await fetch(`http://localhost:8080/api/transactions/recent?userId=${user.id}&limit=${limit}`).then(r => r.json());
     },
 
-    // Fetch chart data
     async getChartTrends(months = 6) {
-        return await API_CONFIG.request(
-            `${API_CONFIG.ENDPOINTS.CHARTS_TRENDS}?months=${months}`
-        );
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || !user.id) throw new Error('User not logged in');
+        return await fetch(`http://localhost:8080/api/charts/trends?userId=${user.id}&months=${months}`).then(r => r.json());
     },
 
     async getChartDistribution() {
-        return await API_CONFIG.request(API_CONFIG.ENDPOINTS.CHARTS_DISTRIBUTION);
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || !user.id) throw new Error('User not logged in');
+        return await fetch(`http://localhost:8080/api/charts/distribution?userId=${user.id}`).then(r => r.json());
     },
 
     async getChartMonthly() {
-        return await API_CONFIG.request(API_CONFIG.ENDPOINTS.CHARTS_MONTHLY);
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || !user.id) throw new Error('User not logged in');
+        return await fetch(`http://localhost:8080/api/charts/monthly?userId=${user.id}`).then(r => r.json());
     },
 
-    // Fetch upcoming payment reminders
     async getUpcomingReminders() {
-        return await API_CONFIG.request(API_CONFIG.ENDPOINTS.REMINDERS_UPCOMING);
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || !user.id) throw new Error('User not logged in');
+        return await fetch(`http://localhost:8080/api/reminders/upcoming?userId=${user.id}`).then(r => r.json());
     },
 
-    // Action endpoints
     async addFunds(amount) {
-        return await API_CONFIG.request(API_CONFIG.ENDPOINTS.WALLET_ADD_FUNDS, {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || !user.id) throw new Error('User not logged in');
+        return await fetch(`http://localhost:8080/api/wallet/add-funds`, {
             method: 'POST',
-            body: JSON.stringify({ amount })
-        });
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: user.id, amount })
+        }).then(r => r.json());
     },
 
     async requestLoan(loanData) {
-        return await API_CONFIG.request(API_CONFIG.ENDPOINTS.LOANS_REQUEST, {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || !user.id) throw new Error('User not logged in');
+        loanData.userId = user.id;
+        return await fetch(`http://localhost:8080/api/loans`, {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(loanData)
-        });
+        }).then(r => r.json());
     },
 
     async repayLoan(loanId, amount) {
-        return await API_CONFIG.request(API_CONFIG.ENDPOINTS.LOANS_REPAY, {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || !user.id) throw new Error('User not logged in');
+        return await fetch(`http://localhost:8080/api/loans/repay`, {
             method: 'POST',
-            body: JSON.stringify({ loanId, amount })
-        });
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: user.id, loanId, amount })
+        }).then(r => r.json());
     }
 };
 

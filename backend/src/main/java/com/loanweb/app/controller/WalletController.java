@@ -14,17 +14,32 @@ public class WalletController {
     private WalletService service;
 
     @GetMapping
-    public List<Wallet> getAll() { return service.getAll(); }
+    public List<Wallet> getAll() {
+        return service.getAll();
+    }
 
     @GetMapping("/{id}")
-    public Wallet getById(@PathVariable Long id) { return service.getById(id); }
+    public Wallet getById(@PathVariable Long id) {
+        return service.getById(id);
+    }
+
+    @GetMapping("/user/{userId}")
+    public Wallet getByUserId(@PathVariable Long userId) {
+        return service.getByUserId(userId);
+    }
 
     @PostMapping
-    public Wallet create(@RequestBody Wallet wallet) { return service.create(wallet); }
+    public Wallet create(@RequestBody Wallet wallet) {
+        return service.create(wallet);
+    }
 
     @PutMapping("/{id}")
-    public Wallet update(@PathVariable Long id, @RequestBody Wallet wallet) { return service.update(id, wallet); }
+    public Wallet update(@PathVariable Long id, @RequestBody Wallet wallet) {
+        return service.update(id, wallet);
+    }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) { service.delete(id); }
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
+    }
 }

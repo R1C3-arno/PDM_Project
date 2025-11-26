@@ -1,88 +1,62 @@
-<!-- Print Transaction Receipt Popup -->
 <div id="printTransactionPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[150]">
     <div class="flex items-center justify-center min-h-screen p-4">
         <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
 
-            <!-- Header -->
             <div class="bg-purple-500 text-white px-6 py-4 rounded-t-lg flex justify-between items-center">
                 <h3 class="text-xl font-bold">🖨️ Transaction Receipt</h3>
                 <button onclick="closePrintTransactionPopup()" class="text-2xl hover:text-gray-200">&times;</button>
             </div>
 
-            <!-- Body - Receipt Content -->
             <div class="p-6" id="receiptContent">
 
-                <!-- Company Header -->
                 <div class="text-center mb-6 pb-4 border-b-2">
                     <h2 class="text-2xl font-bold text-gray-800">HCMIU Lending System</h2>
                     <p class="text-sm text-gray-600">123 Nguyen Hue St., District 1, HCMC</p>
                     <p class="text-sm text-gray-600">Phone: +84 123 456 789</p>
                 </div>
 
-                <!-- Receipt Title -->
                 <div class="text-center mb-6">
                     <h3 class="text-xl font-bold text-gray-800">TRANSACTION RECEIPT</h3>
                     <p class="text-sm text-gray-500 mt-2">Date: <span id="printCurrentDate"></span></p>
                 </div>
 
-                <!-- Transaction Details -->
                 <div class="mb-6">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="border-b pb-2">
                             <p class="text-sm text-gray-500">Transaction ID</p>
-                            <p id="printTxId" class="font-bold text-lg">#TX001</p>
+                            <p id="printTxId" class="font-bold text-lg"></p>
                         </div>
                         <div class="border-b pb-2">
                             <p class="text-sm text-gray-500">Reference</p>
-                            <p id="printTxReference" class="font-bold text-lg">REF20250115001</p>
+                            <p id="printTxReference" class="font-bold text-lg"></p>
                         </div>
                         <div class="border-b pb-2">
                             <p class="text-sm text-gray-500">User ID</p>
-                            <p id="printTxUserId" class="font-medium">U12345</p>
+                            <p id="printTxUserId" class="font-medium"></p>
                         </div>
                         <div class="border-b pb-2">
                             <p class="text-sm text-gray-500">Loan ID</p>
-                            <p id="printTxLoanId" class="font-medium">L001</p>
+                            <p id="printTxLoanId" class="font-medium"></p>
                         </div>
                         <div class="border-b pb-2">
                             <p class="text-sm text-gray-500">Type</p>
-                            <p id="printTxType" class="font-medium">Payment</p>
+                            <p id="printTxType" class="font-medium"></p>
                         </div>
                         <div class="border-b pb-2">
                             <p class="text-sm text-gray-500">Status</p>
-                            <p id="printTxStatus" class="font-medium text-green-600">Completed</p>
+                            <p id="printTxStatus" class="font-medium"></p>
                         </div>
                         <div class="border-b pb-2">
                             <p class="text-sm text-gray-500">Date</p>
-                            <p id="printTxDate" class="font-medium">Jan 15, 2025</p>
+                            <p id="printTxDate" class="font-medium"></p>
                         </div>
                         <div class="border-b pb-2">
                             <p class="text-sm text-gray-500">Amount</p>
-                            <p id="printTxAmount" class="font-bold text-2xl text-green-600">$1,500</p>
+                            <p id="printTxAmount" class="font-bold text-2xl text-green-600"></p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Footer Note -->
                 <div class="mt-8 pt-4 border-t text-center">
                     <p class="text-sm text-gray-500">Thank you for your transaction!</p>
-                    <p class="text-xs text-gray-400 mt-2">This is a computer-generated receipt. No signature required.</p>
-                </div>
-
-            </div>
-
-            <!-- Footer - Action Buttons -->
-            <div class="bg-gray-50 px-6 py-4 rounded-b-lg flex justify-end gap-3">
-                <button onclick="closePrintTransactionPopup()"
-                        class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
-                    Close
-                </button>
-                <button onclick="printReceipt()"
-                        class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">
-                    🖨️ Print
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>
+                    <p class="

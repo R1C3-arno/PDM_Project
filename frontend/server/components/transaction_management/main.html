@@ -1,34 +1,31 @@
-<!-- Transaction Management Section -->
 <main>
-    <!-- Header với Search & Actions -->
     <div class="bg-white rounded-lg shadow p-6 mb-6">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-2xl font-bold text-gray-800">Transaction Management</h2>
-            <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
-                + New Transaction
+            <button onclick="openNewTransactionPopup()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 flex items-center gap-2">
+                <i class='bx bx-plus'></i> New Transaction
             </button>
         </div>
 
         <div class="flex gap-4">
-            <input type="text" placeholder="🔍 Search by Transaction ID, User ID, or Reference..."
-                   class="flex-1 px-4 py-2 border rounded-lg">
-            <select class="px-4 py-2 border rounded-lg">
-                <option>All Types</option>
-                <option>Payment</option>
-                <option>Disbursement</option>
-                <option>Refund</option>
-                <option>Fee</option>
+            <input type="text" id="searchInput" placeholder="🔍 Search by Transaction ID, User ID, or Reference..."
+                   class="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+            <select id="filterType" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                <option value="">All Types</option>
+                <option value="Payment">Payment</option>
+                <option value="Disbursement">Disbursement</option>
+                <option value="Refund">Refund</option>
+                <option value="Fee">Fee</option>
             </select>
-            <select class="px-4 py-2 border rounded-lg">
-                <option>All Status</option>
-                <option>Completed</option>
-                <option>Pending</option>
-                <option>Failed</option>
+            <select id="filterStatus" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                <option value="">All Status</option>
+                <option value="Completed">Completed</option>
+                <option value="Pending">Pending</option>
+                <option value="Failed">Failed</option>
             </select>
         </div>
     </div>
 
-    <!-- Table -->
     <div class="bg-white rounded-lg shadow overflow-hidden">
         <table class="w-full">
             <thead class="bg-gray-50 border-b">
@@ -44,68 +41,7 @@
                 <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Actions</th>
             </tr>
             </thead>
-            <tbody class="divide-y">
-            <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4 text-sm font-semibold">#TX001</td>
-                <td class="px-6 py-4 text-sm">U12345</td>
-                <td class="px-6 py-4 text-sm">L001</td>
-                <td class="px-6 py-4">
-                    <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-600">Payment</span>
-                </td>
-                <td class="px-6 py-4 text-sm font-semibold text-green-600">$1,500</td>
-                <td class="px-6 py-4">
-                    <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-600">Completed</span>
-                </td>
-                <td class="px-6 py-4 text-sm">Jan 15, 2025</td>
-                <td class="px-6 py-4 text-sm text-gray-500">REF20250115001</td>
-                <td class="px-6 py-4">
-                    <div class="flex gap-2">
-                        <button onclick="openTransactionPopup('TX001')" class="text-blue-600 hover:text-blue-800" title="View">👁️</button>
-                        <button onclick="openPrintTransactionPopup('TX001')" class="text-purple-600 hover:text-purple-800" title="Print Receipt">🖨️</button>
-                    </div>
-                </td>
-            </tr>
-            <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4 text-sm font-semibold">#TX002</td>
-                <td class="px-6 py-4 text-sm">U67890</td>
-                <td class="px-6 py-4 text-sm">L002</td>
-                <td class="px-6 py-4">
-                    <span class="px-3 py-1 text-xs rounded-full bg-purple-100 text-purple-600">Disbursement</span>
-                </td>
-                <td class="px-6 py-4 text-sm font-semibold text-blue-600">$50,000</td>
-                <td class="px-6 py-4">
-                    <span class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-600">Pending</span>
-                </td>
-                <td class="px-6 py-4 text-sm">Jan 16, 2025</td>
-                <td class="px-6 py-4 text-sm text-gray-500">REF20250116002</td>
-                <td class="px-6 py-4">
-                    <div class="flex gap-2">
-                        <button onclick="openTransactionPopup('TX002')" class="text-blue-600 hover:text-blue-800">👁️</button>
-                        <button onclick="openPrintTransactionPopup('TX002')" class="text-purple-600 hover:text-purple-800">🖨️</button>
-                    </div>
-                </td>
-            </tr>
-            <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4 text-sm font-semibold">#TX003</td>
-                <td class="px-6 py-4 text-sm">U54321</td>
-                <td class="px-6 py-4 text-sm">L003</td>
-                <td class="px-6 py-4">
-                    <span class="px-3 py-1 text-xs rounded-full bg-orange-100 text-orange-600">Refund</span>
-                </td>
-                <td class="px-6 py-4 text-sm font-semibold text-orange-600">$500</td>
-                <td class="px-6 py-4">
-                    <span class="px-3 py-1 text-xs rounded-full bg-red-100 text-red-600">Failed</span>
-                </td>
-                <td class="px-6 py-4 text-sm">Jan 14, 2025</td>
-                <td class="px-6 py-4 text-sm text-gray-500">REF20250114003</td>
-                <td class="px-6 py-4">
-                    <div class="flex gap-2">
-                        <button onclick="openTransactionPopup('TX003')" class="text-blue-600 hover:text-blue-800">👁️</button>
-                        <button onclick="openPrintTransactionPopup('TX003')" class="text-purple-600 hover:text-purple-800">🖨️</button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
+            <tbody class="divide-y"></tbody>
         </table>
     </div>
 </main>

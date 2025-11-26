@@ -44,6 +44,9 @@ function calculate() {
     const totalAmount = monthlyPayment * n;
     const interest = totalAmount - P;
 
+    loanData.monthlyPayment = monthlyPayment;
+    loanData.totalAmount = totalAmount;
+
     document.getElementById('displayLoanAmount').textContent = '$' + P.toLocaleString();
     document.getElementById('displayMonthlyPayment').textContent = '$' + monthlyPayment.toFixed(2);
     document.getElementById('displayTotalAmount').textContent = '$' + totalAmount.toFixed(2);
@@ -67,37 +70,8 @@ window.applyLoan = function() {
         return;
     }
 
-    const P = loanData.loanAmount;
-    const r = loanData.interestRate / 100 / 12;
-    const n = loanData.loanTermMonths;
-    const monthlyPayment = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-    const totalAmount = monthlyPayment * n;
-
-    const loan = {
-        userId: user.id,
-        loanType: 'personal',
-        loanAmount: loanData.loanAmount,
-        interestRate: loanData.interestRate,
-        loanTermMonths: loanData.loanTermMonths,
-        monthlyPayment: monthlyPayment,
-        totalAmount: totalAmount,
-        outstandingBalance: totalAmount,
-        status: 'pending',
-        purpose: loanData.purpose || 'Personal loan',
-        startDate: new Date().toISOString().split('T')[0],
-        endDate: new Date(Date.now() + loanData.loanTermMonths * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-    };
-
-    fetch('http://localhost:8080/api/loans', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(loan)
-    })
-        .then(r => r.json())
-        .then(data => {
-            alert('Loan application submitted successfully!');
-            window.location.href = '/client/pages/Main/index.html';
-        });
+    localStorage.setItem('loanApplication', JSON.stringify(loanData));
+    window.location.href = '/client/pages/User_loan_application/index.html';
 }
 
 calculate();

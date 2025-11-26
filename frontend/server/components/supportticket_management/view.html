@@ -1,61 +1,56 @@
-<!-- View Support Ticket Popup -->
 <div id="ticketPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[150]">
     <div class="flex items-center justify-center min-h-screen p-4">
         <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
 
-            <!-- Header -->
             <div class="bg-blue-500 text-white px-6 py-4 rounded-t-lg flex justify-between items-center">
                 <h3 class="text-xl font-bold">Support Ticket Details</h3>
                 <button onclick="closeTicketPopup()" class="text-2xl hover:text-gray-200">&times;</button>
             </div>
 
-            <!-- Body -->
             <div class="p-6">
-                <!-- Icon Ticket -->
                 <div class="text-center mb-6">
                     <div class="w-20 h-20 mx-auto rounded-full bg-blue-500 text-white flex items-center justify-center text-3xl">
                         🎫
                     </div>
-                    <h4 id="ticketPopupId" class="text-xl font-bold mt-3">#T001</h4>
-                    <p id="ticketPopupSubject" class="text-gray-700 text-base mt-1 font-medium">Cannot login to account</p>
+                    <h4 id="ticketPopupId" class="text-xl font-bold mt-3"></h4>
+                    <p id="ticketPopupSubject" class="text-gray-700 text-base mt-1 font-medium"></p>
                 </div>
 
-                <!-- Info Grid -->
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <p class="text-gray-500 text-sm mb-1">User ID</p>
-                        <p id="ticketPopupUserId" class="font-medium">U12345</p>
+                        <p id="ticketPopupUserId" class="font-medium"></p>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Category</p>
-                        <p id="ticketPopupCategory" class="font-medium">Technical</p>
+                        <p id="ticketPopupCategory" class="font-medium"></p>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Priority</p>
-                        <span id="ticketPopupPriority" class="px-3 py-1 text-xs rounded-full bg-red-100 text-red-600">High</span>
+                        <span id="ticketPopupPriority" class="px-3 py-1 text-xs rounded-full"></span>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Status</p>
-                        <span id="ticketPopupStatus" class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-600">In Progress</span>
+                        <span id="ticketPopupStatus" class="px-3 py-1 text-xs rounded-full"></span>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Assigned To</p>
-                        <p id="ticketPopupAssigned" class="font-medium">Admin #2</p>
+                        <p id="ticketPopupAssigned" class="font-medium"></p>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Created Date</p>
-                        <p id="ticketPopupCreated" class="font-medium">Jan 15, 2025</p>
+                        <p id="ticketPopupCreated" class="font-medium"></p>
+                    </div>
+                    <div class="col-span-2">
+                        <p class="text-gray-500 text-sm mb-1">Description</p>
+                        <p id="ticketPopupDescription" class="font-medium"></p>
                     </div>
                 </div>
             </div>
 
-            <!-- Footer -->
             <div class="bg-gray-50 px-6 py-4 rounded-b-lg flex justify-end gap-3">
-                <button onclick="closeTicketPopup()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                <button onclick="closeTicketPopup()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition">
                     Close
-                </button>
-                <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                    Edit
                 </button>
             </div>
         </div>

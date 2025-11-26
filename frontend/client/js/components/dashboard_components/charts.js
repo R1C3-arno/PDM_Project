@@ -1,10 +1,21 @@
-
 const DashboardCharts = {
     charts: {},
 
     async init() {
+        await this.waitForChart();
         await this.loadData();
         this.attachEvents();
+    },
+
+    async waitForChart() {
+        let attempts = 0;
+        while (typeof Chart === 'undefined' && attempts < 50) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            attempts++;
+        }
+        if (typeof Chart === 'undefined') {
+            console.error('Chart.js failed to load');
+        }
     },
 
     async loadData(months = 6) {
@@ -25,7 +36,7 @@ const DashboardCharts = {
 
     renderLineChart(data) {
         const ctx = document.getElementById('lineChart');
-        if (!ctx) return;
+        if (!ctx || typeof Chart === 'undefined') return;
 
         if (this.charts.line) this.charts.line.destroy();
 
@@ -70,7 +81,7 @@ const DashboardCharts = {
 
     renderPieChart(data) {
         const ctx = document.getElementById('pieChart');
-        if (!ctx) return;
+        if (!ctx || typeof Chart === 'undefined') return;
 
         if (this.charts.pie) this.charts.pie.destroy();
 
@@ -94,7 +105,7 @@ const DashboardCharts = {
 
     renderBarChart(data) {
         const ctx = document.getElementById('barChart');
-        if (!ctx) return;
+        if (!ctx || typeof Chart === 'undefined') return;
 
         if (this.charts.bar) this.charts.bar.destroy();
 
@@ -120,7 +131,7 @@ const DashboardCharts = {
         const filter = document.getElementById('lineChartFilter');
         if (filter) {
             filter.addEventListener('change', (e) => {
-                const months = e.target.value === 'all' ? 0 : parseInt(e.target.value);
+                const months = e.target.value === 'all' ? 12 : parseInt(e.target.value);
                 this.loadData(months);
             });
         }

@@ -1,5 +1,3 @@
-// /frontend/client/js/components/dashboard/stats.js
-
 const DashboardStats = {
     async init() {
         await this.loadData();
@@ -11,7 +9,7 @@ const DashboardStats = {
                 DashboardAPI.getWalletStats(),
                 DashboardAPI.getActiveLoans(),
                 DashboardAPI.getRecentTransactions(3),
-                DashboardAPI.getUpcomingReminders()
+                DashboardAPI.getUpcomingReminders().catch(() => [])
             ]);
 
             this.renderBalanceCard(walletStats);
@@ -27,11 +25,10 @@ const DashboardStats = {
         const balance = document.getElementById('cardBalance');
         const change = document.getElementById('balanceChange');
 
-        if (balance) balance.textContent = DashboardUtils.formatCurrency(data.balance);
-        if (change && data.changePercent) {
-            const isPositive = data.changePercent >= 0;
-            change.className = `card-change ${isPositive ? 'positive' : 'negative'}`;
-            change.textContent = `${isPositive ? '+' : ''}${data.changePercent}% from last month`;
+        if (balance) balance.textContent = DashboardUtils.formatCurrency(data.walletBalance || 0);
+        if (change) {
+            change.className = 'card-change positive';
+            change.textContent = '+0% from last month';
         }
     },
 
@@ -43,24 +40,31 @@ const DashboardStats = {
         if (total) total.textContent = `Total: ${DashboardUtils.formatCurrency(data.total)}`;
     },
 
-    renderActivityCard(activities) {
+    renderActivityCard(transactions) {
         const list = document.getElementById('activityList');
         if (!list) return;
 
-        list.innerHTML = activities.map(activity => `
+        if (!transactions || transactions.length === 0) {
+            list.innerHTML = '<div class="no-data">No recent activity</div>';
+            return;
+        }
+
+        list.innerHTML = transactions.map(tx => {
+            const isIncome = tx.amount > 0;
+            return `
             <div class="activity-item">
-                <i class="icon-${activity.type === 'income' ? 'income' : 'outcome'}">
-                    ${activity.type === 'income' ? '📥' : '📤'}
+                <i class="icon-${isIncome ? 'income' : 'outcome'}">
+                    ${isIncome ? '📥' : '📤'}
                 </i>
                 <div class="activity-details">
-                    <span class="activity-title">${activity.title}</span>
-                    <span class="activity-date">${DashboardUtils.getRelativeTime(activity.date)}</span>
+                    <span class="activity-title">${tx.description || 'Transaction'}</span>
+                    <span class="activity-date">${DashboardUtils.getRelativeTime(tx.transactionDate)}</span>
                 </div>
-                <span class="activity-amount ${activity.amount > 0 ? 'positive' : 'negative'}">
-                    ${activity.amount > 0 ? '+' : ''}${DashboardUtils.formatCurrency(Math.abs(activity.amount))}
+                <span class="activity-amount ${isIncome ? 'positive' : 'negative'}">
+                    ${isIncome ? '+' : ''}${DashboardUtils.formatCurrency(Math.abs(tx.amount))}
                 </span>
             </div>
-        `).join('');
+        `}).join('');
     },
 
     renderAlertCard(reminders) {
@@ -69,7 +73,6 @@ const DashboardStats = {
         if (!alertText) return;
 
         if (reminders && reminders.length > 0) {
-            const next = reminders[0];
             alertText.textContent = `You have ${reminders.length} loan payment(s) due soon`;
         } else {
             alertText.textContent = 'No upcoming payments';

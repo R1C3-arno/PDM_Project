@@ -11,12 +11,31 @@ public class WalletService {
     @Autowired
     private WalletRepository repo;
 
-    public List<Wallet> getAll() { return repo.findAll(); }
-    public Wallet getById(Long id) { return repo.findById(id).orElse(null); }
-    public Wallet create(Wallet wallet) { return repo.save(wallet); }
+    public List<Wallet> getAll() {
+        return repo.findAll();
+    }
+
+    public Wallet getById(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    public Wallet getByUserId(Long userId) {
+        return repo.findAll().stream()
+                .filter(w -> w.getUserId().equals(userId))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Wallet create(Wallet wallet) {
+        return repo.save(wallet);
+    }
+
     public Wallet update(Long id, Wallet wallet) {
         wallet.setId(id);
         return repo.save(wallet);
     }
-    public void delete(Long id) { repo.deleteById(id); }
+
+    public void delete(Long id) {
+        repo.deleteById(id);
+    }
 }

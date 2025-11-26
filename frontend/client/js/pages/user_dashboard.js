@@ -1,4 +1,4 @@
-// Load dashboard page
+ // Load dashboard page
 // Use this in your main routing file
 
 document.addEventListener('componentsLoaded', () => {
