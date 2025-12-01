@@ -1,0 +1,370 @@
+OLAVS DESIGN SYSTEM
+Complete Implementation Guide
+
+═══════════════════════════════════════════════════════════════════
+
+1. FOUNDATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1.1 COLOR PALETTE
+
+Neutral (9 shades):
+  Neutral-100: #F9FAFB (Lightest background)
+  Neutral-200: #F3F4F6 (Alt background)
+  Neutral-300: #E5E7EB (Borders)
+  Neutral-400: #9CA3AF (Disabled text)
+  Neutral-500: #6B7280 (Placeholder)
+  Neutral-600: #4B5563 (Secondary text)
+  Neutral-700: #374151 (Body text)
+  Neutral-800: #1F2937 (Headings)
+  Neutral-900: #111827 (Primary text)
+
+Primary Banking Blue (7 shades):
+  Primary-100: #E8F1FF (Lightest accent)
+  Primary-200: #C6DBFF (Hover states)
+  Primary-300: #94BAFF (Borders)
+  Primary-400: #5F97FF (Icons)
+  Primary-500: #2E73FF (Main brand)
+  Primary-600: #1559DB (Active states)
+  Primary-700: #0D45AD (Dark accent)
+
+Status Colors (4):
+  Success: #22C55E (Approved, Verified, Paid)
+  Warning: #F59E0B (Pending, Review, Due)
+  Error: #EF4444 (Rejected, Failed, Late)
+  Info: #3B82F6 (Information, Tips)
+
+Surface:
+  Surface-Default: #FFFFFF (Cards, modals)
+  Surface-Alt: #F6F8FA (Page background)
+
+1.2 TYPOGRAPHY
+
+Font Family:
+  Primary: Inter
+  Fallbacks: Roboto, Helvetica Neue, sans-serif
+
+Type Scale (8 levels):
+  Display-XL: 36px / 700 / 44px line-height
+  Display-L: 30px / 700 / 38px
+  Heading-M: 24px / 600 / 32px
+  Heading-S: 20px / 600 / 28px
+  Body-L: 18px / 400 / 28px
+  Body-M: 16px / 400 / 24px
+  Body-S: 14px / 400 / 20px
+  Caption: 12px / 400 / 16px
+
+1.3 SPACING
+
+9 tokens:
+  Spacing-2: 2px
+  Spacing-4: 4px
+  Spacing-8: 8px
+  Spacing-12: 12px
+  Spacing-16: 16px
+  Spacing-20: 20px
+  Spacing-24: 24px
+  Spacing-32: 32px
+  Spacing-48: 48px
+
+1.4 LAYOUT GRID
+
+Desktop: 12 columns, 80-1200px width
+Gutter: 24px
+Max container width: 1440px
+Content width: 1200px
+Section spacing: 48px vertical
+
+1.5 ELEVATION
+
+Level-0: none (flat elements)
+Level-1: 0px 1px 3px rgba(0,0,0,0.06) (Cards)
+Level-2: 0px 4px 10px rgba(0,0,0,0.08) (Dropdowns)
+Level-3: 0px 8px 24px rgba(0,0,0,0.12) (Modals)
+
+1.6 BORDER RADIUS
+
+sm: 4px (Badges, chips)
+md: 8px (Inputs, buttons)
+lg: 12px (Cards)
+xl: 16px (Modals)
+pill: 9999px (Pills, avatars)
+
+1.7 RESPONSIVE BREAKPOINTS
+
+xs: 0px (Mobile portrait)
+sm: 640px (Mobile landscape)
+md: 768px (Tablet portrait)
+lg: 1024px (Tablet landscape / Desktop)
+xl: 1280px (Desktop)
+2xl: 1536px (Large desktop)
+
+═══════════════════════════════════════════════════════════════════
+
+2. COMPONENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2.1 BUTTONS
+
+Variants (5):
+  Primary: Background Primary-500, hover Primary-600
+  Secondary: Border Primary-500, color Primary-600
+  Tertiary: Ghost, color Primary-600
+  Destructive: Background Error, hover darker
+  Icon: No background, icon only
+
+States:
+  Default, Hover, Pressed, Disabled (opacity 0.5), Loading (spinner)
+
+Sizes:
+  sm: 32px height, 8px 16px padding
+  md: 40px height, 12px 24px padding
+  lg: 48px height, 16px 32px padding
+
+Usage Rules:
+  → Primary for main CTAs (Submit, Approve)
+  → Secondary for minor actions (Upload, Edit)
+  → Tertiary for navigation (View Details)
+  → Destructive for dangerous actions (Reject, Delete)
+
+2.2 FORM ELEMENTS
+
+Input:
+  Height: 40px
+  Padding: 12px 16px
+  Border: 1px solid Neutral-300
+  Border-radius: 8px
+  Focus: Border Primary-500, shadow Primary-100
+
+States: Default, Focus, Error, Disabled
+
+Textarea: Same as input, min-height 96px
+
+Select: Same as input, chevron icon right
+
+File Upload:
+  Drag-drop area, 200px min-height
+  Border: 2px dashed Neutral-300
+  Hover: Border Primary-500
+
+2.3 CARDS
+
+Structure:
+  Padding: 24px
+  Border-radius: 12px
+  Border: 1px solid Neutral-200
+  Background: Surface-Default
+  Shadow: Elevation Level-1
+
+Types:
+  Application Summary: Title, amount, status, actions
+  Document Preview: Thumbnail, name, status
+  Verification Task: Assignee, due date, priority
+  Offer Details: Terms, APR, EMI, validity
+  Repayment Card: Due date, amount, status
+
+2.4 STATUS BADGES
+
+Application States (9):
+  Draft: Neutral-200 bg, Neutral-600 text
+  Submitted: Primary-100 bg, Primary-600 text
+  Under Review: Warning + 20% bg, Warning text
+  Verified: Success + 20% bg, Success text
+  Approved: Success + 20% bg, Success text
+  Rejected: Error + 20% bg, Error text
+  Contracted: Info + 20% bg, Info text
+  Disbursed: Success + 20% bg, Success text
+  Active: Success + 20% bg, Success text
+
+Verification States (4):
+  Pending: Neutral bg
+  Reviewing: Warning bg
+  Verified: Success bg
+  Failed: Error bg
+
+Payment States (3):
+  Due: Warning bg
+  Paid: Success bg
+  Late: Error bg
+
+Size:
+  sm: 6px 12px padding, 12px font
+  md: 8px 16px padding, 14px font
+
+2.5 MODALS
+
+Structure:
+  Max-width: 640px
+  Padding: 32px
+  Border-radius: 16px
+  Elevation: Level-3
+  Background: Surface-Default
+
+Required Elements:
+  Title (Heading-M)
+  Body content
+  Primary CTA (right)
+  Secondary CTA (left) or Close icon (top-right)
+
+2.6 TABLES
+
+Structure:
+  Header: Sticky, Neutral-100 bg, 16px padding
+  Rows: 16px padding, Neutral-200 border-bottom
+  Hover: Surface-Alt background
+
+Features:
+  Sortable columns (chevron icon)
+  Inline status badges
+  Action buttons (icon-only)
+  Pagination (bottom)
+  Mobile: Horizontal scroll
+
+2.7 NAVIGATION
+
+Top Nav:
+  Height: 72px
+  Logo left, sections center, profile right
+  Sticky on scroll, add shadow
+  Mobile: Hamburger menu
+
+Sidebar (Staff):
+  Width: 240px
+  Neutral-900 background, white text
+  Collapse on mobile
+  Active item: Primary-500 accent
+
+═══════════════════════════════════════════════════════════════════
+
+3. INTERACTION PATTERNS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.1 FORMS
+
+Multi-step:
+  Progress bar at top
+  Steps: 1. Details, 2. Documents, 3. Review
+  Next/Previous buttons
+  Autosave every 5 seconds
+
+Validation:
+  Real-time on blur
+  Error message below field
+  Red border on error
+  Green checkmark on valid
+
+3.2 LOADING STATES
+
+Skeleton:
+  Cards: Animated gray bars
+  Tables: Row skeletons
+  Buttons: Spinner icon, disabled
+
+Spinners:
+  Primary-500 color
+  Center-aligned
+  40px size for full-page
+  16px size for inline
+
+3.3 EMPTY STATES
+
+Structure:
+  Icon (64px, Neutral-400)
+  Heading (Heading-M)
+  Description (Body-M, Neutral-600)
+  CTA button (Primary)
+
+3.4 NOTIFICATIONS
+
+Toast:
+  Position: Top-right
+  Duration: 4 seconds
+  Types: Success, Error, Info, Warning
+  Icon left, message center, close right
+
+Banner:
+  Full-width, below nav
+  Background based on type
+  Dismiss button right
+
+═══════════════════════════════════════════════════════════════════
+
+4. STATE TRANSITIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Application Workflow:
+  DRAFT → SUBMITTED
+  SUBMITTED → UNDER_REVIEW
+  UNDER_REVIEW → VERIFICATION_IN_PROGRESS
+  VERIFICATION_IN_PROGRESS → VERIFIED / REJECTED
+  VERIFIED → RISK_ASSESSMENT_IN_PROGRESS
+  RISK_ASSESSMENT_IN_PROGRESS → RISK_ASSESSED
+  RISK_ASSESSED → OFFER_GENERATED
+  OFFER_GENERATED → OFFER_SENT
+  OFFER_SENT → OFFER_ACCEPTED / OFFER_REJECTED
+  OFFER_ACCEPTED → CONTRACT_CREATED
+  CONTRACT_CREATED → CONTRACT_SIGNED
+  CONTRACT_SIGNED → DISBURSED
+  DISBURSED → ACTIVE
+  ACTIVE → COMPLETED / OVERDUE
+
+UI Rules:
+  → Disable actions that violate state machine
+  → Show tooltip explaining why action disabled
+  → Highlight current state in timeline
+
+═══════════════════════════════════════════════════════════════════
+
+5. CSS VARIABLES EXPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+:root {
+  /* Colors */
+  --color-primary: #2E73FF;
+  --color-primary-hover: #1559DB;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F6F8FA;
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6B7280;
+
+  /* Typography */
+  --font-primary: "Inter", sans-serif;
+  --text-display-xl: 36px;
+  --text-display-l: 30px;
+  --text-heading-m: 24px;
+  --text-body: 16px;
+  --text-small: 14px;
+
+  /* Spacing */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  /* Elevation */
+  --shadow-sm: 0px 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0px 4px 10px rgba(0,0,0,0.08);
+  --shadow-lg: 0px 8px 24px rgba(0,0,0,0.12);
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+═══════════════════════════════════════════════════════════════════
+
+IMPLEMENTATION STATUS:
+✅ All foundations defined
+✅ 6 core components built
+✅ 30+ status badge variants
+✅ Responsive breakpoints configured
+✅ CSS utilities created
+✅ Applied to 10/20 pages
+
+═══════════════════════════════════════════════════════════════════
+

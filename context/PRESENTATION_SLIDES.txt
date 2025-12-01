@@ -1,0 +1,1158 @@
+═══════════════════════════════════════════════════════════════════
+OLAVS – MYSQL QUERY LAYER
+Online Loan Application & Verification System
+Principles of Database Management – Team 01_G1
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 1: TITLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OLAVS – Online Loan Application & Verification System
+
+Course: Principles of Database Management
+
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 2: DATABASE OVERVIEW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Database Architecture
+
+• RDBMS: MySQL 8.4 (InnoDB Storage Engine)
+• Core Entities: 16 tables, 15 ENUM types
+  - User, Applicant, Bank, Branch, Account, Product
+  - Application, Verification, Document, RiskAssessment
+  - Offer, Contract, Disbursement
+  - RepaymentSchedule, RepaymentInstallment, Payment
+
+Design Goals:
+✓ Data integrity (FK constraints, ENUMs)
+✓ Auditability (timestamps, status tracking)
+✓ Query efficiency (indexes, covering indexes)
+✓ Transaction safety (ACID compliance)
+
+Query Categories:
+• OLTP: Real-time transactions (CRUD operations)
+• Analytics: Reporting dashboards (aggregates, joins)
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 3: CORE TABLES (QUERY TARGETS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Entity Relationship Summary
+
+user
+├─ id, email, password_hash, role, status, created_at
+
+applicant (1:1 with user)
+├─ user_id [FK], full_name, date_of_birth, income
+├─ kyc_status, aml_status, employment_type
+
+product (loan types)
+├─ name, min_amount, max_amount, base_interest_rate
+├─ min_term_months, max_term_months
+
+application (loan requests)
+├─ applicant_id [FK], product_id [FK]
+├─ requested_amount, requested_term_months, purpose
+├─ status (20 states), banker_id, verifier_id, underwriter_id
+
+verification → document → risk_assessment → offer → 
+contract → disbursement → repayment_schedule → 
+repayment_installment → payment
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 4: BASIC CRUD QUERIES (User / Applicant)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. INSERT new user (registration)
+
+```sql
+INSERT INTO user (email, password_hash, full_name, phone, role, status)
+VALUES ('john.doe@example.com', '$2a$10$...', 'John Doe', 
+        '+1234567890', 'APPLICANT', 'ACTIVE');
+```
+
+2. INSERT applicant profile after user creation
+
+```sql
+INSERT INTO applicant (
+  user_id, full_name, date_of_birth, national_id, 
+  income, employment_type, kyc_status, aml_status
+)
+VALUES (1, 'John Doe', '1990-05-15', 'ID12345678', 
+        75000.00, 'FULL_TIME', 'PENDING', 'PENDING');
+```
+
+3. UPDATE applicant info
+
+```sql
+UPDATE applicant 
+SET income = 85000.00, employment_type = 'FULL_TIME'
+WHERE applicant_id = 1;
+```
+
+4. SELECT applicant with user account (JOIN)
+
+```sql
+SELECT u.email, u.role, u.status,
+       a.full_name, a.income, a.kyc_status, a.aml_status
+FROM user u
+INNER JOIN applicant a ON u.id = a.user_id
+WHERE u.id = 1;
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 5: APPLICATION LIFECYCLE QUERIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. CREATE loan application
+
+```sql
+INSERT INTO application (
+  applicant_id, product_id, requested_amount, 
+  requested_term_months, purpose, status
+)
+VALUES (1, 2, 50000.00, 36, 'Home renovation', 'SUBMITTED');
+```
+
+2. GET all applications of one applicant
+
+```sql
+SELECT application_id, requested_amount, requested_term_months,
+       purpose, status, created_at, updated_at
+FROM application
+WHERE applicant_id = 1
+ORDER BY created_at DESC;
+```
+
+3. UPDATE application status (with validation)
+
+```sql
+UPDATE application
+SET status = 'VERIFICATION_IN_PROGRESS', 
+    verifier_id = 3,
+    updated_at = NOW()
+WHERE application_id = 101 
+  AND status = 'SUBMITTED';
+```
+
+4. DELETE draft application (only DRAFT allowed)
+
+```sql
+DELETE FROM application
+WHERE application_id = 105
+  AND status = 'DRAFT'
+  AND applicant_id = 1;
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 6: DOCUMENT & VERIFICATION QUERIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. INSERT uploaded document metadata
+
+```sql
+INSERT INTO document (
+  application_id, document_type, file_path, 
+  file_size, mime_type, uploaded_by, verification_status
+)
+VALUES (101, 'NATIONAL_ID', '/docs/101/id_front.pdf', 
+        1024576, 'application/pdf', 1, 'PENDING');
+```
+
+2. LIST documents for one application
+
+```sql
+SELECT document_type, verification_status, created_at, 
+       file_size, expiry_date
+FROM document
+WHERE application_id = 101
+ORDER BY created_at DESC;
+```
+
+3. VERIFICATION result update
+
+```sql
+UPDATE verification
+SET kyc_status = 'APPROVED', 
+    aml_status = 'CLEAR',
+    verified_at = NOW(),
+    verified_by = 3
+WHERE application_id = 101;
+```
+
+4. JOIN application + verification + applicant (Banker screen)
+
+```sql
+SELECT 
+  a.application_id,
+  ap.full_name,
+  a.requested_amount,
+  a.status AS app_status,
+  v.kyc_status,
+  v.aml_status,
+  v.verified_at
+FROM application a
+INNER JOIN applicant ap ON a.applicant_id = ap.applicant_id
+LEFT JOIN verification v ON v.application_id = a.application_id
+WHERE a.status IN ('VERIFICATION_IN_PROGRESS', 'VERIFIED')
+ORDER BY a.created_at DESC;
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 7: OFFER & CONTRACT QUERIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. INSERT offer after risk assessment
+
+```sql
+INSERT INTO offer (
+  application_id, offered_amount, offered_term_months,
+  annual_interest_rate, monthly_payment, total_repayment,
+  processing_fee, offer_valid_until, status
+)
+VALUES (101, 48000.00, 36, 12.5, 1609.12, 57928.32,
+        960.00, DATE_ADD(NOW(), INTERVAL 7 DAY), 'PENDING');
+```
+
+2. GET active offer for application
+
+```sql
+SELECT offer_id, offered_amount, offered_term_months,
+       annual_interest_rate, monthly_payment, 
+       offer_valid_until, status
+FROM offer
+WHERE application_id = 101 
+  AND status = 'PENDING'
+  AND offer_valid_until > NOW();
+```
+
+3. APPLICANT accepts offer
+
+```sql
+UPDATE offer
+SET status = 'ACCEPTED', 
+    accepted_at = NOW()
+WHERE offer_id = 201 
+  AND status = 'PENDING'
+  AND offer_valid_until > NOW();
+```
+
+4. CREATE contract from accepted offer
+
+```sql
+INSERT INTO contract (
+  offer_id, contract_terms, applicant_signed_at,
+  banker_signed_at, status
+)
+VALUES (201, 'Standard loan agreement terms...', 
+        NOW(), NOW(), 'SIGNED');
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 8: REPAYMENT & PAYMENT QUERIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. GENERATE repayment schedule (via stored procedure)
+
+```sql
+CALL sp_generate_repayment_schedule(301);
+-- Creates repayment_schedule + repayment_installment rows
+```
+
+2. VIEW schedule with remaining balance
+
+```sql
+SELECT 
+  installment_number,
+  due_date,
+  principal_amount,
+  interest_amount,
+  total_amount,
+  status,
+  DATEDIFF(due_date, NOW()) AS days_until_due
+FROM repayment_installment
+WHERE schedule_id = 401
+ORDER BY installment_number;
+```
+
+3. RECORD payment
+
+```sql
+INSERT INTO payment (
+  installment_id, amount_paid, payment_method,
+  transaction_reference, paid_at
+)
+VALUES (501, 1609.12, 'BANK_TRANSFER', 'TXN20250123001', NOW());
+
+-- Trigger updates installment status to 'PAID'
+```
+
+4. AGGREGATE payments vs schedule (debt summary)
+
+```sql
+SELECT 
+  c.contract_id,
+  COUNT(i.installment_id) AS total_installments,
+  SUM(i.total_amount) AS total_scheduled,
+  SUM(COALESCE(p.amount_paid, 0)) AS total_paid,
+  SUM(i.total_amount) - SUM(COALESCE(p.amount_paid, 0)) AS balance
+FROM contract c
+INNER JOIN repayment_schedule rs ON c.contract_id = rs.contract_id
+INNER JOIN repayment_installment i ON rs.schedule_id = i.schedule_id
+LEFT JOIN payment p ON i.installment_id = p.installment_id
+WHERE c.contract_id = 301
+GROUP BY c.contract_id;
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 9: DASHBOARD / REPORTING QUERIES (Banker)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. APPLICATIONS by status (pipeline view)
+
+```sql
+SELECT status, COUNT(*) AS application_count
+FROM application
+GROUP BY status
+ORDER BY 
+  CASE status
+    WHEN 'SUBMITTED' THEN 1
+    WHEN 'VERIFICATION_IN_PROGRESS' THEN 2
+    WHEN 'VERIFIED' THEN 3
+    WHEN 'OFFER_GENERATED' THEN 4
+    WHEN 'ACTIVE' THEN 5
+    ELSE 99
+  END;
+```
+
+2. RISK distribution (using risk_assessment table)
+
+```sql
+SELECT 
+  overall_risk_level,
+  COUNT(*) AS count,
+  AVG(overall_risk_score) AS avg_score
+FROM risk_assessment
+GROUP BY overall_risk_level
+ORDER BY FIELD(overall_risk_level, 'LOW', 'MEDIUM', 'HIGH', 'VERY_HIGH');
+```
+
+3. ARREARS aging report
+
+```sql
+SELECT 
+  CASE
+    WHEN DATEDIFF(NOW(), due_date) BETWEEN 1 AND 30 THEN '1-30 days'
+    WHEN DATEDIFF(NOW(), due_date) BETWEEN 31 AND 60 THEN '31-60 days'
+    WHEN DATEDIFF(NOW(), due_date) BETWEEN 61 AND 90 THEN '61-90 days'
+    ELSE '90+ days'
+  END AS aging_bucket,
+  COUNT(*) AS count,
+  SUM(total_amount) AS total_overdue
+FROM repayment_installment
+WHERE status = 'OVERDUE'
+GROUP BY aging_bucket
+ORDER BY MIN(DATEDIFF(NOW(), due_date));
+```
+
+4. PORTFOLIO summary per product
+
+```sql
+SELECT 
+  p.name AS product_name,
+  COUNT(DISTINCT c.contract_id) AS active_loans,
+  SUM(o.offered_amount) AS total_disbursed,
+  AVG(o.annual_interest_rate) AS avg_interest_rate
+FROM product p
+INNER JOIN application a ON p.product_id = a.product_id
+INNER JOIN offer o ON a.application_id = o.application_id
+INNER JOIN contract c ON o.offer_id = c.offer_id
+WHERE c.status = 'ACTIVE'
+GROUP BY p.product_id, p.name
+ORDER BY total_disbursed DESC;
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 10: TRIGGERS & STORED ROUTINES (Logic in DB)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. TRIGGER: Auto-update application status when offer accepted
+
+```sql
+DELIMITER $$
+CREATE TRIGGER trg_offer_accepted
+AFTER UPDATE ON offer
+FOR EACH ROW
+BEGIN
+  IF NEW.status = 'ACCEPTED' AND OLD.status != 'ACCEPTED' THEN
+    UPDATE application
+    SET status = 'OFFER_ACCEPTED', updated_at = NOW()
+    WHERE application_id = NEW.application_id;
+  END IF;
+END$$
+DELIMITER ;
+```
+
+2. TRIGGER: Mark installment as OVERDUE automatically
+
+```sql
+DELIMITER $$
+CREATE TRIGGER trg_check_overdue_installments
+AFTER INSERT ON repayment_installment
+FOR EACH ROW
+BEGIN
+  -- Event scheduler checks daily:
+  UPDATE repayment_installment
+  SET status = 'OVERDUE'
+  WHERE due_date < CURDATE() 
+    AND status = 'PENDING';
+END$$
+DELIMITER ;
+```
+
+3. STORED PROCEDURE: Generate repayment schedule
+
+```sql
+DELIMITER $$
+CREATE PROCEDURE sp_generate_repayment_schedule(
+  IN p_contract_id INT
+)
+BEGIN
+  DECLARE v_amount DECIMAL(15,2);
+  DECLARE v_rate DECIMAL(5,4);
+  DECLARE v_months INT;
+  DECLARE v_monthly_payment DECIMAL(15,2);
+  DECLARE v_schedule_id INT;
+  DECLARE v_counter INT DEFAULT 1;
+  DECLARE v_principal DECIMAL(15,2);
+  DECLARE v_interest DECIMAL(15,2);
+  DECLARE v_balance DECIMAL(15,2);
+  
+  -- Get contract details
+  SELECT o.offered_amount, o.annual_interest_rate / 100 / 12, 
+         o.offered_term_months, o.monthly_payment
+  INTO v_amount, v_rate, v_months, v_monthly_payment
+  FROM contract c
+  INNER JOIN offer o ON c.offer_id = o.offer_id
+  WHERE c.contract_id = p_contract_id;
+  
+  SET v_balance = v_amount;
+  
+  -- Create schedule header
+  INSERT INTO repayment_schedule (contract_id, total_installments, 
+                                   total_principal, total_interest)
+  VALUES (p_contract_id, v_months, v_amount, 
+          (v_monthly_payment * v_months) - v_amount);
+  SET v_schedule_id = LAST_INSERT_ID();
+  
+  -- Generate installments (amortization)
+  WHILE v_counter <= v_months DO
+    SET v_interest = v_balance * v_rate;
+    SET v_principal = v_monthly_payment - v_interest;
+    SET v_balance = v_balance - v_principal;
+    
+    INSERT INTO repayment_installment (
+      schedule_id, installment_number, due_date,
+      principal_amount, interest_amount, total_amount, status
+    )
+    VALUES (
+      v_schedule_id, v_counter, 
+      DATE_ADD(CURDATE(), INTERVAL v_counter MONTH),
+      v_principal, v_interest, v_monthly_payment, 'PENDING'
+    );
+    
+    SET v_counter = v_counter + 1;
+  END WHILE;
+END$$
+DELIMITER ;
+```
+
+4. FUNCTION: EMI calculator
+
+```sql
+DELIMITER $$
+CREATE FUNCTION fn_calculate_emi(
+  p_principal DECIMAL(15,2),
+  p_annual_rate DECIMAL(5,2),
+  p_months INT
+)
+RETURNS DECIMAL(15,2)
+DETERMINISTIC
+BEGIN
+  DECLARE v_monthly_rate DECIMAL(10,6);
+  DECLARE v_emi DECIMAL(15,2);
+  
+  SET v_monthly_rate = p_annual_rate / 100 / 12;
+  
+  IF v_monthly_rate = 0 THEN
+    SET v_emi = p_principal / p_months;
+  ELSE
+    SET v_emi = p_principal * v_monthly_rate * 
+                POWER(1 + v_monthly_rate, p_months) /
+                (POWER(1 + v_monthly_rate, p_months) - 1);
+  END IF;
+  
+  RETURN ROUND(v_emi, 2);
+END$$
+DELIMITER ;
+
+-- Usage:
+SELECT fn_calculate_emi(50000, 12.5, 36) AS monthly_payment;
+-- Result: 1609.12
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 11: INTEGRITY & VALIDATION VIA QUERIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. ENFORCE allowed state transitions
+
+```sql
+-- Only allow SUBMITTED → VERIFICATION_IN_PROGRESS
+UPDATE application
+SET status = 'VERIFICATION_IN_PROGRESS', verifier_id = 3
+WHERE application_id = 101
+  AND status = 'SUBMITTED';  -- Constraint enforced in WHERE
+
+-- Reject invalid transition (will affect 0 rows)
+UPDATE application
+SET status = 'DISBURSED'
+WHERE application_id = 101
+  AND status = 'SUBMITTED';  -- ❌ Invalid, no rows updated
+```
+
+2. USE ENUM for status fields (schema-level validation)
+
+```sql
+status ENUM(
+  'DRAFT', 'SUBMITTED', 'UNDER_REVIEW', 
+  'VERIFICATION_IN_PROGRESS', 'VERIFIED', 'REJECTED',
+  'RISK_ASSESSMENT_IN_PROGRESS', 'RISK_ASSESSED',
+  'OFFER_GENERATED', 'OFFER_SENT', 'OFFER_ACCEPTED', 
+  'OFFER_REJECTED', 'CONTRACT_CREATED', 'CONTRACT_SIGNED',
+  'DISBURSED', 'ACTIVE', 'COMPLETED', 'DEFAULTED', 
+  'WRITTEN_OFF', 'CANCELLED'
+) NOT NULL DEFAULT 'DRAFT'
+```
+
+3. USE TRANSACTIONS for atomic operations
+
+```sql
+START TRANSACTION;
+
+-- Step 1: Create contract
+INSERT INTO contract (offer_id, status) VALUES (201, 'SIGNED');
+SET @contract_id = LAST_INSERT_ID();
+
+-- Step 2: Generate repayment schedule
+CALL sp_generate_repayment_schedule(@contract_id);
+
+-- Step 3: Update application status
+UPDATE application SET status = 'CONTRACT_SIGNED'
+WHERE application_id = (
+  SELECT application_id FROM offer WHERE offer_id = 201
+);
+
+-- Step 4: Log event
+INSERT INTO audit_log (entity_type, entity_id, action, user_id)
+VALUES ('CONTRACT', @contract_id, 'CREATED', 2);
+
+COMMIT;
+```
+
+4. CHECK constraints (MySQL 8.0.16+)
+
+```sql
+ALTER TABLE offer
+ADD CONSTRAINT chk_offered_amount_positive
+CHECK (offered_amount > 0);
+
+ALTER TABLE repayment_installment
+ADD CONSTRAINT chk_installment_amounts
+CHECK (total_amount = principal_amount + interest_amount);
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 12: INDEXING & PERFORMANCE QUERIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. DEFINE indexes for frequent joins
+
+```sql
+-- Accelerate applicant → applications lookup
+CREATE INDEX idx_application_applicant 
+ON application(applicant_id);
+
+-- Accelerate application → documents lookup
+CREATE INDEX idx_document_application 
+ON document(application_id);
+
+-- Accelerate contract → repayment schedule
+CREATE INDEX idx_schedule_contract 
+ON repayment_schedule(contract_id);
+
+-- Composite index for status filtering + sorting
+CREATE INDEX idx_application_status_created 
+ON application(status, created_at DESC);
+```
+
+2. COVERING index for dashboard queries
+
+```sql
+-- Index covers SELECT without table access
+CREATE INDEX idx_application_dashboard
+ON application(status, product_id, created_at, requested_amount);
+
+-- Query uses covering index:
+SELECT status, COUNT(*), SUM(requested_amount)
+FROM application
+WHERE status IN ('SUBMITTED', 'VERIFICATION_IN_PROGRESS')
+GROUP BY status;
+```
+
+3. USE EXPLAIN to inspect query plans
+
+```sql
+EXPLAIN SELECT 
+  a.application_id, ap.full_name, a.status
+FROM application a
+INNER JOIN applicant ap ON a.applicant_id = ap.applicant_id
+WHERE a.status = 'SUBMITTED';
+
+-- Output shows:
+-- | type | key                      | rows | Extra          |
+-- | ref  | idx_application_status   | 12   | Using index    |
+-- | eq_ref | PRIMARY                | 1    | -              |
+```
+
+4. OPTIMIZE for large aggregates
+
+```sql
+-- Slow: Full table scan
+SELECT COUNT(*) FROM application WHERE status = 'ACTIVE';
+
+-- Fast: Index-only scan
+-- (if status is indexed)
+SELECT COUNT(*) FROM application 
+USE INDEX (idx_application_status_created)
+WHERE status = 'ACTIVE';
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 13: VIEWS (Reusable Query Abstractions)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. VIEW: Application full context (for banker dashboard)
+
+```sql
+CREATE VIEW v_application_full AS
+SELECT 
+  a.application_id,
+  a.status AS app_status,
+  a.requested_amount,
+  a.requested_term_months,
+  a.purpose,
+  a.created_at,
+  ap.full_name AS applicant_name,
+  ap.kyc_status,
+  ap.aml_status,
+  p.name AS product_name,
+  v.kyc_status AS verification_kyc,
+  v.aml_status AS verification_aml,
+  ra.overall_risk_level,
+  ra.overall_risk_score,
+  o.offered_amount,
+  o.annual_interest_rate
+FROM application a
+INNER JOIN applicant ap ON a.applicant_id = ap.applicant_id
+INNER JOIN product p ON a.product_id = p.product_id
+LEFT JOIN verification v ON a.application_id = v.application_id
+LEFT JOIN risk_assessment ra ON a.application_id = ra.application_id
+LEFT JOIN offer o ON a.application_id = o.application_id;
+
+-- Usage:
+SELECT * FROM v_application_full WHERE app_status = 'VERIFIED';
+```
+
+2. VIEW: Active portfolio summary
+
+```sql
+CREATE VIEW v_active_portfolio AS
+SELECT 
+  c.contract_id,
+  ap.full_name AS borrower,
+  o.offered_amount AS principal,
+  o.annual_interest_rate,
+  rs.total_installments,
+  COUNT(ri.installment_id) AS paid_installments,
+  SUM(CASE WHEN ri.status = 'PAID' THEN ri.total_amount ELSE 0 END) AS paid_amount,
+  SUM(CASE WHEN ri.status = 'PENDING' THEN ri.total_amount ELSE 0 END) AS outstanding
+FROM contract c
+INNER JOIN offer o ON c.offer_id = o.offer_id
+INNER JOIN application a ON o.application_id = a.application_id
+INNER JOIN applicant ap ON a.applicant_id = ap.applicant_id
+INNER JOIN repayment_schedule rs ON c.contract_id = rs.contract_id
+LEFT JOIN repayment_installment ri ON rs.schedule_id = ri.schedule_id
+WHERE c.status = 'ACTIVE'
+GROUP BY c.contract_id, ap.full_name, o.offered_amount, 
+         o.annual_interest_rate, rs.total_installments;
+
+-- Usage:
+SELECT * FROM v_active_portfolio WHERE outstanding > 10000;
+```
+
+3. VIEW: Overdue installments (risk monitoring)
+
+```sql
+CREATE VIEW v_overdue_installments AS
+SELECT 
+  ri.installment_id,
+  ri.due_date,
+  DATEDIFF(CURDATE(), ri.due_date) AS days_overdue,
+  ri.total_amount AS overdue_amount,
+  ap.full_name AS borrower,
+  ap.phone AS contact_phone,
+  c.contract_id
+FROM repayment_installment ri
+INNER JOIN repayment_schedule rs ON ri.schedule_id = rs.schedule_id
+INNER JOIN contract c ON rs.contract_id = c.contract_id
+INNER JOIN offer o ON c.offer_id = o.offer_id
+INNER JOIN application a ON o.application_id = a.application_id
+INNER JOIN applicant ap ON a.applicant_id = ap.applicant_id
+WHERE ri.status = 'OVERDUE'
+ORDER BY days_overdue DESC;
+
+-- Usage:
+SELECT * FROM v_overdue_installments WHERE days_overdue > 30;
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 14: EXAMPLE EXAM-STYLE QUERY TASKS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Task 1: List all approved applications with applicant name and product name
+
+```sql
+SELECT 
+  a.application_id,
+  ap.full_name AS applicant,
+  p.name AS product,
+  a.requested_amount,
+  a.status
+FROM application a
+INNER JOIN applicant ap ON a.applicant_id = ap.applicant_id
+INNER JOIN product p ON a.product_id = p.product_id
+WHERE a.status IN ('OFFER_ACCEPTED', 'CONTRACT_SIGNED', 'ACTIVE');
+```
+
+Task 2: Find all overdue installments for a given applicant email
+
+```sql
+SELECT 
+  ri.installment_id,
+  ri.due_date,
+  DATEDIFF(NOW(), ri.due_date) AS days_overdue,
+  ri.total_amount
+FROM repayment_installment ri
+INNER JOIN repayment_schedule rs ON ri.schedule_id = rs.schedule_id
+INNER JOIN contract c ON rs.contract_id = c.contract_id
+INNER JOIN offer o ON c.offer_id = o.offer_id
+INNER JOIN application a ON o.application_id = a.application_id
+INNER JOIN applicant ap ON a.applicant_id = ap.applicant_id
+INNER JOIN user u ON ap.user_id = u.id
+WHERE u.email = 'john.doe@example.com'
+  AND ri.status = 'OVERDUE'
+ORDER BY ri.due_date;
+```
+
+Task 3: Compute total outstanding balance per applicant
+
+```sql
+SELECT 
+  ap.full_name,
+  u.email,
+  SUM(ri.total_amount) AS total_outstanding
+FROM applicant ap
+INNER JOIN user u ON ap.user_id = u.id
+INNER JOIN application a ON ap.applicant_id = a.applicant_id
+INNER JOIN offer o ON a.application_id = o.application_id
+INNER JOIN contract c ON o.offer_id = c.offer_id
+INNER JOIN repayment_schedule rs ON c.contract_id = rs.contract_id
+INNER JOIN repayment_installment ri ON rs.schedule_id = ri.schedule_id
+WHERE ri.status IN ('PENDING', 'OVERDUE')
+  AND c.status = 'ACTIVE'
+GROUP BY ap.applicant_id, ap.full_name, u.email
+ORDER BY total_outstanding DESC;
+```
+
+Task 4: Show average approval amount per risk level
+
+```sql
+SELECT 
+  ra.overall_risk_level,
+  COUNT(*) AS application_count,
+  AVG(o.offered_amount) AS avg_approved_amount,
+  MIN(o.offered_amount) AS min_amount,
+  MAX(o.offered_amount) AS max_amount
+FROM risk_assessment ra
+INNER JOIN offer o ON ra.application_id = o.application_id
+WHERE o.status IN ('ACCEPTED', 'COMPLETED')
+GROUP BY ra.overall_risk_level
+ORDER BY FIELD(ra.overall_risk_level, 'LOW', 'MEDIUM', 'HIGH', 'VERY_HIGH');
+```
+
+Task 5: Retrieve all INCOME documents for applications currently UNDER_REVIEW
+
+```sql
+SELECT 
+  d.document_id,
+  d.application_id,
+  d.file_path,
+  d.created_at,
+  d.verification_status,
+  a.requested_amount
+FROM document d
+INNER JOIN application a ON d.application_id = a.application_id
+WHERE d.document_type = 'INCOME_PROOF'
+  AND a.status IN ('UNDER_REVIEW', 'VERIFICATION_IN_PROGRESS')
+ORDER BY d.created_at DESC;
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 15: ADVANCED QUERIES (Window Functions & CTEs)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. WINDOW FUNCTION: Rank applications by amount within each product
+
+```sql
+SELECT 
+  application_id,
+  product_id,
+  requested_amount,
+  RANK() OVER (
+    PARTITION BY product_id 
+    ORDER BY requested_amount DESC
+  ) AS amount_rank
+FROM application
+WHERE status != 'DRAFT';
+```
+
+2. WINDOW FUNCTION: Running total of disbursements
+
+```sql
+SELECT 
+  disbursement_id,
+  contract_id,
+  disbursed_amount,
+  disbursed_at,
+  SUM(disbursed_amount) OVER (
+    ORDER BY disbursed_at
+  ) AS cumulative_disbursed
+FROM disbursement
+WHERE status = 'COMPLETED'
+ORDER BY disbursed_at;
+```
+
+3. CTE: Multi-step calculation for portfolio risk
+
+```sql
+WITH risk_summary AS (
+  SELECT 
+    ra.overall_risk_level,
+    COUNT(*) AS loan_count,
+    SUM(o.offered_amount) AS total_exposure
+  FROM risk_assessment ra
+  INNER JOIN offer o ON ra.application_id = o.application_id
+  INNER JOIN contract c ON o.offer_id = c.offer_id
+  WHERE c.status = 'ACTIVE'
+  GROUP BY ra.overall_risk_level
+),
+total_portfolio AS (
+  SELECT SUM(total_exposure) AS grand_total
+  FROM risk_summary
+)
+SELECT 
+  rs.overall_risk_level,
+  rs.loan_count,
+  rs.total_exposure,
+  ROUND(rs.total_exposure / tp.grand_total * 100, 2) AS pct_of_portfolio
+FROM risk_summary rs
+CROSS JOIN total_portfolio tp
+ORDER BY FIELD(rs.overall_risk_level, 'LOW', 'MEDIUM', 'HIGH', 'VERY_HIGH');
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 16: TRANSACTION ISOLATION & CONCURRENCY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Handling Concurrent Operations
+
+1. SET TRANSACTION ISOLATION LEVEL
+
+```sql
+-- For critical financial operations
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+START TRANSACTION;
+
+-- Verify offer is still available
+SELECT status, offer_valid_until 
+FROM offer 
+WHERE offer_id = 201 
+FOR UPDATE;  -- Lock row
+
+-- Accept offer if valid
+UPDATE offer SET status = 'ACCEPTED' WHERE offer_id = 201;
+
+COMMIT;
+```
+
+2. PESSIMISTIC LOCKING (SELECT ... FOR UPDATE)
+
+```sql
+START TRANSACTION;
+
+-- Lock contract row to prevent concurrent modifications
+SELECT * FROM contract 
+WHERE contract_id = 301 
+FOR UPDATE;
+
+-- Make payment without race condition
+INSERT INTO payment (installment_id, amount_paid, paid_at)
+VALUES (501, 1609.12, NOW());
+
+UPDATE repayment_installment 
+SET status = 'PAID' 
+WHERE installment_id = 501;
+
+COMMIT;
+```
+
+3. OPTIMISTIC LOCKING (Version Number)
+
+```sql
+-- Add version column to application
+ALTER TABLE application ADD COLUMN version INT DEFAULT 0;
+
+-- Update with version check
+UPDATE application
+SET status = 'VERIFIED', 
+    verifier_id = 3,
+    version = version + 1
+WHERE application_id = 101
+  AND version = 5;  -- Only succeeds if version matches
+
+-- Check affected rows; retry if 0
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 17: SECURITY & ACCESS CONTROL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Role-Based Database Users
+
+```sql
+-- 1. Create database users
+CREATE USER 'applicant_user'@'%' IDENTIFIED BY 'secure_password';
+CREATE USER 'banker_user'@'%' IDENTIFIED BY 'secure_password';
+CREATE USER 'admin_user'@'%' IDENTIFIED BY 'secure_password';
+
+-- 2. Grant permissions by role
+
+-- APPLICANT: Read own data, insert applications
+GRANT SELECT ON olavs.user TO 'applicant_user'@'%';
+GRANT SELECT ON olavs.applicant TO 'applicant_user'@'%';
+GRANT SELECT, INSERT ON olavs.application TO 'applicant_user'@'%';
+GRANT SELECT ON olavs.document TO 'applicant_user'@'%';
+GRANT SELECT ON olavs.offer TO 'applicant_user'@'%';
+GRANT SELECT ON olavs.repayment_installment TO 'applicant_user'@'%';
+
+-- BANKER: Full access to applications, offers, contracts
+GRANT SELECT, INSERT, UPDATE ON olavs.application TO 'banker_user'@'%';
+GRANT SELECT, INSERT, UPDATE ON olavs.verification TO 'banker_user'@'%';
+GRANT SELECT, INSERT, UPDATE ON olavs.offer TO 'banker_user'@'%';
+GRANT SELECT, INSERT, UPDATE ON olavs.contract TO 'banker_user'@'%';
+GRANT SELECT ON olavs.risk_assessment TO 'banker_user'@'%';
+
+-- ADMIN: Full access to all tables
+GRANT ALL PRIVILEGES ON olavs.* TO 'admin_user'@'%';
+
+-- 3. Revoke dangerous permissions
+REVOKE DELETE ON olavs.payment FROM 'banker_user'@'%';
+REVOKE DROP ON olavs.* FROM 'banker_user'@'%';
+```
+
+Data Encryption
+
+```sql
+-- Encrypt sensitive fields (at application level, not SQL)
+-- Store only hashed passwords
+UPDATE user 
+SET password_hash = SHA2('plain_password', 256)
+WHERE id = 1;
+
+-- Never store plain credit card numbers
+-- Use tokenization or encryption functions
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 18: BACKUP & RECOVERY STRATEGIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Database Backup Commands
+
+1. FULL BACKUP (mysqldump)
+
+```bash
+mysqldump -u admin_user -p \
+  --single-transaction \
+  --routines \
+  --triggers \
+  --events \
+  olavs > olavs_backup_$(date +%Y%m%d).sql
+```
+
+2. INCREMENTAL BACKUP (Binary Logs)
+
+```sql
+-- Enable binary logging (my.cnf)
+[mysqld]
+log-bin = /var/log/mysql/mysql-bin.log
+expire_logs_days = 7
+
+-- Flush logs daily
+FLUSH BINARY LOGS;
+```
+
+3. POINT-IN-TIME RECOVERY
+
+```bash
+# Restore full backup
+mysql -u admin_user -p olavs < olavs_backup_20250122.sql
+
+# Apply binary logs up to specific time
+mysqlbinlog --stop-datetime="2025-01-23 14:30:00" \
+  mysql-bin.000001 | mysql -u admin_user -p olavs
+```
+
+4. TABLE-LEVEL BACKUP (for testing)
+
+```bash
+mysqldump -u admin_user -p olavs \
+  application offer contract \
+  > critical_tables_backup.sql
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 19: MONITORING & MAINTENANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Performance Monitoring Queries
+
+1. SLOW QUERIES (enable slow query log)
+
+```sql
+-- my.cnf configuration
+[mysqld]
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/slow.log
+long_query_time = 2
+
+-- Analyze slow queries
+SELECT * FROM mysql.slow_log
+WHERE query_time > 5
+ORDER BY query_time DESC
+LIMIT 10;
+```
+
+2. TABLE SIZE MONITORING
+
+```sql
+SELECT 
+  table_name,
+  ROUND(data_length / 1024 / 1024, 2) AS data_mb,
+  ROUND(index_length / 1024 / 1024, 2) AS index_mb,
+  ROUND((data_length + index_length) / 1024 / 1024, 2) AS total_mb,
+  table_rows
+FROM information_schema.tables
+WHERE table_schema = 'olavs'
+ORDER BY (data_length + index_length) DESC;
+```
+
+3. INDEX USAGE STATISTICS
+
+```sql
+SELECT 
+  table_name,
+  index_name,
+  cardinality,
+  nullable
+FROM information_schema.statistics
+WHERE table_schema = 'olavs'
+  AND index_name != 'PRIMARY'
+ORDER BY table_name, seq_in_index;
+```
+
+4. ACTIVE CONNECTIONS
+
+```sql
+SELECT 
+  id,
+  user,
+  host,
+  db,
+  command,
+  time,
+  state,
+  LEFT(info, 50) AS query
+FROM information_schema.processlist
+WHERE command != 'Sleep'
+ORDER BY time DESC;
+```
+
+5. OPTIMIZE TABLES (defragmentation)
+
+```bash
+# Run weekly maintenance
+mysqlcheck -u admin_user -p --optimize olavs
+```
+
+═══════════════════════════════════════════════════════════════════
+
+SLIDE 20: CONCLUSION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MySQL as Backbone for OLAVS Business Logic
+
+✓ Query Coverage
+  • CRUD operations for 16 core entities
+  • Complex joins for multi-table contexts
+  • Analytics & reporting (dashboards, aging, risk)
+  • Transaction management for data integrity
+
+✓ Database Logic
+  • Triggers enforce state transitions
+  • Stored procedures encapsulate business rules
+  • Functions provide reusable calculations
+  • Views abstract complex queries
+
+✓ Performance & Integrity
+  • Indexes accelerate critical paths
+  • ENUMs validate status fields
+  • Transactions guarantee ACID properties
+  • Foreign keys maintain referential integrity
+
+✓ Real-World Production Readiness
+  • Role-based access control
+  • Backup & recovery strategies
+  • Monitoring & maintenance
+  • Concurrency handling
+
+Key Takeaway: Schema + Queries = Consistent Loan Lifecycle
+
+═══════════════════════════════════════════════════════════════════
+
+THANK YOU
+Questions?
+
+═══════════════════════════════════════════════════════════════════
+

@@ -1,0 +1,255 @@
+OLAVS - COMPLETED FEATURES
+Last Updated: December 1, 2025
+
+===============================================================================
+
+DATABASE (100% COMPLETE)
+-------------------------------------------------------------------------------
+
+Entities Implemented (16):
+[x] User - Credentials, role, status, timestamps
+[x] Applicant - Identity, employment, income, KYC/AML status
+[x] Bank - Information, legal identifiers
+[x] Branch - Physical locations
+[x] Account - Bank accounts for disbursement
+[x] Product - Loan types (PERSONAL, HOME, AUTO, BUSINESS, EDUCATION, GOLD)
+[x] Application - Loan requests, 20-state workflow
+[x] Verification - KYC/AML checks
+[x] Document - File metadata, 11 types
+[x] RiskAssessment - DTI/LTV/Credit scoring
+[x] Offer - Terms, APR, EMI, validity
+[x] Contract - Agreements, signatures
+[x] Disbursement - Fund transfers
+[x] RepaymentSchedule - Amortization tables
+[x] RepaymentInstallment - Individual payments
+[x] Payment - Transaction records
+[x] Wallet - User wallet for deposits/withdrawals
+[x] Transaction - All user transactions
+[x] Notification - Notification records
+[x] Message - Internal messaging
+[x] AuditLog - Security audit trail
+[x] SupportTicket - Support ticket records
+
+ENUMs Implemented (15):
+[x] UserRole (5 roles: APPLICANT, BANKER, VERIFIER, UNDERWRITER, ADMIN)
+[x] UserStatus (4 states: ACTIVE, INACTIVE, SUSPENDED, PENDING_VERIFICATION)
+[x] ApplicationStatus (20 states)
+[x] KYCStatus (5 states: NOT_STARTED, IN_PROGRESS, VERIFIED, FAILED, PENDING)
+[x] AMLStatus (5 states: NOT_STARTED, IN_PROGRESS, CLEARED, FLAGGED, PENDING)
+[x] VerificationStatus (6 states)
+[x] DocumentStatus (6 states: UPLOADED, VERIFIED, REJECTED, EXPIRED, RESUBMISSION_REQUESTED, ARCHIVED)
+[x] DocumentType (11 types)
+[x] RiskLevel (4 levels: LOW, MEDIUM, HIGH, CRITICAL)
+[x] OfferStatus (5 states: DRAFT, SENT, ACCEPTED, REJECTED, EXPIRED)
+[x] ContractStatus (6 states: CREATED, SENT, SIGNED, EXECUTED, CANCELLED, ARCHIVED)
+[x] DisbursementStatus (5 states: PENDING, APPROVED, PROCESSED, COMPLETED, REJECTED)
+[x] InstallmentStatus (6 states: SCHEDULED, DUE, PAID, PARTIALLY_PAID, OVERDUE, WRITTEN_OFF)
+[x] PaymentStatus (4 states: PENDING, COMPLETED, FAILED, REFUNDED)
+[x] PaymentMethod (5 methods: BANK_TRANSFER, CREDIT_CARD, DEBIT_CARD, CHEQUE, CASH)
+[x] EmploymentType (7 types: EMPLOYED, SELF_EMPLOYED, etc.)
+
+Database Features:
+[x] Flyway migrations (V2__Add_Messages_Table.sql, V3__Add_Audit_Logs_Table.sql)
+[x] Stored procedures (sp_generate_repayment_schedule)
+[x] Functions (fn_calculate_emi)
+[x] Triggers (trg_offer_accepted, trg_check_overdue_installments)
+[x] Views (v_application_full, v_active_portfolio, v_overdue_installments)
+[x] Indexes for performance optimization
+[x] Foreign key relationships with cascading deletes
+
+===============================================================================
+
+BACKEND (100% COMPLETE)
+-------------------------------------------------------------------------------
+
+Repository Layer (15+ repositories):
+[x] UserRepository - 8 methods
+[x] ApplicantRepository - 7 methods
+[x] ApplicationRepository - 12 methods
+[x] DocumentRepository - 8 methods
+[x] VerificationRepository - 9 methods
+[x] RiskAssessmentRepository - 6 methods
+[x] OfferRepository - 8 methods
+[x] ContractRepository - 7 methods
+[x] DisbursementRepository - 5 methods
+[x] RepaymentScheduleRepository - 6 methods
+[x] InstallmentRepository - 8 methods
+[x] PaymentRepository - 7 methods
+[x] BankRepository - 6 methods
+[x] BranchRepository - 6 methods
+[x] ProductRepository - 7 methods
+[x] WalletRepository
+[x] TransactionRepository
+[x] NotificationRepository
+[x] MessageRepository
+[x] SupportTicketRepository
+[x] AuditLogRepository
+
+Service Layer (8+ services):
+[x] ApplicationService - State machine, transitions
+[x] VerificationService - KYC/AML workflows
+[x] RiskAssessmentService - DTI/LTV/Score calculations
+[x] OfferService - APR, EMI calculations
+[x] ContractService - Contract generation
+[x] DisbursementService - Fund transfer logic
+[x] RepaymentService - Amortization, installments
+[x] DocumentService - Document management
+[x] UserService - User creation, password hashing (BCrypt), role management
+[x] MessageService - Message routing & delivery
+[x] AuditService - Security logging
+
+Controller Layer (10+ controllers, 75+ endpoints):
+[x] AuthController - Login, register, profile, refresh, health (6 endpoints)
+[x] UserController - CRUD, role management (8 endpoints)
+[x] ApplicationControllerV2 - Full lifecycle (12 endpoints)
+[x] DocumentControllerV2 - Upload, verify (7 endpoints)
+[x] VerificationControllerV2 - KYC/AML (9 endpoints)
+[x] RiskAssessmentControllerV2 - Risk analysis (6 endpoints)
+[x] OfferControllerV2 - Offer management (8 endpoints)
+[x] ContractControllerV2 - Contract handling (7 endpoints)
+[x] DisbursementControllerV2 - Disbursement (5 endpoints)
+[x] RepaymentControllerV2 - Repayment tracking (10 endpoints)
+[x] WalletController - Wallet operations
+[x] TransactionController - Transaction history
+[x] SupportTicketController - Support tickets
+[x] NotificationController - Notifications
+[x] MessageController - Internal messaging
+[x] AuditController - Audit log queries
+
+===============================================================================
+
+FRONTEND DESIGN SYSTEM (100% COMPLETE)
+-------------------------------------------------------------------------------
+
+Foundation:
+[x] Color Palette - Neutral (9 shades), Primary Banking Blue (7 shades), Status (4)
+[x] Typography - Inter font, 8-level scale (Display-XL to Caption)
+[x] Spacing - 9 tokens (2px to 48px)
+[x] Layout Grid - 12-column, responsive
+[x] Elevation - 4 levels with layered shadows
+[x] Border Radius - 6 sizes (sm, md, lg, xl, 2xl, full)
+[x] Breakpoints - 6 responsive breakpoints (xs, sm, md, lg, xl, 2xl)
+
+Components (6+ core):
+[x] OlavsButton - 5 variants (primary, secondary, tertiary, destructive, icon), loading states
+[x] OlavsCard - Title, subtitle, action slot, 5 padding options, 4 elevations
+[x] OlavsInput - Validation, helper text, error states
+[x] OlavsStatusBadge - 30+ status variants for all application states
+[x] OlavsContainer - Responsive padding, max-widths
+[x] OlavsGrid - Breakpoint-based columns (cols prop)
+[x] OlavsLogo - HCMC-IU branding, 3 sizes
+
+Layout Components:
+[x] Header - Navigation with profile menu
+[x] Sidebar - Staff navigation (collapsible on mobile)
+[x] Layout - Main page wrapper
+[x] BaseLayout - Authenticated layout wrapper
+[x] StaffDashboardLayout - Staff-specific layout
+[x] UserDashboardLayout - User-specific layout
+
+Utilities:
+[x] Responsive CSS classes
+[x] Hide/show breakpoint utilities
+[x] Flexbox/grid responsive patterns
+[x] Mobile-first approach
+[x] Card hover effects (lift, enhanced shadow)
+[x] Focus states (blue ring)
+[x] Custom scrollbar styling
+[x] Fade-in animations
+[x] Pulse loading animation
+
+===============================================================================
+
+FRONTEND PAGES (95% COMPLETE)
+-------------------------------------------------------------------------------
+
+Public Pages:
+[x] Landing Page (/) - Hero, timeline, EMI calculator
+[x] Login (/login) - JWT auth, HCMC-IU logo
+[x] Register (/register) - Password strength, validation
+[x] Staff Login (/staff/login) - Staff portal
+[x] About Page (/(public)/about)
+[x] Contact Page (/(public)/contact)
+
+User Dashboard Pages:
+[x] Dashboard (/dashboard) - Stats, recent applications
+[x] Profile (/profile) - Edit info, account status
+[x] Applications List (/applications)
+[x] New Application (/applications/new) - Multi-step form
+[x] Application Detail (/applications/[id]) - With tabs
+[x] Application Documents (/applications/[id]/documents)
+[x] Offer Review (/applications/[id]/offer)
+[x] Contract View (/applications/[id]/contract)
+[x] Loan Detail (/loans/[id])
+[x] Wallet (/wallet) - Balance, deposit, withdraw
+[x] Transactions (/transactions) - History, filters
+[x] Messages (/messages)
+[x] Notifications (/notifications) - Card-based, filters
+[x] Support (/support) - Ticket management
+
+Staff Dashboard Pages:
+[x] Staff Dashboard (/staff/dashboard) - Kanban pipeline view
+[x] Staff Applications (/staff/applications)
+[x] Application Review (/staff/applications/[id])
+[x] Verification Console (/staff/applications/[id]/verification)
+[x] Risk Assessment (/staff/applications/[id]/risk)
+[x] Create Offer (/staff/applications/[id]/offer/new)
+[x] Disbursement (/staff/applications/[id]/disbursement)
+[x] Repayments (/staff/repayments)
+
+Admin Pages:
+[x] Admin Dashboard
+[x] User Management (/admin/users)
+
+===============================================================================
+
+AUTHENTICATION & SECURITY (100% COMPLETE)
+-------------------------------------------------------------------------------
+
+[x] JWT token-based authentication (JJWT 0.11.5)
+[x] BCrypt password hashing (configurable strength)
+[x] Role-based access control (5 roles)
+[x] Protected routes with middleware
+[x] Session management with HttpOnly cookies
+[x] SameSite=Strict cookie policy
+[x] Token refresh logic
+[x] Logout functionality
+[x] AuthContext provider
+[x] API client with auth headers
+[x] CORS configuration
+[x] Input validation (Jakarta Bean Validation)
+[x] SQL injection prevention (JPA parameterized queries)
+[x] AOP/Aspects for security logging
+
+===============================================================================
+
+BUILD & DEPLOYMENT
+-------------------------------------------------------------------------------
+
+[x] Frontend builds successfully (Next.js 16)
+[x] All routes registered and compiled
+[x] TypeScript compilation: No errors
+[x] Responsive design implemented
+[x] Shell scripts for server management (start-all.sh, start-backend.sh, start-frontend.sh, stop-all.sh)
+[x] Database schema ready for deployment (schema-extended.sql)
+[x] Seed data files ready (data-extended.sql, seed-realistic-data.sql, seed-more-data.sql)
+[x] CI/CD pipeline configured (GitHub Actions)
+[x] Environment variable management (.env files)
+
+===============================================================================
+
+DOCUMENTATION
+-------------------------------------------------------------------------------
+
+[x] README.md (comprehensive project overview)
+[x] PROJECT_DOCUMENTATION.md
+[x] QUICK_START.md (setup guide)
+[x] SECRET_MANAGEMENT.md (security configuration)
+[x] TESTING_GUIDE.md
+[x] SQL_QUERIES_REFERENCE.md
+[x] PRESENTATION_SLIDES.md / SLIDE_CONTENT.md
+[x] Security audit reports (SECURITY_THREAT_MODEL.md, COMPREHENSIVE_THREAT_MODEL.md)
+[x] Code quality audit (CODE_QUALITY_AND_DEVELOPER_PRACTICES_AUDIT.md)
+[x] UI/UX audit (FRONTEND_UI_UX_AUDIT.md)
+
+===============================================================================
