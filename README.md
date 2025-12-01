@@ -1,410 +1,386 @@
-# 💼 Loan Management System — PDM Project
+# PDM Loan Management System
 
-A modern, full-stack **loan management web application** built with **Spring Boot 3.3**, **JTE**, and **Tailwind CSS** for the *PDM* course at HCMIU.
+A comprehensive loan management platform built with modern technologies, featuring a Next.js frontend and Spring Boot backend with MySQL database.
 
-This application provides a complete banking and loan management system with user authentication, loan processing, transaction tracking, digital wallet, and support ticketing features.
+**Course:** Principles of Database Management (S1_2025-26_G01) — Team #1 — HCMIU VNU
 
----
+## Overview
 
-## 🌐 Overview
+The PDM Loan Management System is a full-stack web application designed to streamline loan application processing, verification, risk assessment, and loan lifecycle management. The system supports multiple user roles (Applicants, Bankers, Verifiers, Underwriters) with role-based access control and comprehensive workflow management.
 
-The Loan Management System provides:
+## Features
 
-* **User Authentication** - Secure login/register with Spring Security & BCrypt
-* **Dashboard** - Financial overview with balance and transaction views
-* **Loan Management** - Apply for loans, track status, and manage payments
-* **Transaction History** - View and track all financial transactions
-* **Digital Wallet** - Manage account balance and transfers
-* **Support Tickets** - Customer support system with ticket tracking
-* **Admin Panel** - User management and system administration
-* **Notifications** - Real-time notification system
-* Fully responsive design with **Tailwind CSS**
+- **User Authentication & Authorization**: JWT-based authentication with role-based access control
+- **Loan Application Management**: Complete loan application workflow from submission to disbursement
+- **Document Management**: Upload, verify, and manage loan-related documents
+- **KYC/AML Verification**: Integrated identity verification and anti-money laundering checks
+- **Risk Assessment**: Automated risk scoring and assessment for loan applications
+- **Offer Generation**: Dynamic loan offer generation with customizable terms
+- **Contract Management**: Digital contract creation and e-signature support
+- **Disbursement Processing**: Loan disbursement tracking and processing
+- **Repayment Scheduling**: Automated repayment schedule generation and management
+- **Wallet & Transactions**: Built-in wallet system for deposits and withdrawals
+- **Support Tickets**: Customer support ticket management
+- **Notifications**: Real-time notification system for user alerts
+- **Messaging System**: Internal messaging between users and staff
 
----
+## Screenshots
 
-## 🧱 Tech Stack
+### Public Pages
 
-| Technology                | Description                             |
-| ------------------------- | --------------------------------------- |
-| **Spring Boot 3.3.4**     | Backend framework with Java 21          |
-| **JTE**                   | Java Template Engine for server-side rendering |
-| **Tailwind CSS 3.4**      | Utility-first CSS framework             |
-| **Spring Security**       | Authentication and authorization        |
-| **Spring JDBC**           | Database access with JdbcTemplate       |
-| **H2 Database**           | In-memory database (development)        |
-| **PostgreSQL**            | Production database                     |
-| **Maven**                 | Build and dependency management         |
-| **npm**                   | Frontend asset management               |
+#### Landing Page
+![Landing Page](pdm-frontend/public/screenshots/public_landing.png)
 
----
+#### User Login
+![User Login](pdm-frontend/public/screenshots/public_login.png)
 
-## 📁 Project Structure
+#### Staff Portal Login
+![Staff Login](pdm-frontend/public/screenshots/public_staff_login.png)
+
+### User Dashboard (Applicant)
+
+#### Dashboard Overview
+![User Dashboard](pdm-frontend/public/screenshots/user_dashboard.png)
+
+#### My Applications
+![User Applications](pdm-frontend/public/screenshots/user_applications.png)
+
+#### New Loan Application
+![New Application](pdm-frontend/public/screenshots/user_new_application.png)
+
+#### My Loans
+![User Loans](pdm-frontend/public/screenshots/user_loans.png)
+
+#### My Wallet
+![User Wallet](pdm-frontend/public/screenshots/user_wallet.png)
+
+#### Transactions
+![User Transactions](pdm-frontend/public/screenshots/user_transactions.png)
+
+#### Support Center
+![Support Center](pdm-frontend/public/screenshots/user_support.png)
+
+### Staff & Admin Dashboards
+
+#### Admin Dashboard
+![Admin Dashboard](pdm-frontend/public/screenshots/admin_dashboard.png)
+
+## Tech Stack
+
+### Frontend
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS 4
+- **UI Components**: Lucide React icons
+- **Runtime**: React 19
+
+### Backend
+- **Framework**: Spring Boot 3.x
+- **Language**: Java 17+
+- **Build Tool**: Maven 3.8+
+- **Security**: Spring Security with JWT
+- **Database**: MySQL 8.0
+- **ORM**: Spring Data JPA
+
+### Infrastructure
+- **Database**: MySQL 8.0 (database name: `olavs_db`)
+- **Port Configuration**:
+  - Frontend: `4000`
+  - Backend: `8080` (API at `/api`)
+  - Database: `3306`
+
+## Architecture
 
 ```
-PDM_Project/
-├── pom.xml                                 # Maven configuration
-├── package.json                            # npm configuration for Tailwind
-├── tailwind.config.js                      # Tailwind configuration
-├── postcss.config.js                       # PostCSS configuration
-├── src/
-│   ├── main/
-│   │   ├── java/com/loanweb/app/
-│   │   │   ├── LoanManagementApplication.java   # Main application class
-│   │   │   ├── config/
-│   │   │   │   ├── SecurityConfig.java          # Spring Security config
-│   │   │   │   └── CustomUserDetailsService.java
-│   │   │   ├── domain/                          # Domain models & repositories
-│   │   │   │   ├── user/
-│   │   │   │   ├── loan/
-│   │   │   │   ├── transaction/
-│   │   │   │   ├── wallet/
-│   │   │   │   ├── ticket/
-│   │   │   │   └── notification/
-│   │   │   └── web/                             # Controllers
-│   │   │       ├── HomeController.java
-│   │   │       ├── AuthController.java
-│   │   │       ├── DashboardController.java
-│   │   │       ├── LoanController.java
-│   │   │       ├── TransactionController.java
-│   │   │       ├── WalletController.java
-│   │   │       ├── SupportTicketController.java
-│   │   │       └── UserController.java
-│   │   ├── jte/                                 # JTE templates
-│   │   │   ├── index.jte                        # Landing page
-│   │   │   ├── auth/                            # Login/Register
-│   │   │   ├── dashboard/                       # Dashboard
-│   │   │   ├── loans/                           # Loan pages
-│   │   │   ├── transactions/                    # Transaction history
-│   │   │   ├── wallet/                          # Wallet pages
-│   │   │   ├── tickets/                         # Support tickets
-│   │   │   ├── users/                           # User management
-│   │   │   └── components/                      # Reusable components
-│   │   │       ├── layout.jte
-│   │   │       └── dashboard-layout.jte
-│   │   └── resources/
-│   │       ├── application.yml                  # Spring configuration
-│   │       ├── schema.sql                       # Database schema
-│   │       ├── data.sql                         # Sample data
-│   │       ├── input.css                        # Tailwind input
-│   │       └── static/
-│   │           ├── css/tailwind.css            # Generated Tailwind CSS
-│   │           ├── js/script.js                # JavaScript
-│   │           └── images/                      # Static images
-│   └── test/                                    # Test classes
-└── target/                                      # Build output
+┌─────────────────────────────────────────────────────────────┐
+│                        Client Layer                          │
+│  Next.js Frontend (Port 4000) - TypeScript + Tailwind CSS   │
+└────────────────────┬────────────────────────────────────────┘
+                     │ HTTP/REST API
+                     │
+┌────────────────────┴────────────────────────────────────────┐
+│                      Application Layer                       │
+│    Spring Boot Backend (Port 8080) - Java 17 + Maven        │
+│                                                              │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
+│  │ Controllers  │  │   Services   │  │   Security   │     │
+│  │  (REST API)  │─▶│ (Business    │◀─│ (JWT + RBAC) │     │
+│  │              │  │   Logic)     │  │              │     │
+│  └──────────────┘  └──────────────┘  └──────────────┘     │
+│                           │                                 │
+│                    ┌──────┴──────┐                         │
+│                    │  Repository  │                         │
+│                    │    Layer     │                         │
+│                    └──────┬──────┘                         │
+└───────────────────────────┼────────────────────────────────┘
+                            │ JDBC
+                            │
+┌───────────────────────────┴────────────────────────────────┐
+│                      Data Layer                             │
+│         MySQL Database (Port 3306) - olavs_db               │
+│                                                              │
+│  Users │ Applications │ Documents │ Offers │ Contracts     │
+│  Loans │ Repayments │ Transactions │ Wallets │ Tickets     │
+└─────────────────────────────────────────────────────────────┘
 ```
 
----
-
-## ⚙️ Quick Start
+## Quick Start
 
 ### Prerequisites
+- **Node.js**: 20.x or higher
+- **Java**: 17 or higher
+- **Maven**: 3.8 or higher
+- **MySQL**: 8.0 or higher
 
-- **Java 21** or higher
-- **Maven 3.6+**
-- **Node.js 16+** and npm (for Tailwind CSS)
-
-### Installation & Setup
-
-1. **Clone this repository:**
-
-   ```bash
-   git clone https://github.com/<your-username>/PDM_Project.git
-   cd PDM_Project
-   ```
-
-2. **Install npm dependencies** (for Tailwind CSS)
-
-   ```bash
-   npm install
-   ```
-
-3. **Build Tailwind CSS**
-
-   ```bash
-   # For development (watch mode)
-   npm run dev
-
-   # For production (minified)
-   npm run build
-   ```
-
-4. **Run the Spring Boot application**
-
-   ```bash
-   mvn spring-boot:run
-   ```
-
-5. **Access the application**
-   - Open your browser and navigate to: **http://localhost:8080**
-   - Landing page: http://localhost:8080/
-   - Login page: http://localhost:8080/login
-   - H2 Console (dev only): http://localhost:8080/h2-console
-
-### Default Credentials
-
-The application comes with pre-seeded test users:
-
-- **Admin User**
-  - Email: `admin@loanweb.com`
-  - Password: `password123`
-
-- **Regular Users**
-  - Email: `john.doe@example.com` / Password: `password123`
-  - Email: `jane.smith@example.com` / Password: `password123`
-  - Email: `bob.johnson@example.com` / Password: `password123`
-
----
-
-## 🖼️ Features & Screenshots
-
-### User Features
-- ✅ User registration and authentication
-- ✅ Dashboard with financial overview
-- ✅ Loan application and management
-- ✅ Transaction history
-- ✅ Digital wallet
-- ✅ Support ticket system
-- ✅ Notifications
-
-### Admin Features
-- ✅ User management
-- ✅ Loan approval workflow
-- ✅ Support ticket management
-- ✅ System analytics
-
-### Security
-- ✅ BCrypt password encryption
-- ✅ Spring Security integration
-- ✅ Role-based access control (USER, ADMIN)
-- ✅ CSRF protection
-- ✅ Secure session management
-
-<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/43d9ccff-b3a0-4f8f-a857-4cb59522c145" />
-
-<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/c98d44fe-abec-44dc-91cc-c89081d5aff6" />
-
-<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/fad8372d-baed-44e6-a234-ad92464811ab" />
-
-<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/e5224c85-f4dd-42c3-89e4-5c717d767b96" />
-
-<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/0dbdaa15-f62f-471c-b95e-5ebde2780065" />
-
-<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/9f348e36-46e3-493e-83cb-221ec247ecaf" />
-
-<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/b74a311c-fa05-4154-8c71-41240c0e80e8" />
-
-<img width="2549" height="1368" alt="image" src="https://github.com/user-attachments/assets/2e8270ab-c185-4773-9bc8-db6713c13795" />
-
----
-
-## 🔧 Development
-
-### Database
-
-**H2 Database (Development)**
-- In-memory database, auto-initialized on startup
-- Access H2 Console at: http://localhost:8080/h2-console
-- JDBC URL: `jdbc:h2:mem:loandb`
-- Username: `sa`
-- Password: (empty)
-
-**PostgreSQL (Production)**
-Update `src/main/resources/application.yml`:
-```yaml
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/loandb
-    username: your_username
-    password: your_password
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd PDM_Project
 ```
 
-### Tailwind CSS Development
+### 2. Set Up Environment Variables
 
-Run Tailwind in watch mode for automatic rebuilding:
+**Backend (.env)**:
 ```bash
+cd pdm-backend
+cp .env.example .env
+# Edit .env with your database credentials and JWT secret
+```
+
+**Frontend (.env.local)**:
+```bash
+cd pdm-frontend
+cp .env.example .env.local
+# Default values work for local development
+```
+
+### 3. Start the Application
+
+**Option A: Use Start Scripts**
+```bash
+# Start both backend and frontend
+./start-all.sh
+
+# Or start individually
+./start-backend.sh  # Backend on http://localhost:8080
+./start-frontend.sh # Frontend on http://localhost:4000
+```
+
+**Option B: Manual Start**
+
+Start Backend:
+```bash
+cd pdm-backend
+mvn spring-boot:run
+```
+
+Start Frontend:
+```bash
+cd pdm-frontend
+npm install
 npm run dev
 ```
 
-This will watch for changes in JTE templates and rebuild CSS automatically.
+### 4. Access the Application
+- **Frontend**: http://localhost:4000
+- **Backend API**: http://localhost:8080/api
+- **API Health Check**: http://localhost:8080/api/auth/health
 
-### JTE Templates
+## Environment Variables
 
-- Templates are located in `src/main/jte/`
-- Hot reload is enabled in development mode
-- Return template paths from controllers like: `"dashboard/index.jte"`
+### Frontend (`pdm-frontend/.env.local`)
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `NEXT_PUBLIC_API_URL` | Backend API base URL | `http://localhost:8080/api` |
 
-### Adding New Pages
+### Backend (`pdm-backend/.env`)
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `DB_URL` | MySQL JDBC connection string | Yes |
+| `DB_USERNAME` | Database username | Yes |
+| `DB_PASSWORD` | Database password | Yes |
+| `JWT_SECRET` | Secret key for JWT token generation | Yes |
 
-1. **Create Controller**
-   ```java
-   @Controller
-   @RequestMapping("/mypage")
-   public class MyPageController {
-       @GetMapping
-       public String myPage(Model model) {
-           model.addAttribute("title", "My Page");
-           return "mypage/index.jte";
-       }
-   }
-   ```
+See [SECRET_MANAGEMENT.md](./docs/SECRET_MANAGEMENT.md) for detailed security configuration.
 
-2. **Create JTE Template**
-   ```jte
-   @param String title
-   @param com.loanweb.app.domain.user.User user
+## Documentation
 
-   @template.components.dashboard-layout(
-       title = title,
-       user = user,
-       activePage = "mypage",
-       content = @`
-           <h1>${title}</h1>
-           <!-- Your content here -->
-       `
-   )
-   ```
+- **[Frontend README](./pdm-frontend/README.md)** - Frontend-specific documentation
+- **[Backend README](./pdm-backend/README.md)** - Backend-specific documentation
+- **[API Documentation](./docs/api/)** - API endpoints and usage
+- **[Security Guide](./docs/SECRET_MANAGEMENT.md)** - Security best practices
+- **[Testing Guide](./docs/TESTING_GUIDE.md)** - Testing strategies and instructions
+- **[Quick Start Guide](./docs/QUICK_START.md)** - Detailed setup instructions
+- **[Audit Reports](./docs/audit-reports/)** - Security and code quality audits
 
-3. **Rebuild Tailwind** (if you added new classes)
-   ```bash
-   npm run build
-   ```
+## Project Structure
 
----
-
-## 🚀 Building for Production
-
-1. **Build Tailwind CSS** (minified)
-   ```bash
-   npm run build
-   ```
-
-2. **Package the application**
-   ```bash
-   mvn clean package -DskipTests
-   ```
-
-3. **Run the JAR file**
-   ```bash
-   java -jar target/loan-management-system-1.0.0.jar
-   ```
-
-### Production Configuration
-
-Set environment variables or update `application.yml`:
-
-```yaml
-spring:
-  profiles:
-    active: prod
-  datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-  jte:
-    development-mode: false
-    use-precompiled-templates: true
+```
+PDM_Project/
+├── pdm-frontend/           # Next.js frontend application
+│   ├── app/                # Next.js app router pages
+│   ├── components/         # Reusable React components
+│   ├── lib/                # Utility functions and helpers
+│   ├── contexts/           # React context providers
+│   └── package.json
+├── pdm-backend/            # Spring Boot backend application
+│   ├── src/main/java/      # Java source code
+│   │   ├── config/         # Configuration classes
+│   │   ├── security/       # Security components
+│   │   ├── web/            # REST controllers
+│   │   ├── service/        # Business logic
+│   │   ├── domain/         # JPA entities
+│   │   └── dto/            # Data Transfer Objects
+│   ├── src/main/resources/ # Application resources
+│   └── pom.xml
+├── database/               # Database scripts and migrations
+│   ├── schema-extended.sql # Production schema (16 entities)
+│   ├── data-extended.sql   # Production seed data
+│   └── init-database.sh    # Database initialization script
+├── context/                # Project context files
+│   ├── FEATURES.txt        # Feature implementation status
+│   ├── DONE.txt            # Completed features
+│   ├── NEXT.txt            # Next steps and priorities
+│   └── DESIGN_SYSTEM.txt   # OLAVS design system reference
+├── docs/                   # Project documentation
+│   ├── audit-reports/      # Security and quality audits
+│   ├── guides/             # Setup and development guides
+│   ├── api/                # API documentation
+│   └── reports/            # Implementation reports
+├── start-all.sh            # Start both frontend and backend
+├── start-backend.sh        # Start backend only
+├── start-frontend.sh       # Start frontend only
+├── stop-all.sh             # Stop all services
+└── README.md               # This file
 ```
 
----
+## API Endpoints
 
-## 📡 API Endpoints
+The system provides 75+ REST API endpoints organized into the following categories:
 
-### Public
-- `GET /` - Landing page
-- `GET /login` - Login page
-- `GET /register` - Registration page
-- `POST /register` - Process registration
+- **Authentication**: `/api/auth/*` - User registration, login, and session management
+- **Applications**: `/api/v2/applications/*` - Loan application lifecycle
+- **Documents**: `/api/v2/documents/*` - Document upload and verification
+- **Verifications**: `/api/v2/verifications/*` - KYC/AML verification
+- **Risk Assessments**: `/api/v2/risk-assessments/*` - Risk scoring
+- **Offers**: `/api/v2/offers/*` - Loan offer generation and acceptance
+- **Contracts**: `/api/v2/contracts/*` - Contract creation and signing
+- **Disbursements**: `/api/v2/disbursements/*` - Loan disbursement processing
+- **Repayments**: `/api/v2/repayments/*` - Repayment schedule and payments
+- **Users**: `/api/users/*` - User management
+- **Wallets**: `/api/wallets/*` - Wallet operations
+- **Transactions**: `/api/transactions/*` - Transaction history
+- **Tickets**: `/api/tickets/*` - Support ticket management
+- **Notifications**: `/api/notifications/*` - User notifications
+- **Messages**: `/api/messages/*` - Internal messaging
 
-### Authenticated
-- `GET /dashboard` - User dashboard
-- `GET /loans` - Loan management
-- `GET /transactions` - Transaction history
-- `GET /wallet` - Digital wallet
-- `GET /tickets` - Support tickets
-- `GET /users` - User management (ADMIN only)
+For detailed API documentation, see [QUICK_START.md](./docs/QUICK_START.md).
 
----
+## Development
 
-## 🧪 Testing
-
-Run tests with:
+### Running Tests
 ```bash
+# Backend tests
+cd pdm-backend
 mvn test
+
+# Frontend tests
+cd pdm-frontend
+npm test
 ```
 
----
+### Building for Production
+```bash
+# Backend
+cd pdm-backend
+mvn clean package
 
-## 🔍 Troubleshooting
-
-### Port Already in Use
-Change the port in `application.yml`:
-```yaml
-server:
-  port: 8081
+# Frontend
+cd pdm-frontend
+npm run build
 ```
 
-### Tailwind CSS Not Updating
-1. Rebuild Tailwind: `npm run build`
-2. Clear browser cache
-3. Restart Spring Boot
+### Code Quality
+- Backend: Spring Boot best practices, Java 17 features
+- Frontend: TypeScript strict mode, ESLint configuration
+- Security: JWT authentication, password hashing, SQL injection prevention
+- Testing: Unit tests, integration tests, API endpoint testing
 
-### Database Issues
-- Check H2 Console: http://localhost:8080/h2-console
-- Verify JDBC URL: `jdbc:h2:mem:loandb`
-- Check `schema.sql` and `data.sql` are being executed
+## Contributing
 
----
+We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on:
+- Code of conduct
+- Development workflow
+- Pull request process
+- Coding standards
+- Testing requirements
 
-## 🔄 Migration from Old Frontend
+## Security
 
-The original static HTML frontend has been migrated to:
-- **Templates**: `src/main/jte/` (converted from `frontend/` HTML files)
-- **Assets**: `src/main/resources/static/` (moved from `frontend/assets/`)
-- **Styling**: Now using build-time Tailwind instead of CDN
+Security is a top priority. This project implements:
+- JWT-based authentication with secure token management
+- Role-based access control (RBAC)
+- Password hashing with BCrypt
+- SQL injection prevention via JPA/parameterized queries
+- CORS configuration
+- Environment variable-based secret management
+- Security audit compliance
 
----
+To report security vulnerabilities, please create a private security advisory on GitHub.
 
-## 👥 Team Members
-
-| ID | Student ID  | Student Name           | Phone      | Role          |
-| -- | ----------- | ---------------------- | ---------- | ------------- |
-| 1  | ITCSIU23054 | Đào Hữu Hoài           | 0344612654 | Full-stack    |
-| 2  | ITITWE23014 | Lê Thành Danh (Leader) | 0767178267 | Full-stack    |
-| 3  | ITDSIU24022 | Võ Quang Khải          | 0363681624 | Report Writer |
-| 4  | ITITWE23030 | Phan Minh Khánh        | 0902628125 | ERD Designer  |
-| 5  | ITDSIU23027 | Trần Châu Thanh Tuấn   | 0788286494 | Report Writer |
-| 6  | ITCSIU24063 | Vũ Đức Nhân            | 0937840446 | Backend       |
-| 7  | ITITDK23037 | Lê Hoàng Quốc Anh      | 0354503153 | Frontend      |
-| 8  | ITCSIU24090 | Trương Minh Trí        | 0708941111 | Frontend      |
-| 9  | ITCSIU24059 | Hoàng Triệu Nam        | 0769315790 | Report Writer |
-| 10 | ITCSIU24045 | Võ Trí Khôi            | 0869250015 | Backend       |
-| 11 | ITITWE23941 | Võ Nguyễn Đình Bảo     | 0858010878 | ERD Designer  |
-
-Project for *Principle of Database Management — HCMIU VNU (International University - Vietnam National University)*
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
----
-
-## 📄 License
+## License
 
 This project is for **educational and demonstration purposes**.
 You are free to use, modify, and extend it with proper credit.
 
----
+## Support
 
-## 🙏 Acknowledgments
+- **Documentation**: See the `/docs` directory
+- **Issues**: Create an issue on GitHub
+- **Support Tickets**: Use the in-app support ticket system
+
+## Project Status
+
+- **Current Version**: 1.0.0
+- **Status**: ~90% Complete (MVP Ready)
+- **Last Updated**: December 2025
+
+### Completion Summary
+| Component | Status |
+|-----------|--------|
+| Database Schema | 100% (16 entities, 15 ENUMs, triggers, procedures) |
+| Backend Services | 100% (75+ REST endpoints) |
+| Frontend Design System | 100% (OLAVS complete) |
+| Frontend Pages | 95% (all major routes implemented) |
+| Authentication & Security | 100% (JWT + RBAC) |
+| Testing | 20% (needs expansion) |
+| Deployment | Ready for staging |
+
+## Team Members
+
+| # | Student ID  | Student Name           | Phone      | Role          |
+|---|-------------|------------------------|------------|---------------|
+| 1 | ITCSIU23054 | Dao Huu Hoai           | 0344612654 | Full-stack    |
+| 2 | ITITWE23014 | Le Thanh Danh (Leader) | 0767178267 | Full-stack    |
+| 3 | ITDSIU24022 | Vo Quang Khai          | 0363681624 | Report Writer |
+| 4 | ITITWE23030 | Phan Minh Khanh        | 0902628125 | ERD Designer  |
+| 5 | ITDSIU23027 | Tran Chau Thanh Tuan   | 0788286494 | Report Writer |
+| 6 | ITCSIU24063 | Vu Duc Nhan            | 0937840446 | Backend       |
+| 7 | ITITDK23037 | Le Hoang Quoc Anh      | 0354503153 | Frontend      |
+| 8 | ITCSIU24090 | Truong Minh Tri        | 0708941111 | Frontend      |
+| 9 | ITCSIU24059 | Hoang Trieu Nam        | 0769315790 | Report Writer |
+| 10| ITCSIU24045 | Vo Tri Khoi            | 0869250015 | Backend       |
+| 11| ITITWE23941 | Vo Nguyen Dinh Bao     | 0858010878 | ERD Designer  |
+
+## Acknowledgments
 
 - Spring Boot team for the excellent framework
-- JTE for the modern template engine
-- Tailwind CSS for the utility-first CSS framework
+- Next.js team for the React framework
+- Tailwind CSS for the utility-first styling
 - HCMIU for academic support
+
+---
+
+**Getting Started**: Follow the [Quick Start](#quick-start) guide above to run the application locally in under 5 minutes.
+
+**Need Help?**: Check the [documentation](./docs/) or create an issue.

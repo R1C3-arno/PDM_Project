@@ -1,33 +1,46 @@
-# Maven
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-# Node modules
-node_modules/
-package-lock.json
-
-# Generated Tailwind CSS
-src/main/resources/static/css/tailwind.css
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.staging
 
 # IDE
 .idea/
-*.iml
-*.iws
-*.ipr
 .vscode/
 *.swp
 *.swo
 *~
+
+# OS
 .DS_Store
+Thumbs.db
 
-# Log files
+# Logs
 *.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Spring Boot DevTools
-.spring-boot-devtools.properties
+# Temporary files
+*.tmp
+*.temp
 
-# JTE compiled templates
-jte-classes/
-.claude/
+# Build outputs
+dist/
+build/
+target/
+
+# Dependencies
+node_modules/
+
+# Docker volumes
+mysql_data/
+postgres_data/
+
+# Backup files
+*.backup
+*.bak
+*.old
