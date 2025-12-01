@@ -1,0 +1,246 @@
+/* OLAVS Responsive Utilities */
+
+/* Container utilities */
+.olavs-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+@media (min-width: 640px) {
+  .olavs-container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .olavs-container {
+    max-width: 768px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .olavs-container {
+    max-width: 1024px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .olavs-container {
+    max-width: 1200px;
+  }
+}
+
+/* Hide/Show utilities */
+.hide-on-mobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hide-on-mobile {
+    display: block;
+  }
+}
+
+.hide-on-tablet {
+  display: block;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hide-on-tablet {
+    display: none;
+  }
+}
+
+.hide-on-desktop {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .hide-on-desktop {
+    display: none;
+  }
+}
+
+.show-on-mobile {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .show-on-mobile {
+    display: none;
+  }
+}
+
+/* Responsive Grid */
+.olavs-grid-responsive {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .olavs-grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .olavs-grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .olavs-grid-responsive {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+/* Responsive Flexbox */
+.olavs-flex-responsive {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .olavs-flex-responsive {
+    flex-direction: row;
+    gap: 24px;
+  }
+}
+
+/* Responsive Typography */
+.olavs-heading-responsive {
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .olavs-heading-responsive {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .olavs-heading-responsive {
+    font-size: 36px;
+  }
+}
+
+.olavs-body-responsive {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .olavs-body-responsive {
+    font-size: 16px;
+  }
+}
+
+/* Responsive Spacing */
+.olavs-section-padding {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .olavs-section-padding {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .olavs-section-padding {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+}
+
+/* Mobile Navigation */
+.olavs-mobile-menu {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: 1000;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+@media (min-width: 1024px) {
+  .olavs-mobile-menu {
+    display: none;
+  }
+}
+
+/* Responsive Tables */
+.olavs-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 768px) {
+  .olavs-table-responsive {
+    overflow-x: visible;
+  }
+}
+
+/* Responsive Cards */
+.olavs-card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .olavs-card-stack {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .olavs-card-stack > * {
+    flex: 1 1 calc(50% - 12px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .olavs-card-stack > * {
+    flex: 1 1 calc(33.333% - 16px);
+  }
+}
+
+/* Responsive Forms */
+.olavs-form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .olavs-form-row {
+    flex-direction: row;
+  }
+  
+  .olavs-form-row > * {
+    flex: 1;
+  }
+}
+

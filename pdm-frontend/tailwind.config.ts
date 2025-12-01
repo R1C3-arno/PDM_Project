@@ -1,0 +1,171 @@
+import type { Config } from 'tailwindcss';
+
+export default {
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './layouts/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        // Primary palette based on olavsDesign.colors.primary
+        primary: {
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9', // Main primary color
+          600: '#0284c7',
+          700: '#0369a1',
+          800: '#075985',
+          900: '#0c4a6e',
+        },
+        // Neutral palette
+        neutral: {
+          50: '#fafafa',
+          100: '#f5f5f5',
+          200: '#e5e5e5',
+          300: '#d4d4d4',
+          400: '#a3a3a3',
+          500: '#737373',
+          600: '#525252',
+          700: '#404040',
+          800: '#262626',
+          900: '#171717',
+        },
+        // Navy colors for premium theme
+        navy: {
+          DEFAULT: '#1e293b',
+          soft: '#334155',
+          light: '#475569',
+          dark: '#0f172a',
+        },
+        // Surface colors
+        surface: {
+          primary: '#ffffff',
+          secondary: '#f9fafb',
+          tertiary: '#f3f4f6',
+          alt: '#f8f9fa',
+          default: '#ffffff',
+        },
+        // Status colors
+        status: {
+          success: '#10b981',
+          warning: '#f59e0b',
+          error: '#ef4444',
+          info: '#3b82f6',
+        },
+        // Semantic colors
+        accent: '#8b5cf6',
+        border: '#e5e7eb',
+        // Text colors with WCAG compliance
+        text: {
+          primary: '#111827',
+          secondary: '#374151',
+          tertiary: '#4b5563',
+          placeholder: '#525252',
+        },
+      },
+      fontFamily: {
+        sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+        ],
+        mono: ['"SF Mono"', 'Monaco', 'Inconsolata', '"Fira Code"', 'monospace'],
+      },
+      fontSize: {
+        'display-xl': ['96px', { lineHeight: '1.1', fontWeight: '900' }],
+        'display-l': ['72px', { lineHeight: '1.1', fontWeight: '800' }],
+        'display-m': ['60px', { lineHeight: '1.1', fontWeight: '800' }],
+        hero: ['56px', { lineHeight: '1.15', fontWeight: '800' }],
+        h1: ['48px', { lineHeight: '1.2', fontWeight: '700' }],
+        h2: ['40px', { lineHeight: '1.2', fontWeight: '700' }],
+        h3: ['32px', { lineHeight: '1.3', fontWeight: '600' }],
+        h4: ['24px', { lineHeight: '1.4', fontWeight: '600' }],
+        h5: ['20px', { lineHeight: '1.4', fontWeight: '600' }],
+        h6: ['18px', { lineHeight: '1.5', fontWeight: '600' }],
+        'heading-l': ['28px', { lineHeight: '1.3', fontWeight: '600' }],
+        'heading-m': ['22px', { lineHeight: '1.4', fontWeight: '600' }],
+        'heading-s': ['18px', { lineHeight: '1.4', fontWeight: '600' }],
+        'body-l': ['18px', { lineHeight: '1.6', fontWeight: '400' }],
+        'body-m': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
+        'body-s': ['14px', { lineHeight: '1.5', fontWeight: '400' }],
+        small: ['14px', { lineHeight: '1.5', fontWeight: '400' }],
+        tiny: ['12px', { lineHeight: '1.4', fontWeight: '400' }],
+        caption: ['12px', { lineHeight: '1.4', fontWeight: '400' }],
+      },
+      spacing: {
+        xs: '4px',
+        sm: '8px',
+        md: '16px',
+        lg: '24px',
+        xl: '32px',
+        '2xl': '48px',
+        '3xl': '64px',
+        '4xl': '80px',
+      },
+      borderRadius: {
+        none: '0',
+        sm: '4px',
+        DEFAULT: '8px',
+        md: '8px',
+        lg: '12px',
+        xl: '16px',
+        '2xl': '24px',
+        full: '9999px',
+        pill: '9999px',
+      },
+      boxShadow: {
+        sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        DEFAULT: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        card: '0 2px 8px rgba(0, 0, 0, 0.08)',
+        elevation: '0 4px 16px rgba(0, 0, 0, 0.12)',
+        navbar: '0 2px 4px rgba(0, 0, 0, 0.08)',
+        'elevation-1': '0 2px 4px rgba(0, 0, 0, 0.06)',
+        'elevation-2': '0 4px 8px rgba(0, 0, 0, 0.08)',
+        'elevation-3': '0 8px 16px rgba(0, 0, 0, 0.12)',
+        'elevation-4': '0 12px 24px rgba(0, 0, 0, 0.15)',
+      },
+      backgroundImage: {
+        'gradient-navy': 'linear-gradient(135deg, #0a1929 0%, #243b53 100%)',
+        'gradient-primary': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        'gradient-secondary': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+        'gradient-success': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+      },
+      transitionDuration: {
+        fast: '150ms',
+        normal: '250ms',
+        slow: '350ms',
+      },
+      transitionTimingFunction: {
+        'ease-out-smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+      zIndex: {
+        base: '0',
+        dropdown: '1000',
+        sticky: '1100',
+        fixed: '1200',
+        'modal-backdrop': '1300',
+        modal: '1400',
+        popover: '1500',
+        tooltip: '1600',
+      },
+      maxWidth: {
+        container: '1280px',
+        content: '1200px',
+      },
+    },
+  },
+  plugins: [],
+} satisfies Config;
