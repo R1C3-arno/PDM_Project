@@ -1,0 +1,210 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+      - deployment
+    types: [opened, synchronize, reopened, ready_for_review]
+
+# Ensures only one PR check runs at a time per PR
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  # Determine which components changed
+  detect-changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ steps.filter.outputs.frontend }}
+      backend: ${{ steps.filter.outputs.backend }}
+      workflows: ${{ steps.filter.outputs.workflows }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for changes
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            frontend:
+              - 'pdm-frontend/**'
+            backend:
+              - 'pdm-backend/**'
+            workflows:
+              - '.github/workflows/**'
+
+  # Frontend CI
+  frontend-ci:
+    name: Frontend CI
+    needs: detect-changes
+    if: needs.detect-changes.outputs.frontend == 'true' || needs.detect-changes.outputs.workflows == 'true'
+    uses: ./.github/workflows/frontend-ci.yml
+
+  # Backend CI
+  backend-ci:
+    name: Backend CI
+    needs: detect-changes
+    if: needs.detect-changes.outputs.backend == 'true' || needs.detect-changes.outputs.workflows == 'true'
+    uses: ./.github/workflows/backend-ci.yml
+
+  # Security scan for all PRs
+  security-scan:
+    name: Security Scan
+    uses: ./.github/workflows/security-scan.yml
+
+  # PR validation checks
+  pr-validation:
+    name: PR Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check PR title
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+
+          # Check if title follows conventional commit format
+          if ! echo "$PR_TITLE" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?: .+'; then
+            echo "::warning::PR title should follow conventional commit format"
+            echo "::warning::Example: 'feat(auth): add login functionality'"
+          fi
+
+          # Check title length
+          if [ ${#PR_TITLE} -gt 72 ]; then
+            echo "::warning::PR title is too long (max 72 characters)"
+          fi
+
+      - name: Check PR description
+        run: |
+          PR_BODY="${{ github.event.pull_request.body }}"
+
+          if [ -z "$PR_BODY" ] || [ "$PR_BODY" = "null" ]; then
+            echo "::error::PR description is required"
+            exit 1
+          fi
+
+          # Check minimum description length
+          if [ ${#PR_BODY} -lt 50 ]; then
+            echo "::warning::PR description is too short (min 50 characters recommended)"
+          fi
+
+      - name: Check branch naming
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+
+          # Valid patterns: feature/*, bugfix/*, hotfix/*, release/*
+          if ! echo "$BRANCH_NAME" | grep -qE '^(feature|bugfix|hotfix|release|chore|docs)/'; then
+            echo "::warning::Branch name should follow pattern: type/description"
+            echo "::warning::Valid types: feature, bugfix, hotfix, release, chore, docs"
+          fi
+
+      - name: Check for merge conflicts
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          if ! git merge-tree $(git merge-base HEAD origin/${{ github.base_ref }}) HEAD origin/${{ github.base_ref }} | grep -q "<<<<<"; then
+            echo "✅ No merge conflicts detected"
+          else
+            echo "::error::Merge conflicts detected. Please resolve before merging."
+            exit 1
+          fi
+
+  # Code quality checks
+  code-quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    needs: detect-changes
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for console.log (Frontend)
+        if: needs.detect-changes.outputs.frontend == 'true'
+        run: |
+          if grep -r "console\.log" pdm-frontend/src --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" 2>/dev/null; then
+            echo "::warning::Found console.log statements in code. Please remove before merging."
+          else
+            echo "✅ No console.log statements found"
+          fi
+
+      - name: Check for debugger statements
+        if: needs.detect-changes.outputs.frontend == 'true'
+        run: |
+          if grep -r "debugger" pdm-frontend/src --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" 2>/dev/null; then
+            echo "::error::Found debugger statements in code"
+            exit 1
+          else
+            echo "✅ No debugger statements found"
+          fi
+
+      - name: Check for TODO comments
+        run: |
+          TODO_COUNT=$(grep -r "TODO\|FIXME\|XXX\|HACK" . --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" --include="*.java" 2>/dev/null | wc -l || echo "0")
+          if [ "$TODO_COUNT" -gt 0 ]; then
+            echo "::warning::Found $TODO_COUNT TODO/FIXME comments. Consider creating issues for them."
+          fi
+
+      - name: Check file sizes
+        run: |
+          # Find files larger than 500KB
+          LARGE_FILES=$(find . -type f -size +500k -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/target/*" -not -path "*/.next/*" 2>/dev/null || true)
+          if [ ! -z "$LARGE_FILES" ]; then
+            echo "::warning::Found large files (>500KB):"
+            echo "$LARGE_FILES"
+          fi
+
+  # All checks must pass
+  pr-checks-complete:
+    name: All Checks Passed
+    runs-on: ubuntu-latest
+    needs: [frontend-ci, backend-ci, security-scan, pr-validation, code-quality]
+    if: always()
+
+    steps:
+      - name: Check all job results
+        run: |
+          echo "# Pull Request Check Results 🎯" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Component Tests" >> $GITHUB_STEP_SUMMARY
+          echo "- **Frontend CI:** ${{ needs.frontend-ci.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Backend CI:** ${{ needs.backend-ci.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Security & Quality" >> $GITHUB_STEP_SUMMARY
+          echo "- **Security Scan:** ${{ needs.security-scan.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **PR Validation:** ${{ needs.pr-validation.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Code Quality:** ${{ needs.code-quality.result }}" >> $GITHUB_STEP_SUMMARY
+
+          # Fail if any required job failed
+          if [[ "${{ needs.pr-validation.result }}" == "failure" ]]; then
+            echo "::error::PR validation failed"
+            exit 1
+          fi
+
+          # Check if security scan failed
+          if [[ "${{ needs.security-scan.result }}" == "failure" ]]; then
+            echo "::error::Security scan failed"
+            exit 1
+          fi
+
+          # Check component-specific CI (only fail if the component was changed and failed)
+          if [[ "${{ needs.frontend-ci.result }}" == "failure" ]]; then
+            echo "::error::Frontend CI failed"
+            exit 1
+          fi
+
+          if [[ "${{ needs.backend-ci.result }}" == "failure" ]]; then
+            echo "::error::Backend CI failed"
+            exit 1
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **All required checks passed!**" >> $GITHUB_STEP_SUMMARY

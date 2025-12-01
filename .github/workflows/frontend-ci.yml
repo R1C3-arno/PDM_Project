@@ -1,0 +1,120 @@
+name: Frontend CI
+
+on:
+  push:
+    branches:
+      - main
+      - deployment
+    paths:
+      - 'pdm-frontend/**'
+      - '.github/workflows/frontend-ci.yml'
+  pull_request:
+    branches:
+      - main
+      - deployment
+    paths:
+      - 'pdm-frontend/**'
+      - '.github/workflows/frontend-ci.yml'
+
+# Ensures only one workflow runs at a time per PR/branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-test-build:
+    name: Lint, Test & Build Frontend
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./pdm-frontend
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better caching
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: pdm-frontend/package-lock.json
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        id: npm-cache
+        with:
+          path: |
+            pdm-frontend/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('pdm-frontend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+        continue-on-error: false
+
+      - name: Run TypeScript type check
+        run: npx tsc --noEmit
+        continue-on-error: false
+
+      # Uncomment when tests are implemented
+      # - name: Run tests
+      #   run: npm test -- --coverage --watchAll=false
+      #   continue-on-error: false
+
+      # Uncomment when test coverage reporting is needed
+      # - name: Upload coverage reports
+      #   if: always()
+      #   uses: codecov/codecov-action@v4
+      #   with:
+      #     files: ./pdm-frontend/coverage/lcov.info
+      #     flags: frontend
+      #     name: frontend-coverage
+
+      - name: Build Next.js application
+        run: npm run build
+        env:
+          NODE_ENV: production
+          CI: true
+
+      - name: Check build output
+        run: |
+          if [ ! -d ".next" ]; then
+            echo "❌ Build failed - .next directory not found"
+            exit 1
+          fi
+          echo "✅ Build successful"
+          ls -lah .next/
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build-${{ github.sha }}
+          path: |
+            pdm-frontend/.next
+            pdm-frontend/public
+          retention-days: 7
+          if-no-files-found: error
+
+      - name: Build summary
+        if: always()
+        run: |
+          echo "## Frontend Build Summary 🚀" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Node Version:** ${{ matrix.node-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY

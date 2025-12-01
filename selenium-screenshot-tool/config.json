@@ -1,0 +1,37 @@
+{
+  "base_url": "http://localhost:4000",
+  "backend_url": "http://localhost:4001",
+  "output_directory": "screenshots",
+  "window_width": 1920,
+  "window_height": 1080,
+  "wait_timeout": 10,
+  "screenshot_delay": 2,
+  "full_page_screenshot": false,
+  "headless": true,
+  "credentials": {
+    "applicant": {
+      "email": "test@test.com",
+      "password": "TestPassword@123"
+    }
+  },
+  "routes": {
+    "public": [
+      "/",
+      "/about",
+      "/contact",
+      "/login",
+      "/register"
+    ],
+    "applicant": [
+      "/user/1",
+      "/user/1/dashboard",
+      "/user/1/applications",
+      "/user/1/applications/new",
+      "/user/1/loans",
+      "/user/1/wallet",
+      "/user/1/transactions",
+      "/user/1/messages",
+      "/user/1/notifications"
+    ]
+  }
+}
