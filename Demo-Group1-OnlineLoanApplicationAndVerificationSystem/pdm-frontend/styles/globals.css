@@ -1,0 +1,224 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: #F6F8FA;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Premium Card Hover Effects */
+.olavs-card {
+  position: relative;
+}
+
+.olavs-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 12px 32px rgba(17, 24, 39, 0.08), 0px 4px 8px rgba(17, 24, 39, 0.10);
+}
+
+/* Smooth Transitions */
+button, a, .olavs-card {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus Styles */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #2E73FF;
+  box-shadow: 0 0 0 3px rgba(46, 115, 255, 0.1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3F4F6;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #9CA3AF;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6B7280;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(46, 115, 255, 0.2);
+  color: #0D45AD;
+}
+
+/* Responsive Grid Improvements */
+.olavs-grid-responsive {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .olavs-grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .olavs-grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .olavs-grid-responsive {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Improved Form Elements */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+textarea,
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Better Button States */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+button:not(:disabled):active {
+  transform: translateY(0);
+}
+
+/* Loading Animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Card Grid Layout */
+.card-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+@media (min-width: 768px) {
+  .card-grid {
+    gap: 24px;
+  }
+}
+
+/* Better Spacing */
+.section-spacing {
+  padding: 48px 24px;
+}
+
+@media (min-width: 768px) {
+  .section-spacing {
+    padding: 64px 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-spacing {
+    padding: 80px 48px;
+  }
+}
+
+/* Container Max Width */
+.container-xl {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 768px) {
+  .container-xl {
+    padding: 0 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-xl {
+    padding: 0 48px;
+  }
+}
+

@@ -1,0 +1,134 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+/* ========================================
+   GLOBAL TYPOGRAPHY RESET (Critical Fix)
+   ======================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  background-color: #ffffff;
+  color: #171717;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Line Heights */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  margin: 0;
+  font-weight: 600;
+}
+
+p, li, span, a, label {
+  line-height: 1.6;
+}
+
+/* Ensure text containers don't collapse */
+p, h1, h2, h3, h4, h5, h6, span, div {
+  max-width: 100%;
+  word-break: normal;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+/* Reset link styles */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ========================================
+   FORM ELEMENTS
+   ======================================== */
+
+input, textarea, select, button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+/* Focus styles */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid #0ea5e9;
+  outline-offset: 2px;
+}
+
+/* Button base - preserve Tailwind styles */
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Smooth transitions */
+.transition-colors {
+  transition-property: color, background-color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-shadow {
+  transition-property: box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-all {
+  transition-property: all;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(14, 165, 233, 0.2);
+  color: #0369a1;
+}

@@ -1,8 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/contexts/AuthContext";
 import LandingHeader from "@/components/landing/LandingHeader";
 import Hero from "@/components/landing/Hero";
 import Benefits from "@/components/landing/Benefits";
@@ -15,22 +12,8 @@ import CTA from "@/components/landing/CTA";
 
 /**
  * Landing page for the OLAVS loan application system
- * Redirects authenticated users to their appropriate dashboard
  */
 export default function LandingPage() {
-  const router = useRouter();
-  const { isAuthenticated, user } = useAuth();
-
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      if (user.role === 'APPLICANT') {
-        router.push('/dashboard');
-      } else {
-        router.push('/staff/dashboard');
-      }
-    }
-  }, [isAuthenticated, user, router]);
-
   return (
     <div className="font-sans">
       <LandingHeader />

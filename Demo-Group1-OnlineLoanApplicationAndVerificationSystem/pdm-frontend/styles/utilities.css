@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Gradient backgrounds */
+  .bg-gradient-navy {
+    background: linear-gradient(135deg, #0a1929 0%, #243b53 100%);
+  }
+
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .bg-gradient-secondary {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  }
+
+  .bg-gradient-surface {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  }
+
+  /* Premium shadow effects */
+  .shadow-premium {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Focus styles */
+  .focus-primary {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+
+  /* Backdrop blur for modals/overlays */
+  .backdrop-blur-glass {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
+
+@layer components {
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-200 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  /* Button smooth transitions */
+  .btn-smooth {
+    @apply transition-all duration-normal ease-out-smooth;
+  }
+
+  /* Input focus states */
+  .input-focus {
+    @apply focus:border-primary-500 focus:ring-2 focus:ring-primary-100 focus:outline-none;
+  }
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-neutral-100 rounded-lg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-neutral-400 rounded-lg hover:bg-neutral-500;
+}
+
+/* Selection styling */
+::selection {
+  @apply bg-primary-200 text-primary-900;
+}
