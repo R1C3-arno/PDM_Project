@@ -164,10 +164,10 @@ graph TB
 
 ### Key Points
 
-- 5 actor types with distinct permissions
-- JWT + HttpOnly cookies (XSS prevention)
-- Role-based access control (RBAC)
-- 45 REST API endpoints
+5 actor types with distinct permissions
+JWT + HttpOnly cookies (XSS prevention)
+Role-based access control (RBAC)
+45 REST API endpoints
 
 Presenter: Vu Duc Nhan
 
@@ -194,10 +194,10 @@ stateDiagram-v2
 
 ### Key Points
 
-- 11 application states with validated transitions
-- Business rules enforced at each step
-- Automatic notifications on state change
-- Caching for frequently accessed data
+11 application states with validated transitions
+Business rules enforced at each step
+Automatic notifications on state change
+Caching for frequently accessed data
 
 Presenter: Vo Tri Khoi
 
